@@ -1,0 +1,38 @@
+{
+  "hello": "Hallo",
+  "read-more": "Lees Meer",
+  "next": "Volgende",
+  "prev": "Vorige",
+  "event": "Evenement",
+  "about": {
+    "title": "What wij doen?",
+    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
+  },
+  "copyright": "WSVVrijheid. Alle rechten voorbehouden",
+  "support": "Steun",
+  "footer_menu": "Menu's",
+  "follow_us": "Volg ons",
+  "society": "Stichting",
+  "footer_about": "Stilte is de grootste vijand van vrijheid.",
+  "contact": {
+    "title": "Contact",
+    "fill-form": "Vul het formulier in om contact op te nemen",
+    "form": {
+      "fullname-label": "Uw naam",
+      "fullname-required": "Naamruimte mag niet leeg zijn.",
+      "email-required": "Mailveld mag niet leeg zijn.",
+      "email-invalid": "Ongeldig e-mailadres.",
+      "email-helper": "We delen uw e-mail op geen enkele manier.",
+      "message-label": "Bericht",
+      "message-required": "Berichtveld mag niet leeg zijn.",
+      "message-delivered": "Bedankt. Uw bericht is ontvangen.",
+      "failed": "Oeps. Er is iets misgegaan, probeer het opnieuw.",
+      "button": "Bericht versturen",
+      "contactOnWhatsApp": "Contact op WhatsApp"
+    }
+  },
+  "subpage": {
+    "most-readed": "Meest Gelezen",
+    "latest": "Nieuwste"
+  }
+}

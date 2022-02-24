@@ -1,0 +1,42 @@
+{
+  "name": "wsvvrijheid",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.5",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
+    "axios": "^0.26.0",
+    "framer-motion": "^6.2.8",
+    "next": "12.1.0",
+    "next-i18next": "^10.4.0",
+    "next-seo": "^5.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-headroom": "^3.2.0",
+    "react-hook-form": "^7.27.1",
+    "react-icons": "^4.3.1",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "^2.5.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,md}": "prettier --write"
+  }
+}
