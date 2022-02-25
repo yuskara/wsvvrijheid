@@ -1,16 +1,16 @@
 {
-  "event": {
+  "project": {
     "en": {
-      "label": "Events",
-      "link": "/events"
+      "label": "Projects",
+      "link": "/projects"
     },
     "nl": {
-      "label": "Evenementen",
-      "link": "/evenementen"
+      "label": "Projecten",
+      "link": "/projecten"
     },
     "tr": {
-      "label": "Etkinlikler",
-      "link": "/etkinlikler"
+      "label": "Projeler",
+      "link": "/projeler"
     }
   },
   "announcement": {
@@ -55,18 +55,18 @@
       "link": "/hakkimizda"
     }
   },
-  "news": {
+  "donate": {
     "en": {
-      "label": "News",
-      "link": "/news"
+      "label": "Donate",
+      "link": "/donate"
     },
     "nl": {
-      "label": "Nieuws",
-      "link": "/nieuws"
+      "label": "Donatenl",
+      "link": "/donatenl"
     },
     "tr": {
-      "label": "Haberler",
-      "link": "/haberler"
+      "label": "Bağış",
+      "link": "/bagis"
     }
   },
   "terms": {
@@ -111,18 +111,18 @@
       "link": "/iletisim"
     }
   },
-  "blog": {
+  "volunteer": {
     "en": {
-      "label": "Blog",
-      "link": "/blog"
+      "label": "Volunteer",
+      "link": "/volunteer"
     },
     "nl": {
-      "label": "Blog",
-      "link": "/blog"
+      "label": "Vrijwilligers",
+      "link": "/vrijwilligers"
     },
     "tr": {
-      "label": "Blog",
-      "link": "/blog"
+      "label": "Gönüllüler",
+      "link": "/gonulluler"
     }
   }
 }
