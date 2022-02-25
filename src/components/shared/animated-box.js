@@ -1,38 +1,15 @@
-import { MotionProps, Transition, useAnimation, Variants } from 'framer-motion'
-import React, { ReactNode, useEffect } from 'react'
+import { useAnimation } from 'framer-motion'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { MotionBox } from '../MotionBox'
+import { MotionBox } from './motion-box'
 
-interface AnimatedBoxProps {
-  children: ReactNode
-  directing: 'to-up' | 'to-down' | 'to-left' | 'to-right'
-  distance: number
-  hasHover: boolean
-  delay: number
-  duration: number
-  isFullWidth: boolean
-  transition: Transition
-  variants: Variants
-}
-
-export const AnimatedBox = (
-  props: Partial<AnimatedBoxProps> & MotionProps,
-): JSX.Element => {
-  const {
-    children,
-    directing,
-    distance = 50,
-    hasHover = false,
-    delay = 0,
-    duration = 1,
-    transition,
-    variants,
-  } = props
+export const AnimatedBox = props => {
+  const { children, directing, distance = 50, hasHover = false, delay = 0, duration = 1, transition, variants } = props
   const controls = useAnimation()
   const [ref, inView] = useInView()
 
-  const initialVariants: Record<string, Variants> = {
+  const initialVariants = {
     'to-up': {
       active: { opacity: 1, y: 0 },
       inactive: { opacity: 0, y: distance },
@@ -70,8 +47,8 @@ export const AnimatedBox = (
           delay: delay / 10,
         }
       }
-      initial="inactive"
-      w="full"
+      initial='inactive'
+      w='full'
       {...(variants && { variants: variants })}
       {...(directing && { variants: initialVariants[directing] })}
     >
@@ -81,8 +58,8 @@ export const AnimatedBox = (
           whileHover: { scale: 1.03 },
           whileTap: { scale: 1.01 },
         })}
-        w="full"
-        h="full"
+        w='full'
+        h='full'
       >
         {children}
       </MotionBox>

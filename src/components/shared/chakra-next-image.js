@@ -1,13 +1,12 @@
-import { AspectRatio, Box, BoxProps } from '@chakra-ui/react'
-import Image, { ImageProps } from 'next/image'
+import { AspectRatio, Box } from '@chakra-ui/react'
+import Image from 'next/image'
 import React from 'react'
-
-import { getImageUrl } from '../../utils/getImageUrl/getImageUrl'
-import { toBase64 } from '../../utils/toBase64/toBase64 '
+import { getImageUrl } from 'utils/get-image-url'
+import { toBase64 } from 'utils/to-base64'
 
 const shimmer = (
-  w: number,
-  h: number,
+  w,
+  h,
 ) => `<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <linearGradient id="g">
@@ -21,45 +20,25 @@ const shimmer = (
         <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
       </svg>`
 
-export const ChakraNextImage = ({
-  image,
-  format,
-  nextImageProps,
-  alt,
-  ratio,
-  ...rest
-}: {
-  image,
-  format?,
-  nextImageProps?,
-  ratio?: 'twitter' | 'square'
-  alt?: string
-} & Omit<BoxProps, 'as'>): JSX.Element => {
+export const ChakraNextImage = ({ image, format, nextImageProps, alt, ratio, ...rest }) => {
   const src = getImageUrl(image, format)
-  const alternativeText =
-    typeof image === 'string'
-      ? alt || 'alternative text'
-      : image?.alternativeText
+  const alternativeText = typeof image === 'string' ? alt || 'alternative text' : image?.alternativeText
 
-  const ImageWrapper = (props: BoxProps) =>
+  const ImageWrapper = props =>
     ratio ? (
-      <AspectRatio
-        ratio={ratio === 'twitter' ? 1200 / 675 : 1}
-        {...props}
-        {...rest}
-      />
+      <AspectRatio ratio={ratio === 'twitter' ? 1200 / 675 : 1} {...props} {...rest} />
     ) : (
-      <Box pos="relative" {...props} {...rest} />
+      <Box pos='relative' {...props} {...rest} />
     )
 
   return (
     <ImageWrapper>
       <Image
-        objectFit="cover"
-        layout="fill"
+        objectFit='cover'
+        layout='fill'
         src={src}
         alt={alternativeText}
-        placeholder="blur"
+        placeholder='blur'
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(60, 60))}`}
         {...nextImageProps}
       />
