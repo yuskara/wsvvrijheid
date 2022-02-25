@@ -17,6 +17,16 @@ const nextConfig = {
         locale: false,
       },
       {
+        source: '/tr/aktiviteler',
+        destination: '/tr/aktiviteler',
+        locale: false,
+      },
+      {
+        source: '/en/activities',
+        destination: '/en/activities',
+        locale: false,
+      },
+      {
         source: '/tr/kulup',
         destination: '/tr/club',
         locale: false,
