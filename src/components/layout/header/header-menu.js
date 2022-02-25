@@ -1,21 +1,22 @@
 import ROUTES from 'config/routes.json'
 
-const { event, about, contact, blog } = ROUTES
+const { project, about, contact, volunteer, donate } = ROUTES
 
 export const HEADER_MENU = [
-  event,
-  blog,
+  project,
+  volunteer,
+  donate,
   {
     en: {
-      label: 'Samenvvv',
+      label: 'WSVV',
       children: [about.en, contact.en],
     },
     nl: {
-      label: 'Samenvvv',
+      label: 'WSVV',
       children: [about.nl, contact.nl],
     },
     tr: {
-      label: 'Samenvvv',
+      label: 'WSVV',
       children: [about.tr, contact.tr],
     },
   },

@@ -1,6 +1,6 @@
 import ROUTES from 'config/routes.json'
 
-const { event, about, contact, terms, privacy, blog } = ROUTES
+const { project, about, contact, terms, privacy, volunteer, donate } = ROUTES
 
 export const FOOTER_MENU = [
   {
@@ -20,15 +20,15 @@ export const FOOTER_MENU = [
   {
     en: {
       label: 'Menu',
-      children: [event.en, blog.en],
+      children: [project.en, volunteer.en, donate.en],
     },
     nl: {
       label: 'Menu',
-      children: [event.nl, blog.nl],
+      children: [project.nl, volunteer.nl, donate.nl],
     },
     tr: {
       label: 'Menu',
-      children: [event.tr, blog.tr],
+      children: [project.tr, volunteer.tr, donate.tr],
     },
   },
   {
