@@ -4,16 +4,39 @@ const { i18n } = require('./next-i18next.config')
 const nextConfig = {
   i18n,
   reactStrictMode: true,
+  images: {
+    loader: 'default',
+    domains: [
+      'localhost',
+      '127.0.0.1',
+      'picsum.photos',
+      'images.unsplash.com',
+      'admin.samenvvv.nl',
+      'samenvvv.nl',
+      'media.istockphoto.com',
+      'pbs.twimg.com',
+    ],
+  },
   async rewrites() {
     return [
       {
         source: '/tr/hakkimizda',
-        destination: '/tr/over-ons',
+        destination: '/tr/about-us',
         locale: false,
       },
       {
-        source: '/en/about-us',
-        destination: '/en/over-ons',
+        source: '/nl/over-ons',
+        destination: '/en/about-us',
+        locale: false,
+      },
+      {
+        source: '/tr/aktiviteler',
+        destination: '/tr/aktiviteler',
+        locale: false,
+      },
+      {
+        source: '/nl/activiteiten',
+        destination: '/en/activities',
         locale: false,
       },
       {
@@ -28,22 +51,17 @@ const nextConfig = {
       },
       {
         source: '/tr/kullanim-sartlari',
-        destination: '/tr/voorwaarden',
+        destination: '/tr/terms',
         locale: false,
       },
       {
-        source: '/en/terms',
-        destination: '/en/voorwaarden',
+        source: '/nl/voorwaarden',
+        destination: '/nl/terms',
         locale: false,
       },
       {
         source: '/tr/iletisim',
         destination: '/tr/contact',
-        locale: false,
-      },
-      {
-        source: '/en/contact',
-        destination: '/en/contact',
         locale: false,
       },
     ]

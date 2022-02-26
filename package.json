@@ -25,6 +25,7 @@
     "react-headroom": "^3.2.0",
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
+    "react-intersection-observer": "^8.33.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
