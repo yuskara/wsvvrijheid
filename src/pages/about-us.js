@@ -1,8 +1,5 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
-import { Container } from 'components/layout/container'
-import { Layout } from 'components/layout/layout'
-import { AnimatedBox } from 'components/shared/animated-box'
-import { ChakraNextImage } from 'components/shared/chakra-next-image'
+import { AnimatedBox, ChakraNextImage, Container, Layout } from 'components'
 import aboutUsData from 'data/about-us.json'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -30,6 +27,7 @@ export default function AboutUs({ title, content, seo }) {
   return (
     <Layout scrollHeight={100} seo={seo}>
       <Container>
+        <Heading fontWeight='black'>{title}</Heading>
         <VStack my={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
           {content.map(({ title, description, image }, i) => (
             <Box key={i} alignSelf={i % 2 === 0 ? 'start' : 'end'}>
