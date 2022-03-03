@@ -2,7 +2,6 @@ import { Box, Flex, AspectRatio, Image, Text, Link, Button, Stack } from '@chakr
 
 function Card(props) {
   const { title, description, image, button, link } = props
-  console.log(link)
   return (
     <Box
       maxWidth='32rem'
