@@ -1,8 +1,9 @@
-import { SimpleGrid, Container } from '@chakra-ui/react'
-import Card from '../components/shared/card'
-import projectsData from 'data/projects.json'
+import { Container,SimpleGrid } from '@chakra-ui/react'
 import { Layout } from 'components/layout/layout'
+import projectsData from 'data/projects.json'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import Card from '../components/shared/card'
 
 export default function Projects({ title, content, seo }) {
   return (

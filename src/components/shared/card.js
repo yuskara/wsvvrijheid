@@ -1,4 +1,4 @@
-import { Box, Flex, AspectRatio, Image, Text, Link, Button, Stack } from '@chakra-ui/react'
+import { AspectRatio, Box, Button, Flex, Image, Link, Stack,Text } from '@chakra-ui/react'
 
 function Card(props) {
   const { title, description, image, button, link } = props
