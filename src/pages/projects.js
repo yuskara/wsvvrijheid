@@ -1,5 +1,5 @@
 import { SimpleGrid, Container } from '@chakra-ui/react'
-import Card from '../components/Card/index'
+import Card from '../components/shared/card'
 import projectsData from 'data/projects.json'
 import { Layout } from 'components/layout/layout'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -19,9 +19,9 @@ export default function Projects({ title, content, seo }) {
 }
 export const getStaticProps = async context => {
   const { locale } = context
-  console.log(context)
+
   const pageData = projectsData[locale]
-  console.log(pageData)
+
   const seo = {
     title: pageData.title,
   }
