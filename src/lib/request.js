@@ -1,0 +1,36 @@
+import axios from 'axios'
+import qs from 'qs'
+
+const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+  },
+})
+
+export const request = async ({ locale = 'en', url, filters, populate }) => {
+  const query = qs.stringify(
+    {
+      locale,
+      populate: populate || '*',
+      filters,
+    },
+    {
+      encodeValuesOnly: true,
+    },
+  )
+
+  // TODO Consider a better error handling
+  try {
+    const response = await instance.get(`/${url}?${query}`)
+
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export const mutate = async ({ locale = 'en', url, id, method = 'post', data }) => {
+  instance[method](`/${url}/${id}?${locale}`, data)
+}

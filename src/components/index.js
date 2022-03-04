@@ -1,1 +1,1 @@
-import { Hero } from './Hero'
+import { UserCard } from './UserCard'

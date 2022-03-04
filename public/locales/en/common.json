@@ -35,5 +35,10 @@
   "subpage": {
     "most-readed": "Most Readed",
     "latest": "Latest"
+  },
+  "joinTheTeam": "Join the Team",
+  "contributors": {
+    "header": "Contributors",
+    "filter": "Filter by team: Total contributors"
   }
 }

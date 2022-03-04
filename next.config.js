@@ -30,6 +30,16 @@ const nextConfig = {
         locale: false,
       },
       {
+        source: '/tr/gonulluler',
+        destination: '/tr/volunteers',
+        locale: false,
+      },
+      {
+        source: '/nl/vrijwilligers',
+        destination: '/en/volunteers',
+        locale: false,
+      },
+      {
         source: '/tr/aktiviteler',
         destination: '/tr/aktiviteler',
         locale: false,
