@@ -8,18 +8,20 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
     "prepare": "husky install"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.8.5",
+    "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
     "axios": "^0.26.0",
     "framer-motion": "^6.2.8",
     "next": "12.1.0",
-    "next-i18next": "^10.4.0",
+    "next-i18next": "^10.5.0",
     "next-seo": "^5.1.0",
+    "qs": "^6.10.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-headroom": "^3.2.0",
@@ -29,7 +31,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "eslint": "8.9.0",
+    "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": ">=6",
