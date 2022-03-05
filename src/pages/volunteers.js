@@ -20,12 +20,38 @@ import { UserFilter } from 'components/UserCard/UserFilter'
 import { VolunteerHeader } from 'components/VolunteerHeader'
 import { VolunterApplyCard } from 'components/VolunteerHeader/VolenterApplyCard'
 import { useTranslation } from 'react-i18next'
+import { getAvatarUrl } from 'utils/avatar'
 
 import { request } from '../lib/request'
 
-export default function Volunteers({ volunteers, volunteersApi, volunteersData }) {
+export default function Volunteers({ volunteers, volunteersApi, volunteersData, volunteersDataAvatar }) {
   const { t } = useTranslation()
 
+  const avatarUrl = getAvatarUrl(volunteersDataAvatar)
+
+  //)
+  /*
+     console.log("Volunteer Data", volunteersData)
+    console.log("Volunteer Data Avatar", volunteersDataAvatar)
+    console.log("getAvatarUrl() ________________", avatarUrl)
+     const avatarData = volunteersDataAvatar.map((att) => att.attributes.user.data.attributes.avatar.data)
+    const avatarUrl = avatarData?.map((el) => el?.attributes.url)
+
+
+    console.log("avatar Url ", avatarUrl)
+ 
+    volunteersDataAvatar.map((attributes) =>
+        attributes.user?.map((data) =>
+            data.attributes.avatar.data.map((attributes) => attributes.avatar.data.map((att) =>
+                console.log("get avatar url >>", att)
+            )
+            )
+        )
+    )
+       */
+  // console.log(getAvatarUrlFirst)
+
+  // console.log(getAvatarUrl)
   return (
     <Layout>
       <Box minH='inherit'>
@@ -34,18 +60,18 @@ export default function Volunteers({ volunteers, volunteersApi, volunteersData }
           <HStack>
             {' '}
             <Text>
-              {t('contributors.filter')} {volunteersData?.data.length}
+              {t('contributors.filter')} {volunteersData?.length}
             </Text>
           </HStack>
           <HStack p={8} spacing={2} flex={1}>
-            {volunteersData.data?.map((el, i) => (
+            {volunteersData?.map((el, i) => (
               <UserFilter key={i} volunteers={el} />
             ))}
           </HStack>
           <HStack p={8} margin={10} spacing={2} flex={1}>
             <VolunterApplyCard />
-            {volunteersData.data?.map((attributes, i) => (
-              <UserCard key={i} user={attributes} />
+            {volunteersData?.map((attributes, i) => (
+              <UserCard key={i} user={attributes} url={avatarUrl} />
             ))}
           </HStack>
         </Container>
@@ -56,73 +82,25 @@ export default function Volunteers({ volunteers, volunteersApi, volunteersData }
 export const getStaticProps = async context => {
   const { locale } = context
 
-  // const volunteersApi = await request({ url: 'api/volunteers' })//returning null ??????
-  const response = await axios.get('https://api.samenvvv.nl/api/volunteers?populate=*')
+  const response = await request({ url: 'api/volunteers' }) //returning null ??????
+  const responseAvatar = await request({ url: 'api/volunteers?populate[0]=user.avatar&populate[1]=profile' })
+  // https://api.samenvvv.nl/api/volunteers?populate[0]=user.avatar&populate[1]=profile
+  //const response = await axios.get('https://api.samenvvv.nl/api/volunteers?populate=*')
   const volunteersData = response.data
-
-  const volunteers = [
-    {
-      name: 'Talip Altas',
-      email: 'talipaltas@gmail.com',
-      phone: '000',
-      country: 'Netherlands',
-      occupation: 'Developer',
-      available_hours: 1,
-      subjects: ['translator', 'blog_writer', 'twitter_analyst', 'seo_analyst', 'art_creator', 'web_developer'],
-      donator: false,
-      in_mailing_list: false,
-      heard_from: ['whatsapp', 'email', 'friends', 'web', 'other'],
-      comment: 'Hello!',
-      show_in_website: true,
-      approved: false,
-      avatar:
-        'https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?resize=200%2C140&ssl=1',
-    },
-    {
-      name: 'Mustafa',
-      email: 'mustafa@gmail.com',
-      phone: '000',
-      country: 'Netherlands',
-      occupation: 'Editor',
-      available_hours: 1,
-      subjects: ['translator', 'blog_writer', 'twitter_analyst', 'seo_analyst', 'art_creator', 'web_developer'],
-      donator: false,
-      in_mailing_list: false,
-      heard_from: ['whatsapp', 'email', 'friends', 'web', 'other'],
-      comment: 'Hello!',
-      show_in_website: true,
-      approved: false,
-      avatar: 'https://miro.medium.com/max/566/1*n-FPAObgPCDmxNKeGqyWvw.jpeg',
-    },
-    {
-      name: 'Dursun',
-      email: 'dursun@gmail.com',
-      phone: '000',
-      country: 'Netherlands',
-      occupation: 'Author',
-      available_hours: 1,
-      subjects: ['translator', 'blog_writer', 'twitter_analyst', 'seo_analyst', 'art_creator', 'web_developer'],
-      donator: false,
-      in_mailing_list: false,
-      heard_from: ['whatsapp', 'email', 'friends', 'web', 'other'],
-      comment: 'Hello!',
-      show_in_website: true,
-      approved: false,
-      avatar: 'https://yamsoti.com/wp-content/uploads/2020/01/avatar-rectangle.png',
-    },
-  ]
+  const volunteersDataAvatar = responseAvatar.data
 
   /*
-        const seo = {
-            title: volunteers[0]?.name,
-            description: volunteers[0]?.occupation,
-        }
-    */
+          const seo = {
+              title: volunteers[0]?.name,
+              description: volunteers[0]?.occupation,
+          }
+      */
   return {
     props: {
-      volunteers,
+      //volunteers,
       //  volunteersApi,
       volunteersData,
+      volunteersDataAvatar,
     },
   }
 }
