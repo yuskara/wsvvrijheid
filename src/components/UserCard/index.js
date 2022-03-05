@@ -1,4 +1,4 @@
-import { Avatar, Box, Image, Link, Stack, Text, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Text, VStack } from '@chakra-ui/react'
 
 export const UserCard = ({ user, url }) => {
   console.log('url >>', url[1])

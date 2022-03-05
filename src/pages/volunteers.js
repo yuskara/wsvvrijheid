@@ -1,18 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Image,
-  Stack,
-  StackDivider,
-  Text,
-  VStack,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react'
-import axios from 'axios'
+import { Box, HStack, Text } from '@chakra-ui/react'
 import { Container } from 'components/layout/container'
 import { Layout } from 'components/layout/layout'
 import { UserCard } from 'components/UserCard'
@@ -24,11 +10,9 @@ import { getAvatarUrl } from 'utils/avatar'
 
 import { request } from '../lib/request'
 
-export default function Volunteers({ volunteers, volunteersApi, volunteersData, volunteersDataAvatar }) {
+export default function Volunteers({ volunteersData, volunteersDataAvatar }) {
   const { t } = useTranslation()
-
   const avatarUrl = getAvatarUrl(volunteersDataAvatar)
-
   //)
   /*
      console.log("Volunteer Data", volunteersData)
@@ -36,7 +20,6 @@ export default function Volunteers({ volunteers, volunteersApi, volunteersData, 
     console.log("getAvatarUrl() ________________", avatarUrl)
      const avatarData = volunteersDataAvatar.map((att) => att.attributes.user.data.attributes.avatar.data)
     const avatarUrl = avatarData?.map((el) => el?.attributes.url)
-
 
     console.log("avatar Url ", avatarUrl)
  
@@ -80,8 +63,9 @@ export default function Volunteers({ volunteers, volunteersApi, volunteersData, 
   )
 }
 export const getStaticProps = async context => {
+  //
   const { locale } = context
-
+  console.log('locale', locale)
   const response = await request({ url: 'api/volunteers' }) //returning null ??????
   const responseAvatar = await request({ url: 'api/volunteers?populate[0]=user.avatar&populate[1]=profile' })
   // https://api.samenvvv.nl/api/volunteers?populate[0]=user.avatar&populate[1]=profile

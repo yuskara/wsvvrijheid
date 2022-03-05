@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Image, Link, Stack, Text, VStack } from '@chakra-ui/react'
+import { Heading, HStack, Image } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 export const VolunteerHeader = () => {

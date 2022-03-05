@@ -1,4 +1,4 @@
-import { Button, Stack, StackDivider, Text, VStack } from '@chakra-ui/react'
+import { Button, Stack, StackDivider, VStack } from '@chakra-ui/react'
 
 export const UserFilter = ({ volunteers }) => {
   return (
