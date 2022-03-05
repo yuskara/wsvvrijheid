@@ -3,7 +3,7 @@ import NextLink from 'next/link'
 
 export const Navigate = forwardRef(({ as: Tag = Link, href, children, ...rest }, ref) => {
   if (href) {
-    if (href[0] === '/') {
+    if (href.startsWith('/')) {
       return (
         <NextLink href={href} passHref>
           <Tag cursor='pointer' {...rest} ref={ref}>
@@ -14,7 +14,7 @@ export const Navigate = forwardRef(({ as: Tag = Link, href, children, ...rest },
     }
 
     return (
-      <Tag cursor='pointer' as={Link} href={href} target='_blank' {...rest}>
+      <Tag cursor='pointer' as={Link} href={href} target='_blank' rel='noopener noreferrer' {...rest} isExternal>
         {children}
       </Tag>
     )

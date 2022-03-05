@@ -1,4 +1,4 @@
-import { Navigate } from 'components/shared/navigate'
+import { Navigate } from 'components'
 
 export const FooterNavItem = props => {
   const { navItem } = props
