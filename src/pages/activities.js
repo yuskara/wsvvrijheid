@@ -1,4 +1,4 @@
-import { Layout } from 'components/layout/layout'
+import { Layout } from 'components'
 
 export default function activities() {
   return <Layout>Activities</Layout>

@@ -26,7 +26,7 @@ const nextConfig = {
       },
       {
         source: '/nl/over-ons',
-        destination: '/en/about-us',
+        destination: '/nl/about-us',
         locale: false,
       },
       {
@@ -41,7 +41,7 @@ const nextConfig = {
       },
       {
         source: '/tr/aktiviteler',
-        destination: '/tr/aktiviteler',
+        destination: '/tr/activities',
         locale: false,
       },
       {
@@ -72,6 +72,16 @@ const nextConfig = {
       {
         source: '/tr/iletisim',
         destination: '/tr/contact',
+        locale: false,
+      },
+      {
+        source: '/nl/projecten',
+        destination: '/nl/projects',
+        locale: false,
+      },
+      {
+        source: '/tr/projeler',
+        destination: '/tr/projects',
         locale: false,
       },
     ]

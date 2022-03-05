@@ -1,5 +1,5 @@
 import { Box, Link, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
-import { SocialButtons } from 'components/shared/social-buttons'
+import { SocialButtons } from 'components'
 import { motion } from 'framer-motion'
 import NextImage from 'next/image'
 import { useTranslation } from 'react-i18next'

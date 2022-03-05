@@ -9,7 +9,7 @@ import {
   Stack,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { Navigate } from 'components/shared/navigate'
+import { Navigate } from 'components'
 import { useRouter } from 'next/router'
 
 const ChildMenuItem = ({ item }) => {
