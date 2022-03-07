@@ -35,5 +35,10 @@
   "subpage": {
     "most-readed": "En Çok Okunan",
     "latest": "En Son"
+  },
+  "joinTheTeam": "Takıma katıl",
+  "contributors": {
+    "header": "Katkıda bulunanlar",
+    "filter": "Takıma göre filtrele: Toplam katkıda bulunan "
   }
 }
