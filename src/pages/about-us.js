@@ -1,6 +1,6 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
-import { AnimatedBox, ChakraNextImage, Container, Layout } from 'components'
-import aboutUsData from 'data/about-us.json'
+import { AnimatedBox, ChakraNextImage, Container, Layout, PageTitle } from 'components'
+import { ABOUT_US } from 'data'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const AboutUsBlock = props => {
@@ -27,7 +27,7 @@ export default function AboutUs({ title, content, seo }) {
   return (
     <Layout scrollHeight={100} seo={seo}>
       <Container>
-        <Heading fontWeight='black'>{title}</Heading>
+        <PageTitle>{title}</PageTitle>
         <VStack my={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
           {content.map(({ title, description, image }, i) => (
             <Box key={i} alignSelf={i % 2 === 0 ? 'start' : 'end'}>
@@ -47,7 +47,7 @@ export default function AboutUs({ title, content, seo }) {
 export const getStaticProps = async context => {
   const { locale } = context
 
-  const pageData = aboutUsData[locale]
+  const pageData = ABOUT_US[locale]
   const seo = {
     title: pageData.title,
   }

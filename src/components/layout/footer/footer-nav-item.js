@@ -5,9 +5,9 @@ export const FooterNavItem = props => {
 
   return (
     <Navigate
-      color='blue.400'
+      color='blue.200'
       _hover={{
-        color: 'blue.400',
+        color: 'blue.100',
       }}
       key={navItem.link}
       href={navItem.link}

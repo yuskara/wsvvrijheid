@@ -1,0 +1,22 @@
+{
+  "Developer": {
+    "en": "Developer",
+    "nl": "Ontwikkelar",
+    "tr": "Geliştirici"
+  },
+  "Translator": {
+    "en": "Translator",
+    "nl": "Tolk",
+    "tr": "Çevirmen"
+  },
+  "Author": {
+    "en": "Author",
+    "nl": "Schrijver",
+    "tr": "Yazar"
+  },
+  "Artist": {
+    "en": "Artist",
+    "nl": "Artiest",
+    "tr": "Artist"
+  }
+}

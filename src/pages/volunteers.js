@@ -1,90 +1,97 @@
-import { Box, HStack, Text } from '@chakra-ui/react'
-import { Container } from 'components/layout/container'
-import { Layout } from 'components/layout/layout'
-import { UserCard } from 'components/UserCard'
-import { UserFilter } from 'components/UserCard/UserFilter'
-import { VolunteerHeader } from 'components/VolunteerHeader'
-import { VolunterApplyCard } from 'components/VolunteerHeader/VolenterApplyCard'
+import { Box, Center, SimpleGrid, Stack, Wrap } from '@chakra-ui/react'
+import { Container, FilterButton, Layout, PageTitle, UserCard } from 'components'
+import { JOBS } from 'data'
+import { request } from 'lib'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getAvatarUrl } from 'utils/avatar'
 
-import { request } from '../lib/request'
-
-export default function Volunteers({ volunteersData, volunteersDataAvatar }) {
+export default function Volunteers({ volunteers, seo }) {
+  const [job, setJob] = useState()
   const { t } = useTranslation()
-  const avatarUrl = getAvatarUrl(volunteersDataAvatar)
-  //)
-  /*
-     console.log("Volunteer Data", volunteersData)
-    console.log("Volunteer Data Avatar", volunteersDataAvatar)
-    console.log("getAvatarUrl() ________________", avatarUrl)
-     const avatarData = volunteersDataAvatar.map((att) => att.attributes.user.data.attributes.avatar.data)
-    const avatarUrl = avatarData?.map((el) => el?.attributes.url)
+  const { locale } = useRouter()
 
-    console.log("avatar Url ", avatarUrl)
- 
-    volunteersDataAvatar.map((attributes) =>
-        attributes.user?.map((data) =>
-            data.attributes.avatar.data.map((attributes) => attributes.avatar.data.map((att) =>
-                console.log("get avatar url >>", att)
-            )
-            )
-        )
-    )
-       */
-  // console.log(getAvatarUrlFirst)
+  const data = useMemo(() => volunteers.filter(user => (job ? user.attributes.job === job : true)), [job, volunteers])
 
-  // console.log(getAvatarUrl)
   return (
-    <Layout>
+    <Layout seo={seo}>
       <Box minH='inherit'>
         <Container minH='inherit' maxW='container.xl'>
-          <VolunteerHeader />
-          <HStack>
-            {' '}
-            <Text>
-              {t('contributors.filter')} {volunteersData?.length}
-            </Text>
-          </HStack>
-          <HStack p={8} spacing={2} flex={1}>
-            {volunteersData?.map((el, i) => (
-              <UserFilter key={i} volunteers={el} />
-            ))}
-          </HStack>
-          <HStack p={8} margin={10} spacing={2} flex={1}>
-            <VolunterApplyCard />
-            {volunteersData?.map((attributes, i) => (
-              <UserCard key={i} user={attributes} url={avatarUrl} />
-            ))}
-          </HStack>
+          <PageTitle>{seo.title}</PageTitle>
+          <Stack spacing={8}>
+            <Wrap>
+              <FilterButton isActive={job === undefined} number={data.length} onClick={() => setJob(undefined)}>
+                All
+              </FilterButton>
+              {Object.entries(JOBS).map(([key, value]) => (
+                <FilterButton key={key} isActive={key === job} number={data.length} onClick={() => setJob(key)}>
+                  {value[locale]}
+                </FilterButton>
+              ))}
+            </Wrap>
+            <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} gap={{ base: 4, lg: 8 }}>
+              <Link href='/join' passHref>
+                <Stack
+                  role='group'
+                  p={6}
+                  spacing={4}
+                  rounded='md'
+                  bg='white'
+                  w='full'
+                  shadow='md'
+                  align='center'
+                  justify='center'
+                  cursor='pointer'
+                  minH={200}
+                >
+                  <Center
+                    color='blue.500'
+                    fontWeight='semibold'
+                    fontSize='xl'
+                    borderWidth={3}
+                    borderColor='blue.500'
+                    boxSize='full'
+                    borderStyle='dashed'
+                    transition='all 0.5s ease'
+                    _groupHover={{ bg: 'blue.500', color: 'white', borderColor: 'white' }}
+                  >
+                    {t`joinTheTeam`}
+                  </Center>
+                </Stack>
+              </Link>
+              {data?.map((user, i) => (
+                <UserCard key={i} user={user} />
+              ))}
+            </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
     </Layout>
   )
 }
-export const getStaticProps = async context => {
-  //
-  const { locale } = context
-  console.log('locale', locale)
-  const response = await request({ url: 'api/volunteers' }) //returning null ??????
-  const responseAvatar = await request({ url: 'api/volunteers?populate[0]=user.avatar&populate[1]=profile' })
-  // https://api.samenvvv.nl/api/volunteers?populate[0]=user.avatar&populate[1]=profile
-  //const response = await axios.get('https://api.samenvvv.nl/api/volunteers?populate=*')
-  const volunteersData = response.data
-  const volunteersDataAvatar = responseAvatar.data
 
-  /*
-          const seo = {
-              title: volunteers[0]?.name,
-              description: volunteers[0]?.occupation,
-          }
-      */
+export const getStaticProps = async context => {
+  const response = await request({ url: 'api/volunteers', populate: ['user.avatar', 'profile'] })
+
+  const volunteers = response?.data || null
+
+  const title = {
+    en: 'Volunteers',
+    nl: 'Vrijwillegers',
+    tr: 'Gönüllüler',
+  }
+
+  const seo = {
+    title: title[context.locale],
+  }
+
   return {
     props: {
-      //volunteers,
-      //  volunteersApi,
-      volunteersData,
-      volunteersDataAvatar,
+      ...(await serverSideTranslations(context.locale, ['common'])),
+      volunteers,
+      seo,
     },
   }
 }

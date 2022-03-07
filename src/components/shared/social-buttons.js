@@ -65,6 +65,9 @@ export const SocialButtons = () => {
           href={item.link[locale]}
           variant='outline'
           colorScheme='blue'
+          borderColor='blue.200'
+          color='blue.200'
+          _hover={{ bg: 'whiteAlpha.100' }}
         />
       ))}
     </HStack>

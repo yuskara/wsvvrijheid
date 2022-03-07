@@ -35,8 +35,8 @@ const Contact = ({ seo }) => {
                   borderWidth={2}
                   borderColor='transparent'
                   variant='ghost'
-                  _hover={{ borderColor: 'blue.400' }}
-                  leftIcon={<Box as={MdPhone} color='blue.400' size='20px' />}
+                  _hover={{ borderColor: 'blue.500' }}
+                  leftIcon={<Box as={MdPhone} color='blue.500' size='20px' />}
                   href='tel:+31685221308'
                 >
                   +31-6 85221308
@@ -47,8 +47,8 @@ const Contact = ({ seo }) => {
                   borderWidth={2}
                   borderColor='transparent'
                   variant='ghost'
-                  _hover={{ borderColor: 'blue.400' }}
-                  leftIcon={<Box as={FaWhatsapp} color='blue.400' size='20px' />}
+                  _hover={{ borderColor: 'blue.500' }}
+                  leftIcon={<Box as={FaWhatsapp} color='blue.500' size='20px' />}
                   href='https://api.whatsapp.com/send?phone=31685221308'
                 >
                   {t('contact.form.contactOnWhatsApp')}
@@ -59,8 +59,8 @@ const Contact = ({ seo }) => {
                   borderWidth={2}
                   borderColor='transparent'
                   variant='ghost'
-                  _hover={{ borderColor: 'blue.400' }}
-                  leftIcon={<Box as={MdEmail} color='blue.400' size='20px' />}
+                  _hover={{ borderColor: 'blue.500' }}
+                  leftIcon={<Box as={MdEmail} color='blue.500' size='20px' />}
                   href='mailto:info@wsvvrijheid.nl'
                 >
                   info@wsvvrijheid.nl
@@ -71,8 +71,8 @@ const Contact = ({ seo }) => {
                   borderWidth={2}
                   borderColor='transparent'
                   variant='ghost'
-                  _hover={{ borderColor: 'blue.400' }}
-                  leftIcon={<Box as={MdLocationOn} color='blue.400' size='20px' />}
+                  _hover={{ borderColor: 'blue.500' }}
+                  leftIcon={<Box as={MdLocationOn} color='blue.500' size='20px' />}
                   href='https://goo.gl/maps/E9HaayQnXmphUWtN8'
                 >
                   Tandersplein 1, 3027 CN <br /> Rotterdam, Netherland
