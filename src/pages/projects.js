@@ -6,9 +6,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export default function Projects({ title, content, seo }) {
   return (
     <Layout scrollHeight={100} seo={seo}>
-      <Container maxW='80rem' centerContent>
+      <Container maxW='container.lg' centerContent>
         <PageTitle>{title}</PageTitle>
-        <SimpleGrid columns={[1, 2, 1, 2]}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>
           {content.map(({ title, description, image, button, link }, i) => (
             <Card key={i} title={title} description={description} image={image} button={button} link={link} />
           ))}
