@@ -34,5 +34,10 @@
   "subpage": {
     "most-readed": "Meest Gelezen",
     "latest": "Nieuwste"
+  },
+  "joinTheTeam": "Kom Bij Het Team",
+  "contributors": {
+    "header": "Bijdragers",
+    "filter": "Filter op team: Totaal aantal bijdragers "
   }
 }

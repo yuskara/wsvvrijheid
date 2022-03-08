@@ -21,8 +21,8 @@ const ChildMenuItem = ({ item }) => {
       href={link}
       fontWeight={600}
       p={2}
-      color={link !== '/' && asPath.includes(link) ? 'blue.400' : 'gray.700'}
-      _hover={{ color: 'blue.400' }}
+      color={link !== '/' && asPath.includes(link) ? 'blue.500' : 'gray.700'}
+      _hover={{ color: 'blue.500' }}
     >
       {label}
     </Navigate>

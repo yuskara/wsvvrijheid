@@ -17,7 +17,7 @@ const theme = extendTheme({
   components: {
     Heading: {
       baseStyle: {
-        color: 'blue.400',
+        color: 'blue.500',
       },
     },
     Link: {

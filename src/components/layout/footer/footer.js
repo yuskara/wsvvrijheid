@@ -18,7 +18,7 @@ export const ListHeader = ({ children }) => {
 export const Footer = () => {
   const { t } = useTranslation()
   return (
-    <Box bg={'blue.900'} color='blue.400' pos='relative'>
+    <Box bg={'blue.900'} color='blue.200' pos='relative'>
       <Container as={Stack}>
         <SimpleGrid columns={{ sm: 2, md: 4 }} spacing={8} py={10}>
           <Stack align='center'>
