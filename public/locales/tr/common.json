@@ -5,6 +5,7 @@
   "prev": "Önceki",
   "event": "Etkinlik",
   "news": "Haber",
+  "projects": "Projeler",
   "about": {
     "title": "Ne yapıyoruz?",
     "description": "something"
@@ -40,5 +41,42 @@
   "contributors": {
     "header": "Katkıda bulunanlar",
     "filter": "Takıma göre filtrele: Toplam katkıda bulunan "
+  },
+  "apply-form": {
+    "name": {
+      "input": "Ad",
+      "required": "Ad alanı zorunludur"
+    },
+    "email": {
+      "input": "Eposta",
+      "invalid": "Geçersiz eposta adresi",
+      "required": "Eposta alanı zorunludur"
+    },
+    "phone": {
+      "input": "Telefon"
+    },
+    "available-hours": {
+      "input": "Haftalık müsait saat sayısı",
+      "required": "Müsait saatlerinizin sayısını belirtmelisiniz"
+    },
+    "occupation": "Meslek",
+    "comment": "Yorum",
+    "in-mailing-list": "Mail listesine ekle",
+    "show-in-website": "Web sitesinde göster",
+    "heard-from": "Bizi nereden duydunuz?",
+    "jobs": {
+      "title": "Meslekler",
+      "required": "En az bir meslek seçmelisiniz"
+    },
+    "submit": "Gönder",
+    "title": "Başvuru Formu",
+    "thanks": {
+      "title": "Teşekkürler",
+      "description": "Başvurunuzu aldık ve sizinle iletişime geçeceğiz."
+    },
+    "error": {
+      "title": "Hata",
+      "description": "Bir hata oluştu, tekrar deneyiniz."
+    }
   }
 }

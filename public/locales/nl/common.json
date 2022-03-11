@@ -4,6 +4,7 @@
   "next": "Volgende",
   "prev": "Vorige",
   "event": "Evenement",
+  "projects": "Projecten",
   "about": {
     "title": "What wij doen?",
     "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
@@ -39,5 +40,42 @@
   "contributors": {
     "header": "Bijdragers",
     "filter": "Filter op team: Totaal aantal bijdragers "
+  },
+  "apply-form": {
+    "name": {
+      "input": "Naam",
+      "required": "Naamveld is verplicht"
+    },
+    "email": {
+      "input": "Email",
+      "invalid": "Ongeldig e-mailadres",
+      "required": "E-mailveld is verplicht"
+    },
+    "phone": {
+      "input": "Telefoonnummer"
+    },
+    "available-hours": {
+      "input": "Wekelijks beschikbare uren",
+      "required": "U moet het aantal van uw beschikbare uren opgeven"
+    },
+    "occupation": "Beroep",
+    "comment": "Opmerking",
+    "in-mailing-list": "In mailinglijst",
+    "show-in-website": "Toon mij op de website",
+    "heard-from": "Van waar heeft u over ons gehoord?",
+    "jobs": {
+      "title": "Banen",
+      "required": "U moet ten minste één baan selecteren"
+    },
+    "submit": "Indienen",
+    "title": "Aanmeldingsformulier",
+    "thanks": {
+      "title": "Bedankt",
+      "description": "We hebben uw aanmelding ontvangen en zullen contact met je opnemen."
+    },
+    "error": {
+      "title": "Fout",
+      "description": "Er is een fout opgetreden. Probeer het opnieuw."
+    }
   }
 }
