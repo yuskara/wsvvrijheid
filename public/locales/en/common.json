@@ -5,6 +5,7 @@
   "prev": "Previous",
   "event": "Event",
   "news": "News",
+  "projects": "Projects",
   "about": {
     "title": "What we do?",
     "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
@@ -40,5 +41,42 @@
   "contributors": {
     "header": "Contributors",
     "filter": "Filter by team: Total contributors"
+  },
+  "apply-form": {
+    "name": {
+      "input": "Name",
+      "required": "Name field is required"
+    },
+    "email": {
+      "input": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "phone": {
+      "input": "Phone"
+    },
+    "available-hours": {
+      "input": "Weekly Available hours",
+      "required": "You must specify number of your available hours"
+    },
+    "occupation": "Occupation",
+    "comment": "Comment",
+    "in-mailing-list": "In mailing list",
+    "show-in-website": "Show me on the website",
+    "heard-from": "From where did you hear about us?",
+    "jobs": {
+      "title": "Jobs",
+      "required": "You must select at least one job"
+    },
+    "submit": "Submit",
+    "title": "Application Form",
+    "thanks": {
+      "title": "Thank you",
+      "description": "We received your application and will reach out to you."
+    },
+    "error": {
+      "title": "Error",
+      "description": "An error occured, please try again."
+    }
   }
 }

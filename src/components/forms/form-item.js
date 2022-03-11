@@ -15,7 +15,11 @@ export const FormItem = props => {
 
   return (
     <FormControl isInvalid={errors?.[id]}>
-      {label && <FormLabel htmlFor={id}>{label}</FormLabel>}
+      {label && (
+        <FormLabel mb={1} htmlFor={id} fontSize='sm' fontWeight='semibold'>
+          {label}
+        </FormLabel>
+      )}
       <InputGroup>
         {leftElement && <InputLeftElement pointerEvents='none'>{leftElement}</InputLeftElement>}
         <Tag id={id} type={type} placeholder={label} {...register(id)} />

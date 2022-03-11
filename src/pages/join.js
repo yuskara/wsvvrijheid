@@ -13,19 +13,24 @@ import {
   Stack,
   Switch,
   Text,
-  VStack,
+  Textarea,
+  useToast,
+  Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Container, FormItem, Layout, PageTitle } from 'components'
-import { request } from 'lib'
+import { instance, request } from 'lib'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { forwardRef, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { useQuery } from 'react-query'
+import { FaChevronRight } from 'react-icons/fa'
+import { useMutation, useQuery } from 'react-query'
 import * as yup from 'yup'
 
-const heardFrom = [
+// FIXME Need to change type in backend as well
+const hearedFrom = [
   {
     label: {
       en: 'Whatsapp',
@@ -74,31 +79,43 @@ const heardFrom = [
 ]
 
 function generateSchema(t, jobs) {
+  yup.addMethod(yup.object, 'atLeastOneRequired', function (list, message) {
+    return this.test({
+      name: 'atLeastOneRequired',
+      message,
+      exclusive: true,
+      params: { keys: list.join(', ') },
+      test: value => value == null || list.some(f => !!value[f.value]),
+    })
+  })
+
   return yup.object().shape({
-    name: yup.string().required(t`apply-form.name.required`),
+    fullname: yup.string().required(t`apply-form.name.required`),
     email: yup
       .string()
       .email(t`apply-form.email.invalid`)
       .required(t`apply-form.email.required`),
     phone: yup.string(),
+    occupation: yup.string(),
+    comment: yup.string(),
     inMailingList: yup.boolean(),
     isPublic: yup.boolean(),
-    availableHours: yup
-      .number()
-      .nullable(true)
-      .transform((_, val) => (val === Number(val) ? val : null)),
-    heardFrom: yup.object().shape(
-      heardFrom.reduce((acc, h) => {
+    availableHours: yup.string().required(t`apply-form.available-hours.required`),
+    hearedFrom: yup.object().shape(
+      hearedFrom.reduce((acc, h) => {
         acc[h] = yup.bool()
         return acc
       }, {}),
     ),
-    subjects: yup.object().shape(
-      jobs.reduce((acc, h) => {
-        acc[h] = yup.bool()
-        return acc
-      }, {}),
-    ),
+    jobs: yup
+      .object()
+      .shape(
+        jobs.reduce((acc, h) => {
+          acc[h] = yup.bool()
+          return acc
+        }, {}),
+      )
+      .atLeastOneRequired(jobs, t`apply-form.jobs.required`),
   })
 }
 
@@ -111,9 +128,13 @@ const CheckboxForm = forwardRef(function CheckboxForm(props, ref) {
 })
 
 const VolunteersJoin = ({ title }) => {
-  // TODO Add all translations
   const { t } = useTranslation()
   const { locale } = useRouter()
+  const toast = useToast()
+
+  const createVolunteerMutation = useMutation('create-volunteer', data =>
+    instance.post(`${process.env.NEXT_PUBLIC_API_URL}/api/volunteers`, { data }),
+  )
 
   const projectsQuery = useQuery(['projects', locale], () => request({ locale, url: 'api/projects' }), {
     select: useCallback(projects => {
@@ -133,29 +154,65 @@ const VolunteersJoin = ({ title }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(generateSchema(t, jobs)),
-    mode: 'all',
+    mode: 'onTouched',
   })
 
   if (projectsQuery.isLoading) return <Spinner />
 
   const onSubmit = data => {
-    // TODO Remove logs
-    console.log(data)
+    const { fullname, email, phone, availableHours, inMailingList, isPublic, jobs, hearedFrom, comment, occupation } =
+      data
 
-    const mapDataToString = data =>
-      Object.entries(data)
+    const mapObjToString = obj =>
+      Object.entries(obj)
         .filter(([, v]) => v)
         .map(([k]) => k.split('_')[0])
-        .join(', ')
 
-    const heardFromData = mapDataToString(data.heardFrom)
-    const subjectsData = mapDataToString(data.subjects)
-    console.log('heardFromData', heardFromData)
-    console.log('subjectsData', subjectsData)
+    const hearedFromData = mapObjToString(hearedFrom).join(', ')
+    const jobsData = mapObjToString(jobs)
 
     // TODO Create volunteer with data
+    createVolunteerMutation.mutate(
+      {
+        username: Math.random().toString(),
+        fullname,
+        email,
+        phone,
+        comment,
+        occupation,
+        availableHours: availableHours || 0,
+        inMailingList,
+        public: isPublic,
+        hearedFrom: hearedFromData,
+        jobs: jobsData,
+        publishedAt: null,
+      },
+      {
+        onSuccess: () => {
+          toast({
+            status: 'success',
+            title: t`apply-form.thanks.title`,
+            description: t`apply-form.thanks.description`,
+            position: 'top-right',
+            isClosable: true,
+            duration: 5000,
+          })
+          reset()
+        },
+        onError: () =>
+          toast({
+            status: 'error',
+            title: t`apply-form.error.title`,
+            description: t`apply-form.error.description`,
+            position: 'top-right',
+            isClosable: true,
+            duration: 5000,
+          }),
+      },
+    )
   }
 
   return (
@@ -168,21 +225,22 @@ const VolunteersJoin = ({ title }) => {
             <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
               {t`apply-form.title`}
             </Heading>
-            <Stack direction={{ base: 'column', md: 'row' }}>
-              <FormItem register={register} id='name' errors={errors} label={t`apply-form.name`} />
-
-              <FormItem register={register} id='email' errors={errors} label={t`apply-form.email`} />
+            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+              <FormItem register={register} id='fullname' errors={errors} label={t`apply-form.name.input`} />
+              <FormItem register={register} id='email' errors={errors} label={t`apply-form.email.input`} />
             </Stack>
-            <Stack direction={{ base: 'column', md: 'row' }}>
-              <FormItem register={register} id='phone' errors={errors} label={t`apply-form.phone`} />
+            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+              <FormItem register={register} id='phone' errors={errors} label={t`apply-form.phone.input`} />
               <FormItem
                 type='number'
                 register={register}
                 id='availableHours'
                 errors={errors}
-                label={t`apply-form.available-hours`}
+                label={t`apply-form.available-hours.input`}
               />
             </Stack>
+            <FormItem register={register} id='occupation' label={t`apply-form.occupation`} />
+            <FormItem as={Textarea} register={register} id='comment' label={t`apply-form.comment`} />
 
             <Stack justify='space-between' direction={{ base: 'column', md: 'row' }}>
               <HStack>
@@ -195,37 +253,39 @@ const VolunteersJoin = ({ title }) => {
               </HStack>
             </Stack>
 
-            {/* HEARD FROM */}
+            {/* heared FROM */}
             <Box>
-              <FormLabel>{t`apply-form.heard-from`}</FormLabel>
-              <Stack p={4} rounded='lg' borderWidth={2} borderColor={errors.heardFrom ? 'red.400' : 'gray.400'}>
-                {heardFrom.map(v => (
+              <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.heard-from`}</FormLabel>
+              <Wrap
+                p={4}
+                spacing={4}
+                rounded='lg'
+                borderWidth={2}
+                borderColor={errors.hearedFrom ? 'red.400' : 'gray.100'}
+              >
+                {hearedFrom.map(v => (
                   <HStack key={v.value}>
-                    <CheckboxForm id={v.value} {...register(`heardFrom[${v.value}]`)} />
+                    <CheckboxForm id={v.value} {...register(`hearedFrom[${v.value}]`)} />
                     <FormLabel textTransform='capitalize' htmlFor={v.value}>
                       {v.label[locale]}
                     </FormLabel>
                   </HStack>
                 ))}
-              </Stack>
+              </Wrap>
             </Box>
 
             {/* JOBS */}
             <Box>
-              <FormLabel>{t`apply-form.subjects`}</FormLabel>
-              <Stack
-                spacing={8}
-                rounded='lg'
-                p={4}
-                borderWidth={2}
-                borderColor={errors.subjects ? 'red.500' : 'gray.400'}
-              >
-                {projectsQuery.data.map(p => (
-                  <Stack key={p[`name_${locale}`]}>
-                    <Text fontWeight='semibold'>{p[`name_${locale}`]}</Text>
+              <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.jobs.title`}</FormLabel>
+              <Stack spacing={8} rounded='lg' p={4} borderWidth={2} borderColor={errors.jobs ? 'red.500' : 'gray.100'}>
+                {projectsQuery.data.map((p, i) => (
+                  <Stack key={i}>
+                    <Text fontWeight='semibold' fontSize='sm'>
+                      {p[`name_${locale}`]}
+                    </Text>
                     {p.jobs.map(job => (
                       <HStack key={job.id}>
-                        <CheckboxForm id={job.id} {...register(`subjects[${job.id}_${job.code}]`)} />
+                        <CheckboxForm id={job.id} {...register(`jobs[${job.id}_${job.code}]`)} />
                         <FormLabel textTransform='capitalize' htmlFor={job.id}>
                           {job[`name_${locale}`]}
                         </FormLabel>
@@ -233,34 +293,45 @@ const VolunteersJoin = ({ title }) => {
                     ))}
                   </Stack>
                 ))}
-                {errors.subjects && <Text fontSize='sm' color='red.500'>{t`apply-form.at-least-one`}</Text>}
+                {errors.jobs && (
+                  <Text fontSize='sm' color='red.500'>
+                    {errors.jobs.message}
+                  </Text>
+                )}
               </Stack>
             </Box>
-            <Button colorScheme='blue' size='lg' type='submit'>{t`apply-form.submit`}</Button>
+            <Button
+              isLoading={createVolunteerMutation.isLoading}
+              colorScheme='blue'
+              size='lg'
+              type='submit'
+            >{t`apply-form.submit`}</Button>
           </Stack>
 
           {/* PROJECTS */}
           <Stack spacing={8}>
-            <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
-              {t`projects`}
-            </Heading>
-            <SimpleGrid gap={4} columns={2}>
-              {projectsQuery.data.map(p => (
-                <VStack key={p[`name_${locale}`]} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
-                  <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
-                  <Heading size='md' as='h3'>
+            {projectsQuery.data.map(p => (
+              <HStack key={p[`name_${locale}`]} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
+                <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
+                <Stack align='start'>
+                  <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
                     {p[`name_${locale}`]}
                   </Heading>
-                  <Text textAlign='center' fontSize='sm'>
-                    {p[`description_${locale}`]}
-                  </Text>
+                  <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
                   <Spacer />
-                  <Button as={Link} href={p.link} rel='noopener noreferrer' colorScheme='blue'>
+                  <Button
+                    rightIcon={<FaChevronRight />}
+                    variant='link'
+                    as={Link}
+                    href={p.link}
+                    rel='noopener noreferrer'
+                    colorScheme='blue'
+                  >
                     {t`read-more`}
                   </Button>
-                </VStack>
-              ))}
-            </SimpleGrid>
+                </Stack>
+              </HStack>
+            ))}
           </Stack>
         </SimpleGrid>
       </Container>
@@ -268,7 +339,7 @@ const VolunteersJoin = ({ title }) => {
   )
 }
 
-export const getStaticProps = context => {
+export const getStaticProps = async context => {
   const seo = {
     title: {
       en: 'Join Us',
@@ -279,6 +350,7 @@ export const getStaticProps = context => {
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, ['common'])),
       title: seo.title[context.locale],
     },
   }
