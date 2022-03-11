@@ -6,13 +6,12 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Textarea,
 } from '@chakra-ui/react'
 
 export const FormItem = props => {
-  const { id, type, isTextarea, leftElement, label, helperText, errors, register } = props
+  const { id, type, as, leftElement, label, helperText, errors, register } = props
 
-  const Tag = isTextarea ? Textarea : Input
+  const Tag = as || Input
 
   return (
     <FormControl isInvalid={errors?.[id]}>
