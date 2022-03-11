@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.6",
-    "@emotion/react": "^11.8.1",
+    "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "framer-motion": "^6.2.8",
     "next": "12.1.0",
     "next-i18next": "^10.5.0",
@@ -28,6 +28,7 @@
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^8.33.1",
+    "react-query": "^3.34.16",
     "yup": "^0.32.11"
   },
   "devDependencies": {

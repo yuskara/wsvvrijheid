@@ -1,20 +1,24 @@
-import { Box, Button, Heading, Image, Link, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Center, Heading, Link, Spacer, Stack, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 
 export const Card = props => {
-  const { title, description, image, button, link } = props
+  const { title, description, image, link } = props
+
+  const { t } = useTranslation()
+
   return (
     <Stack borderWidth={1} boxShadow='md' rounded='lg' overflow='hidden' role='group'>
-      <Box h={240} overflow='hidden'>
-        <Image
+      <Center overflow='hidden' p={4}>
+        <Avatar
           objectFit='cover'
-          boxSize='full'
+          boxSize={48}
           src={image}
           alt='project image'
           transition='transform 0.5s ease-in-out'
           _groupHover={{ transform: 'scale(1.1)' }}
         />
-      </Box>
+      </Center>
 
       <Stack spacing={4} flex={1} p={{ base: 4, lg: 8 }} align='center' textAlign='center'>
         <Heading
@@ -34,7 +38,7 @@ export const Card = props => {
         <Box textAlign='center'>
           <Link href={link} isExternal>
             <Button colorScheme='blue' size='lg' rightIcon={<FaChevronRight />}>
-              {button}
+              {t`read-more`}
             </Button>
           </Link>
         </Box>
