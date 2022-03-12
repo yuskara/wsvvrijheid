@@ -56,11 +56,11 @@ export const SocialButtons = () => {
     <HStack align='start'>
       {SOCIAL_LINKS.map((item, i) => (
         <IconButton
+          key={i}
           aria-label={item.label}
           as='a'
           size='sm'
           target='_blank'
-          key={i}
           icon={<item.icon />}
           href={item.link[locale]}
           variant='outline'

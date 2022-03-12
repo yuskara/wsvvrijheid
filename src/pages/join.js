@@ -1,7 +1,12 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Avatar,
   Box,
   Button,
+  Center,
   Checkbox,
   FormLabel,
   Heading,
@@ -9,12 +14,12 @@ import {
   Link,
   SimpleGrid,
   Spacer,
-  Spinner,
   Stack,
   Switch,
   Text,
   Textarea,
   useToast,
+  VStack,
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -23,14 +28,14 @@ import { instance, request } from 'lib'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { forwardRef, useCallback } from 'react'
+import { forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaChevronRight } from 'react-icons/fa'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import * as yup from 'yup'
 
 // FIXME Need to change type in backend as well
-const hearedFrom = [
+const heardFrom = [
   {
     label: {
       en: 'Whatsapp',
@@ -85,7 +90,7 @@ function generateSchema(t, jobs) {
       message,
       exclusive: true,
       params: { keys: list.join(', ') },
-      test: value => value == null || list.some(f => !!value[f.value]),
+      test: value => value == null || list.some(f => !!value[`${f.id}_${f.code}`]),
     })
   })
 
@@ -100,9 +105,13 @@ function generateSchema(t, jobs) {
     comment: yup.string(),
     inMailingList: yup.boolean(),
     isPublic: yup.boolean(),
-    availableHours: yup.string().required(t`apply-form.available-hours.required`),
-    hearedFrom: yup.object().shape(
-      hearedFrom.reduce((acc, h) => {
+    availableHours: yup
+      .number()
+      .min(1)
+      .max(40)
+      .required(t`apply-form.available-hours.required`),
+    heardFrom: yup.object().shape(
+      heardFrom.reduce((acc, h) => {
         acc[h] = yup.bool()
         return acc
       }, {}),
@@ -127,219 +136,231 @@ const CheckboxForm = forwardRef(function CheckboxForm(props, ref) {
   return <Checkbox ref={ref} {...props} />
 })
 
-const VolunteersJoin = ({ title }) => {
+const VolunteersJoin = ({ title, projects, jobs }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
   const toast = useToast()
 
-  const createVolunteerMutation = useMutation('create-volunteer', data =>
+  const { mutate, isLoading, isSuccess } = useMutation('create-volunteer', data =>
     instance.post(`${process.env.NEXT_PUBLIC_API_URL}/api/volunteers`, { data }),
   )
-
-  const projectsQuery = useQuery(['projects', locale], () => request({ locale, url: 'api/projects' }), {
-    select: useCallback(projects => {
-      return projects.data.map(({ attributes }) => ({
-        ...attributes,
-        jobs: attributes.jobs.data.map(({ id, attributes }) => ({
-          id,
-          ...attributes,
-        })),
-      }))
-    }, []),
-  })
-
-  const jobs = projectsQuery.data?.flatMap(p => p.jobs) || []
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(generateSchema(t, jobs)),
     mode: 'onTouched',
   })
 
-  if (projectsQuery.isLoading) return <Spinner />
-
   const onSubmit = data => {
-    const { fullname, email, phone, availableHours, inMailingList, isPublic, jobs, hearedFrom, comment, occupation } =
-      data
+    try {
+      const { availableHours = 0 } = data
 
-    const mapObjToString = obj =>
-      Object.entries(obj)
-        .filter(([, v]) => v)
-        .map(([k]) => k.split('_')[0])
+      // { key1: true, key2: false, key3: true } => ["key1", "key3"]
+      const mapObjToString = obj =>
+        Object.entries(obj)
+          .filter(([, v]) => v)
+          .map(([k]) => k.split('_')[0])
 
-    const hearedFromData = mapObjToString(hearedFrom).join(', ')
-    const jobsData = mapObjToString(jobs)
+      const heardFrom = mapObjToString(data.heardFrom || {}).join(', ')
+      const jobs = mapObjToString(data.jobs)
 
-    // TODO Create volunteer with data
-    createVolunteerMutation.mutate(
-      {
-        username: Math.random().toString(),
-        fullname,
-        email,
-        phone,
-        comment,
-        occupation,
-        availableHours: availableHours || 0,
-        inMailingList,
-        public: isPublic,
-        hearedFrom: hearedFromData,
-        jobs: jobsData,
-        publishedAt: null,
-      },
-      {
-        onSuccess: () => {
-          toast({
-            status: 'success',
-            title: t`apply-form.thanks.title`,
-            description: t`apply-form.thanks.description`,
-            position: 'top-right',
-            isClosable: true,
-            duration: 5000,
-          })
-          reset()
+      mutate(
+        {
+          ...data,
+          username: Math.floor(Math.random() * 10 ** 6).toString(),
+          availableHours,
+          heardFrom,
+          jobs,
+          publishedAt: null,
         },
-        onError: () =>
-          toast({
-            status: 'error',
-            title: t`apply-form.error.title`,
-            description: t`apply-form.error.description`,
-            position: 'top-right',
-            isClosable: true,
-            duration: 5000,
-          }),
-      },
-    )
+        {
+          onError: () =>
+            toast({
+              status: 'error',
+              title: t`apply-form.error.title`,
+              description: t`apply-form.error.description`,
+              position: 'top-right',
+              isClosable: true,
+              duration: 5000,
+            }),
+        },
+      )
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return (
-    <Layout>
+    <Layout seo={{ title }}>
       <Container>
-        <PageTitle>{title}</PageTitle>
-        <SimpleGrid mb={8} gap={8} columns={{ base: 1, lg: 2 }} alignItems='start'>
-          {/* FORM */}
-          <Stack p={8} bg='white' rounded='lg' shadow='md' as='form' spacing={4} onSubmit={handleSubmit(onSubmit)}>
-            <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
-              {t`apply-form.title`}
-            </Heading>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-              <FormItem register={register} id='fullname' errors={errors} label={t`apply-form.name.input`} />
-              <FormItem register={register} id='email' errors={errors} label={t`apply-form.email.input`} />
-            </Stack>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-              <FormItem register={register} id='phone' errors={errors} label={t`apply-form.phone.input`} />
-              <FormItem
-                type='number'
-                register={register}
-                id='availableHours'
-                errors={errors}
-                label={t`apply-form.available-hours.input`}
-              />
-            </Stack>
-            <FormItem register={register} id='occupation' label={t`apply-form.occupation`} />
-            <FormItem as={Textarea} register={register} id='comment' label={t`apply-form.comment`} />
+        {isSuccess ? (
+          <Center h='calc(70vh)'>
+            <Alert
+              status='success'
+              colorScheme='blue'
+              variant='solid'
+              flexDirection='column'
+              alignItems='center'
+              justifyContent='center'
+              textAlign='center'
+              py={16}
+              w='container.sm'
+              shadow='lg'
+              rounded='lg'
+            >
+              <VStack spacing={4}>
+                <AlertIcon boxSize='60px' mr={0} />
+                <AlertTitle mt={4} mb={1} fontSize='2xl'>
+                  {t`apply-form.thanks.title`}
+                </AlertTitle>
+                <AlertDescription maxWidth='sm'>{t`apply-form.thanks.description`}</AlertDescription>
+              </VStack>
+            </Alert>
+          </Center>
+        ) : (
+          <>
+            <PageTitle>{title}</PageTitle>
+            <SimpleGrid mb={8} gap={8} columns={{ base: 1, lg: 2 }} alignItems='start'>
+              {/* FORM */}
 
-            <Stack justify='space-between' direction={{ base: 'column', md: 'row' }}>
-              <HStack>
-                <SwitchForm id='in-mailing-list' {...register('inMailingList')} />
-                <FormLabel htmlFor='in-mailing-list'>{t`apply-form.in-mailing-list`}</FormLabel>
-              </HStack>
-              <HStack>
-                <SwitchForm id='is-public' {...register('isPublic')} />
-                <FormLabel htmlFor='is-public'>{t`apply-form.show-in-website`}</FormLabel>
-              </HStack>
-            </Stack>
+              <Stack p={8} bg='white' rounded='lg' shadow='md' as='form' spacing={4} onSubmit={handleSubmit(onSubmit)}>
+                <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
+                  {t`apply-form.title`}
+                </Heading>
+                <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                  <FormItem register={register} id='fullname' errors={errors} label={t`apply-form.name.input`} />
+                  <FormItem register={register} id='email' errors={errors} label={t`apply-form.email.input`} />
+                </Stack>
+                <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                  <FormItem register={register} id='phone' errors={errors} label={t`apply-form.phone.input`} />
+                  <FormItem
+                    type='number'
+                    register={register}
+                    id='availableHours'
+                    errors={errors}
+                    label={t`apply-form.available-hours.input`}
+                    defaultValue={1}
+                  />
+                </Stack>
+                <FormItem register={register} id='occupation' label={t`apply-form.occupation`} />
+                <FormItem as={Textarea} register={register} id='comment' label={t`apply-form.comment`} />
 
-            {/* heared FROM */}
-            <Box>
-              <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.heard-from`}</FormLabel>
-              <Wrap
-                p={4}
-                spacing={4}
-                rounded='lg'
-                borderWidth={2}
-                borderColor={errors.hearedFrom ? 'red.400' : 'gray.100'}
-              >
-                {hearedFrom.map(v => (
-                  <HStack key={v.value}>
-                    <CheckboxForm id={v.value} {...register(`hearedFrom[${v.value}]`)} />
-                    <FormLabel textTransform='capitalize' htmlFor={v.value}>
-                      {v.label[locale]}
-                    </FormLabel>
+                <Stack justify='space-between' direction={{ base: 'column', md: 'row' }}>
+                  <HStack>
+                    <SwitchForm id='in-mailing-list' {...register('inMailingList')} />
+                    <FormLabel htmlFor='in-mailing-list'>{t`apply-form.in-mailing-list`}</FormLabel>
                   </HStack>
-                ))}
-              </Wrap>
-            </Box>
+                  <HStack>
+                    <SwitchForm id='is-public' {...register('isPublic')} />
+                    <FormLabel htmlFor='is-public'>{t`apply-form.show-in-website`}</FormLabel>
+                  </HStack>
+                </Stack>
 
-            {/* JOBS */}
-            <Box>
-              <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.jobs.title`}</FormLabel>
-              <Stack spacing={8} rounded='lg' p={4} borderWidth={2} borderColor={errors.jobs ? 'red.500' : 'gray.100'}>
-                {projectsQuery.data.map((p, i) => (
-                  <Stack key={i}>
-                    <Text fontWeight='semibold' fontSize='sm'>
-                      {p[`name_${locale}`]}
-                    </Text>
-                    {p.jobs.map(job => (
-                      <HStack key={job.id}>
-                        <CheckboxForm id={job.id} {...register(`jobs[${job.id}_${job.code}]`)} />
-                        <FormLabel textTransform='capitalize' htmlFor={job.id}>
-                          {job[`name_${locale}`]}
+                {/* heard FROM */}
+                <Box>
+                  <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.heard-from`}</FormLabel>
+                  <Wrap
+                    p={4}
+                    spacing={4}
+                    rounded='lg'
+                    borderWidth={2}
+                    borderColor={errors.heardFrom ? 'red.400' : 'gray.100'}
+                  >
+                    {heardFrom.map(item => (
+                      <HStack key={item.value}>
+                        <CheckboxForm id={item.value} {...register(`heardFrom[${item.value}]`)} />
+                        <FormLabel textTransform='capitalize' htmlFor={item.value}>
+                          {item.label[locale]}
                         </FormLabel>
                       </HStack>
                     ))}
-                  </Stack>
-                ))}
-                {errors.jobs && (
-                  <Text fontSize='sm' color='red.500'>
-                    {errors.jobs.message}
-                  </Text>
-                )}
-              </Stack>
-            </Box>
-            <Button
-              isLoading={createVolunteerMutation.isLoading}
-              colorScheme='blue'
-              size='lg'
-              type='submit'
-            >{t`apply-form.submit`}</Button>
-          </Stack>
+                  </Wrap>
+                </Box>
 
-          {/* PROJECTS */}
-          <Stack spacing={8}>
-            {projectsQuery.data.map(p => (
-              <HStack key={p[`name_${locale}`]} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
-                <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
-                <Stack align='start'>
-                  <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
-                    {p[`name_${locale}`]}
-                  </Heading>
-                  <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
-                  <Spacer />
-                  <Button
-                    rightIcon={<FaChevronRight />}
-                    variant='link'
-                    as={Link}
-                    href={p.link}
-                    rel='noopener noreferrer'
-                    colorScheme='blue'
+                {/* JOBS */}
+                <Box>
+                  <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.jobs.title`}</FormLabel>
+                  <Stack
+                    spacing={8}
+                    rounded='lg'
+                    p={4}
+                    borderWidth={2}
+                    borderColor={errors.jobs ? 'red.500' : 'gray.100'}
                   >
-                    {t`read-more`}
-                  </Button>
-                </Stack>
-              </HStack>
-            ))}
-          </Stack>
-        </SimpleGrid>
+                    {projects.map((project, i) => (
+                      <Stack key={i}>
+                        <Text fontWeight='semibold' fontSize='sm'>
+                          {project[`name_${locale}`]}
+                        </Text>
+                        {project.jobs.map(job => (
+                          <HStack key={job.id}>
+                            <CheckboxForm id={job.id} {...register(`jobs[${job.id}_${job.code}]`)} />
+                            <FormLabel textTransform='capitalize' htmlFor={job.id}>
+                              {job[`name_${locale}`]}
+                            </FormLabel>
+                          </HStack>
+                        ))}
+                      </Stack>
+                    ))}
+                    {errors.jobs && (
+                      <Text fontSize='sm' color='red.500'>
+                        {errors.jobs.message}
+                      </Text>
+                    )}
+                  </Stack>
+                </Box>
+                <Button isLoading={isLoading} colorScheme='blue' size='lg' type='submit'>{t`apply-form.submit`}</Button>
+              </Stack>
+
+              {/* PROJECTS */}
+              <Stack spacing={8}>
+                {projects.map(p => (
+                  <HStack key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
+                    {/* TODO Create image component to handle internal/external image paths */}
+                    <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
+                    <Stack align='start'>
+                      <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
+                        {p[`name_${locale}`]}
+                      </Heading>
+                      <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
+                      <Spacer />
+                      <Button
+                        rightIcon={<FaChevronRight />}
+                        variant='link'
+                        as={Link}
+                        href={p.link}
+                        rel='noopener noreferrer'
+                        colorScheme='blue'
+                      >
+                        {t`read-more`}
+                      </Button>
+                    </Stack>
+                  </HStack>
+                ))}
+              </Stack>
+            </SimpleGrid>
+          </>
+        )}
       </Container>
     </Layout>
   )
 }
 
 export const getStaticProps = async context => {
+  const projectsData = await request({ url: 'api/projects' })
+  const projects = projectsData.data.map(({ attributes }) => ({
+    ...attributes,
+    jobs: attributes.jobs.data.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+    })),
+  }))
+
+  const jobs = projects?.flatMap(p => p.jobs) || []
+
   const seo = {
     title: {
       en: 'Join Us',
@@ -352,6 +373,8 @@ export const getStaticProps = async context => {
     props: {
       ...(await serverSideTranslations(context.locale, ['common'])),
       title: seo.title[context.locale],
+      projects,
+      jobs,
     },
   }
 }

@@ -13,10 +13,10 @@ export const FooterNav = () => {
     <>
       {FOOTER_MENU.map((item, i) => {
         return (
-          <Stack align={{ base: 'center', sm: 'start' }} marginX={4} fontSize='lg' color={'blue.300'} key={i} py={4}>
+          <Stack key={i} align={{ base: 'center', sm: 'start' }} marginX={4} fontSize='lg' color={'blue.300'} py={4}>
             <ListHeader>{t(item[locale].label)}</ListHeader>
-            {item[locale].children.map((item, i) => {
-              return <FooterNavItem key={i} navItem={item} />
+            {item[locale].children.map((item, j) => {
+              return <FooterNavItem key={j} navItem={item} />
             })}
           </Stack>
         )
