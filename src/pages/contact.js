@@ -14,7 +14,7 @@ const Contact = ({ seo }) => {
         <Container minH='inherit' maxW='container.xl'>
           <Stack justify='center' align='center' spacing={8} direction={{ base: 'column', lg: 'row' }} minH='inherit'>
             <VStack
-              bg='gray.700'
+              bg='blue.900'
               borderRadius='lg'
               p={{ base: 8, lg: 16 }}
               w={{ base: 'full', lg: '500px' }}
@@ -81,7 +81,7 @@ const Contact = ({ seo }) => {
 
               <SocialButtons />
             </VStack>
-            <Box w={{ base: 'full', lg: '500px' }} bg='white' borderRadius='lg' p={{ base: 8, lg: 16 }} shadow='blue'>
+            <Box w={{ base: 'full', lg: '500px' }} bg='white' rounded='lg' p={{ base: 8, lg: 16 }} shadow='lg'>
               <ContactForm />
             </Box>
           </Stack>
