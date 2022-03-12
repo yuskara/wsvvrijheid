@@ -1,115 +1,98 @@
-import { Box, Center, SimpleGrid, Spinner, Stack, Wrap } from '@chakra-ui/react'
-import { Container, FilterButton, Layout, PageTitle, UserCard } from 'components'
+import { Box, Center, HStack, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Container, Layout, PageTitle, UserCard } from 'components'
 import { request } from 'lib'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 
-export default function Volunteers({ seo }) {
-  const [job, setJob] = useState()
+export default function Volunteers({ seo, volunteers, jobs }) {
+  const [state, setState] = useState()
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const volunteersQuery = useQuery(
-    'volunteers',
-    () => request({ locale, url: 'api/volunteers', populate: ['user.avatar', 'jobs'] }),
-    {
-      select: useCallback(volunteers => {
-        return volunteers.data.map(({ attributes }) => ({
-          ...attributes,
-          user: attributes.user.data?.attributes,
-          jobs: attributes.jobs.data.map(({ id, attributes }) => ({
-            id,
-            ...attributes,
-          })),
-        }))
-      }, []),
-    },
-  )
-
-  const jobsQuery = useQuery('jobs', () => request({ locale, url: 'api/jobs' }), {
-    select: useCallback(jobs => {
-      return jobs.data.map(({ attributes }) => ({
-        ...attributes,
-      }))
-    }, []),
-  })
-
   const data = useMemo(
-    () => volunteersQuery?.data?.filter(user => (job ? user.jobs?.some(j => j.code === job) : true)),
-    [job, volunteersQuery?.data],
+    () => volunteers?.filter(user => (state ? user.jobs?.some(j => j.code === state) : true)),
+    [state, volunteers],
   )
-
-  if (volunteersQuery.isLoading || jobsQuery.isLoading) return <Spinner />
 
   return (
     <Layout seo={seo}>
-      <Box minH='inherit'>
-        <Container minH='inherit' maxW='container.xl'>
-          <PageTitle>{seo.title}</PageTitle>
-          <Stack spacing={8}>
-            <Wrap>
-              <FilterButton
-                isActive={job === undefined}
-                number={jobsQuery.data.length}
-                onClick={() => setJob(undefined)}
+      <Container minH='inherit' maxW='container.xl'>
+        <PageTitle>{seo.title}</PageTitle>
+        <HStack pb={8} align='start' spacing={8}>
+          <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }}>
+            <RadioGroup onChange={setState}>
+              <Stack spacing={4} justify='center'>
+                <Radio value=''>{t`all`}</Radio>
+                {jobs.map(job => (
+                  <Radio key={job.code} value={job.code}>
+                    {job[`name_${locale}`]}
+                  </Radio>
+                ))}
+              </Stack>
+            </RadioGroup>
+          </Box>
+          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }}>
+            <Link href='/join' passHref>
+              <Stack
+                role='group'
+                p={6}
+                spacing={4}
+                rounded='md'
+                bg='white'
+                w='full'
+                shadow='md'
+                align='center'
+                justify='center'
+                cursor='pointer'
+                minH={200}
+                transition='all 0.3s ease'
+                _hover={{ bg: 'blue.500', borderColor: 'white' }}
               >
-                {t`all`}
-              </FilterButton>
-              {jobsQuery.data.map(j => (
-                <FilterButton key={j.id} isActive={j.code === job} number={data.length} onClick={() => setJob(j.code)}>
-                  {j[`name_${locale}`]}
-                </FilterButton>
-              ))}
-            </Wrap>
-            <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} gap={{ base: 4, lg: 8 }}>
-              <Link href='/join' passHref>
-                <Stack
-                  role='group'
-                  p={6}
-                  spacing={4}
-                  rounded='md'
+                <Center
+                  color='blue.500'
+                  fontWeight='semibold'
+                  fontSize='xl'
+                  borderWidth={3}
+                  borderColor='blue.500'
+                  boxSize='full'
+                  borderStyle='dashed'
+                  transition='all 0.5s ease'
                   bg='white'
-                  w='full'
-                  shadow='md'
-                  align='center'
-                  justify='center'
-                  cursor='pointer'
-                  minH={200}
+                  _groupHover={{ bg: 'blue.100' }}
                 >
-                  <Center
-                    color='blue.500'
-                    fontWeight='semibold'
-                    fontSize='xl'
-                    borderWidth={3}
-                    borderColor='blue.500'
-                    boxSize='full'
-                    borderStyle='dashed'
-                    transition='all 0.5s ease'
-                    _groupHover={{ bg: 'blue.500', color: 'white', borderColor: 'white' }}
-                  >
-                    {t`joinTheTeam`}
-                  </Center>
-                </Stack>
-              </Link>
-              {data?.map((user, i) => (
-                <UserCard key={i} user={user} />
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Container>
-      </Box>
+                  {t`joinTheTeam`}
+                </Center>
+              </Stack>
+            </Link>
+            {data?.map((user, i) => (
+              <UserCard key={i} user={user} />
+            ))}
+          </SimpleGrid>
+        </HStack>
+      </Container>
     </Layout>
   )
 }
 
 export const getStaticProps = async context => {
-  const response = await request({ url: 'api/volunteers', populate: ['user.avatar', 'profile'] })
+  const volunteersResponse = await request({ url: 'api/volunteers', populate: ['user.avatar', 'jobs'] })
+  const jobsResponse = await request({ url: 'api/jobs' })
 
-  const volunteers = response?.data || null
+  const volunteers = volunteersResponse?.data?.map(({ attributes }) => ({
+    ...attributes,
+    user: attributes.user.data?.attributes,
+    jobs: attributes.jobs.data.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+    })),
+  }))
+
+  const jobs = jobsResponse.data.map(({ attributes }) => ({
+    ...attributes,
+  }))
 
   const title = {
     en: 'Volunteers',
@@ -125,6 +108,7 @@ export const getStaticProps = async context => {
     props: {
       ...(await serverSideTranslations(context.locale, ['common'])),
       volunteers,
+      jobs,
       seo,
     },
   }

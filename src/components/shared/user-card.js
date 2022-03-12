@@ -1,4 +1,4 @@
-import { Avatar, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Avatar, Box, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 export const UserCard = ({ user }) => {
@@ -10,15 +10,15 @@ export const UserCard = ({ user }) => {
         size='lg'
         src={'https://api.samenvvv.nl' + user?.user?.avatar?.data?.attributes.url}
       />
-      <Text fontSize='xl' fontWeight='semibold' color='blue.500'>
+      <Text textAlign='center' fontSize='lg' fontWeight='semibold' color='blue.500'>
         {user.fullname}
       </Text>
 
-      <Wrap>
-        {user.jobs.map(j => (
-          <Text key={j.id}>{j[`name_${locale}`]}</Text>
+      <Box textAlign='center' fontSize='md'>
+        {user.jobs.map(job => (
+          <Text key={job.code}>{job[`name_${locale}`]}</Text>
         ))}
-      </Wrap>
+      </Box>
     </Stack>
   )
 }

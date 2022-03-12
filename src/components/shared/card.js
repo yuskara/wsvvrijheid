@@ -8,7 +8,7 @@ export const Card = props => {
   const { t } = useTranslation()
 
   return (
-    <Stack borderWidth={1} boxShadow='md' rounded='lg' overflow='hidden' role='group'>
+    <Stack bg='white' shadow='lg' rounded='lg' overflow='hidden' role='group'>
       <Center overflow='hidden' p={4}>
         <Avatar
           objectFit='cover'

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 
 export const FormItem = props => {
-  const { id, type, as, leftElement, label, helperText, errors, register } = props
+  const { id, type, as, leftElement, label, helperText, errors, register, ...rest } = props
 
   const Tag = as || Input
 
@@ -22,7 +22,7 @@ export const FormItem = props => {
       )}
       <InputGroup>
         {leftElement && <InputLeftElement pointerEvents='none'>{leftElement}</InputLeftElement>}
-        <Tag id={id} type={type} placeholder={label} {...register(id)} />
+        <Tag id={id} type={type} placeholder={label} {...register(id)} {...rest} />
       </InputGroup>
       <FormErrorMessage>{errors?.[id]?.message}</FormErrorMessage>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
