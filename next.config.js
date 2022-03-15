@@ -84,6 +84,16 @@ const nextConfig = {
         destination: '/tr/projects',
         locale: false,
       },
+      {
+        source: '/nl/doneren',
+        destination: '/nl/donate',
+        locale: false,
+      },
+      {
+        source: '/tr/bagis',
+        destination: '/tr/donate',
+        locale: false,
+      },
     ]
   },
 }
