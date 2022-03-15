@@ -16,6 +16,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
+    "@mollie/api-client": "^3.6.0",
     "axios": "^0.26.1",
     "framer-motion": "^6.2.8",
     "next": "12.1.0",
@@ -32,7 +33,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "eslint": "8.10.0",
+    "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": ">=6",

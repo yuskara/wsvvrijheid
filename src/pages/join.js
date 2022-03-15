@@ -3,7 +3,6 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Avatar,
   Box,
   Button,
   Center,
@@ -11,9 +10,7 @@ import {
   FormLabel,
   Heading,
   HStack,
-  Link,
   SimpleGrid,
-  Spacer,
   Stack,
   Switch,
   Text,
@@ -23,14 +20,13 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Container, FormItem, Layout, PageTitle } from 'components'
+import { Container, FormItem, Layout, PageTitle, ProjectsList } from 'components'
 import { instance, request } from 'lib'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaChevronRight } from 'react-icons/fa'
 import { useMutation } from 'react-query'
 import * as yup from 'yup'
 
@@ -189,7 +185,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
         },
       )
     } catch (error) {
-      console.log('error', error)
+      console.error('Submit volunteer form error', error)
     }
   }
 
@@ -316,31 +312,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
               </Stack>
 
               {/* PROJECTS */}
-              <Stack spacing={8}>
-                {projects.map(p => (
-                  <HStack key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
-                    {/* TODO Create image component to handle internal/external image paths */}
-                    <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
-                    <Stack align='start'>
-                      <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
-                        {p[`name_${locale}`]}
-                      </Heading>
-                      <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
-                      <Spacer />
-                      <Button
-                        rightIcon={<FaChevronRight />}
-                        variant='link'
-                        as={Link}
-                        href={p.link}
-                        rel='noopener noreferrer'
-                        colorScheme='blue'
-                      >
-                        {t`read-more`}
-                      </Button>
-                    </Stack>
-                  </HStack>
-                ))}
-              </Stack>
+              <ProjectsList projects={projects} />
             </SimpleGrid>
           </>
         )}

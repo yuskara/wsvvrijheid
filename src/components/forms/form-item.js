@@ -9,12 +9,12 @@ import {
 } from '@chakra-ui/react'
 
 export const FormItem = props => {
-  const { id, type, as, leftElement, label, helperText, errors, register, ...rest } = props
+  const { id, type, as, leftElement, label, helperText, errors, register, isRequired, ...rest } = props
 
   const Tag = as || Input
 
   return (
-    <FormControl isInvalid={errors?.[id]}>
+    <FormControl isInvalid={errors?.[id]} isRequired={isRequired}>
       {label && (
         <FormLabel mb={1} htmlFor={id} fontSize='sm' fontWeight='semibold'>
           {label}
