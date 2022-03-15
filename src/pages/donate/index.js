@@ -65,7 +65,7 @@ const DonatePage = ({ projects, title }) => {
   return (
     <Layout seo={{ title }}>
       <Container>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} my={16}>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} my={16} gap={16}>
           <Stack
             px={16}
             py={12}
