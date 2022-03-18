@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Container, FormItem, Layout, PageTitle, ProjectsList } from 'components'
-import { instance, request } from 'lib'
+import { mutation, request } from 'lib'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -138,7 +138,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
   const toast = useToast()
 
   const { mutate, isLoading, isSuccess } = useMutation('create-volunteer', data =>
-    instance.post(`${process.env.NEXT_PUBLIC_API_URL}/api/volunteers`, { data }),
+    mutation.create('api/volunteers', { data }),
   )
 
   const {
@@ -322,14 +322,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
 }
 
 export const getStaticProps = async context => {
-  const projectsData = await request({ url: 'api/projects' })
-  const projects = projectsData.data.map(({ attributes }) => ({
-    ...attributes,
-    jobs: attributes.jobs.data.map(({ id, attributes }) => ({
-      id,
-      ...attributes,
-    })),
-  }))
+  const projects = await request({ url: 'api/projects' })
 
   const jobs = projects?.flatMap(p => p.jobs) || []
 

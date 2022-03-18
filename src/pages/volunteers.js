@@ -78,21 +78,8 @@ export default function Volunteers({ seo, volunteers, jobs }) {
 }
 
 export const getStaticProps = async context => {
-  const volunteersResponse = await request({ url: 'api/volunteers', populate: ['user.avatar', 'jobs'] })
-  const jobsResponse = await request({ url: 'api/jobs' })
-
-  const volunteers = volunteersResponse?.data?.map(({ attributes }) => ({
-    ...attributes,
-    user: attributes.user.data?.attributes,
-    jobs: attributes.jobs.data.map(({ id, attributes }) => ({
-      id,
-      ...attributes,
-    })),
-  }))
-
-  const jobs = jobsResponse.data.map(({ attributes }) => ({
-    ...attributes,
-  }))
+  const volunteers = await request({ url: 'api/volunteers' })
+  const jobs = await request({ url: 'api/jobs' })
 
   const title = {
     en: 'Volunteers',

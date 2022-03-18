@@ -14,7 +14,7 @@ export const ProjectsList = ({ projects }) => {
       {projects.map(p => (
         <HStack key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
           {/* TODO Create image component to handle internal/external image paths */}
-          <Avatar size='2xl' src={'http://api.samenvvv.nl' + p.image.data.attributes.url} />
+          <Avatar size='2xl' src={process.env.NEXT_PUBLIC_API_URL + p.image.url} />
           <Stack align='start'>
             <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
               {p[`name_${locale}`]}

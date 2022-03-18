@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "name": "John",
+        "user": {
+          "data": {
+            "id": 10,
+            "attributes": {
+              "email": "john@doe.com",
+              "avatar": {
+                "data": {
+                  "id": 5,
+                  "attributes": {
+                    "url": "link"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

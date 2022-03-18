@@ -1,11 +1,11 @@
-import { instance, mollieClient } from 'lib'
+import { mollieClient, mutation } from 'lib'
 
 export default async function handler(req, res) {
   const mollieId = req.body.id
   const payment = await mollieClient.payments.get(mollieId)
 
   // Update donation status and mollieId fields in database
-  await instance.put(`/api/donates/${payment.metadata.id}`, {
+  await mutation.edit('api/donates', payment.metadata.id, {
     data: { status: payment.status, mollieId },
   })
 

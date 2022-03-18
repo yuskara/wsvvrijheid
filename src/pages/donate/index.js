@@ -183,15 +183,7 @@ const DonatePage = ({ projects, title }) => {
 }
 
 export const getStaticProps = async context => {
-  const projectsData = await request({ url: 'api/projects' })
-  const projects =
-    projectsData?.data.map(({ attributes }) => ({
-      ...attributes,
-      jobs: attributes.jobs.data.map(({ id, attributes }) => ({
-        id,
-        ...attributes,
-      })),
-    })) || null
+  const projects = await request({ url: 'api/projects' })
 
   const seo = {
     title: {

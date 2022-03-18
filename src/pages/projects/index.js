@@ -1,9 +1,11 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
 import { Card, Layout, PageTitle } from 'components'
 import { request } from 'lib'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function Projects({ title, projects }) {
+  const { locale } = useRouter()
   return (
     <Layout scrollHeight={100} seo={{ title }}>
       <Container maxW='container.lg' centerContent>
@@ -12,9 +14,9 @@ export default function Projects({ title, projects }) {
           {projects.map(project => (
             <Card
               key={project.id}
-              title={project.title}
-              description={project.description}
-              image={project.image}
+              title={project[`name_${locale}`]}
+              description={project[`description_${locale}`]}
+              image={project.image.url}
               link={project.link}
             />
           ))}
@@ -25,18 +27,7 @@ export default function Projects({ title, projects }) {
 }
 export const getStaticProps = async context => {
   const { locale } = context
-  const response = await request({ url: 'api/projects' })
-
-  const projects = response.data
-    ? response.data.map(({ id, attributes }) => ({
-        id,
-        ...attributes,
-        title: attributes[`name_${locale}`],
-        description: attributes[`description_${locale}`],
-        // TODO URL should be given through env
-        image: 'https://api.samenvvv.nl' + attributes.image.data.attributes.url,
-      }))
-    : null
+  const projects = await request({ url: 'api/projects' })
 
   const seo = {
     title: {

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import { transformStrapiData } from 'utils'
 
 export const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -8,11 +9,12 @@ export const instance = axios.create({
   },
 })
 
-export const request = async ({ locale, url, filters, populate }) => {
+export const request = async ({ publicationState = 'live', locale, url, filters, populate = '*' }) => {
   const query = qs.stringify(
     {
+      publicationState,
       locale,
-      populate: populate || '*',
+      populate,
       filters,
     },
     {
@@ -23,13 +25,17 @@ export const request = async ({ locale, url, filters, populate }) => {
   // TODO Consider a better error handling
   try {
     const response = await instance.get(`/${url}?${query}`)
-    return response.data
+    return transformStrapiData(response.data)
   } catch (error) {
-    console.error(error.data ? error.data | error.response && error.response : error.message)
+    console.error(error.data || error.response || error.message)
     return null
   }
 }
 
-export const mutate = async ({ locale = 'en', url, id, method = 'post', data }) => {
-  instance[method](`/${url}/${id}?${locale}`, data)
+export const mutation = {
+  create: async (url, data) => instance.post(`/${url}`, data),
+  edit: async (url, id, data) => instance.put(`/${url}/${id}`, data),
+  delete: async (url, id) => instance.delete(`/${url}/${id}`),
+  // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
+  localize: async (url, id, data) => instance.post(`/${url}/${id}/localization`, data),
 }

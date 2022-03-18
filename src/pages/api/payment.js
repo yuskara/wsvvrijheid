@@ -1,10 +1,10 @@
-import { instance, mollieClient } from 'lib'
+import { mollieClient, mutation } from 'lib'
 
 export default async function handler(req, res) {
   const { amount, name, email, method, description } = req.body
 
   // Create blank donate in database
-  const donate = await instance.post('api/donates', {
+  const donate = await mutation.create('api/donates', {
     data: {
       name,
       email,

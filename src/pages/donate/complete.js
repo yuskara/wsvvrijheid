@@ -1,6 +1,9 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Center } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Center, Spinner } from '@chakra-ui/react'
 import { Container, Layout } from 'components'
-import { mollieClient, request } from 'lib'
+import { request } from 'lib'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 const DonationResult = ({ status, title, description }) => (
   <Alert
@@ -21,7 +24,25 @@ const DonationResult = ({ status, title, description }) => (
 )
 
 // TODO Make transaction detail messages more user friendly and create translations
-const PaymentComplete = ({ transaction }) => {
+const PaymentComplete = () => {
+  const { query } = useRouter()
+
+  const {
+    data: transaction,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: 'transaction',
+    // TODO Instead of relying on our database,
+    // we may retrieve payment info from mollie through serverless api
+    queryFn: () => request({ url: `api/donates/${query.id}` }),
+    enabled: false,
+  })
+
+  useEffect(() => {
+    if (query.id) refetch()
+  }, [query.id, refetch])
+
   const renderStatus = () => {
     if (transaction?.status === 'paid') {
       return <DonationResult title='Thank you' description='We received your donation' status='success' />
@@ -61,32 +82,12 @@ const PaymentComplete = ({ transaction }) => {
   return (
     <Layout>
       <Container maxWidth='container.sm'>
-        <Center minH='70vh'>{renderStatus()}</Center>
+        <Center minH='70vh'>
+          {isLoading || !transaction ? <Spinner colorScheme='blue' size='lg' /> : renderStatus()}
+        </Center>
       </Container>
     </Layout>
   )
-}
-
-export const getServerSideProps = async context => {
-  // TODO We may change finding method from `id` to uniqe `key`
-  // property to avoid random requests by users
-  // `/donate/complete?id=2` => will show the result of the donation
-  // `/donate/complete?key=<uuid4> => this can be better approach
-
-  // Find the donate by giving id from mollie's redirectUrl
-  const donate = await request({ url: `api/donates/${context.query.id}` })
-
-  const payment = await mollieClient.payments.get(donate.data.attributes.mollieId)
-
-  return {
-    props: {
-      transaction: {
-        id: payment.id,
-        status: payment.status,
-        method: payment.method,
-      },
-    },
-  }
 }
 
 export default PaymentComplete

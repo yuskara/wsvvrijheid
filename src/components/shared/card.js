@@ -10,10 +10,11 @@ export const Card = props => {
   return (
     <Stack bg='white' shadow='lg' rounded='lg' overflow='hidden' role='group'>
       <Center overflow='hidden' p={4}>
+        {/* TODO Create shared image component */}
         <Avatar
           objectFit='cover'
           boxSize={48}
-          src={image}
+          src={process.env.NEXT_PUBLIC_API_URL + image}
           alt='project image'
           transition='transform 0.5s ease-in-out'
           _groupHover={{ transform: 'scale(1.1)' }}
