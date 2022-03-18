@@ -5,13 +5,10 @@ export const UserCard = ({ user }) => {
   const { locale } = useRouter()
   return (
     <Stack p={6} spacing={4} rounded='md' bg='white' w='full' shadow='md' align='center'>
-      <Avatar
-        name={user.fullname}
-        size='lg'
-        src={'https://api.samenvvv.nl' + user?.user?.avatar?.data?.attributes.url}
-      />
+      {/* TODO Create shared image component */}
+      <Avatar name={user.name || user.username} size='lg' src={process.env.NEXT_PUBLIC_API_URL + user.avatar?.url} />
       <Text textAlign='center' fontSize='lg' fontWeight='semibold' color='blue.500'>
-        {user.fullname}
+        {user.name || user.username}
       </Text>
 
       <Box textAlign='center' fontSize='md'>
