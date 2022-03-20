@@ -124,5 +124,19 @@
       "label": "Gönüllüler",
       "link": "/gonulluler"
     }
+  },
+  "activity": {
+    "en": {
+      "label": "Activities",
+      "link": "/activities"
+    },
+    "nl": {
+      "label": "Activiteiten",
+      "link": "/activiteiten"
+    },
+    "tr": {
+      "label": "Faaliyetler",
+      "link": "/faaliyetler"
+    }
   }
 }
