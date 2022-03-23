@@ -3,7 +3,7 @@ import { Card, Layout, PageTitle } from 'components'
 import { request } from 'lib'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function activities({ header, activities }) {
+export default function Activities({ header, activities }) {
   return (
     <Layout scrollHeight={100} seo={{ header }}>
       <Container maxW='container.lg' centerContent>
