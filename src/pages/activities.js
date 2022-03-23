@@ -2,23 +2,24 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
 import { Card, Layout, PageTitle } from 'components'
 import { request } from 'lib'
-import { useRouter } from 'next/router'
+
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
 
-export default function activities({ title, activities }) {
-  const { locale } = useRouter()
+export default function activities({ header, activities }) {
+
+
   return (
-    <Layout scrollHeight={100} seo={{ title }}>
+    <Layout scrollHeight={100} seo={{ header }}>
       <Container maxW='container.lg' centerContent>
-        <PageTitle>{title}</PageTitle>
+        <PageTitle>{header}</PageTitle>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>
           {activities.map(activity => (
             <Card
               key={activity.id}
-              title={activity[`name_${locale}`]}
-              description={activity[`description_${locale}`]}
+              title={activity.title}
+              description={activity.content}
               image={activity.image.url}
               link={activity.link}
             />
@@ -30,7 +31,7 @@ export default function activities({ title, activities }) {
 }
 export const getStaticProps = async context => {
   const { locale } = context
-  const activities = await request({ url: 'api/activities' })
+  const activities = await request({ locale, url: 'api/activities' })
 
   const seo = {
     title: {
@@ -39,10 +40,11 @@ export const getStaticProps = async context => {
       tr: 'Faaliyetler',
     },
   }
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      title: seo.title[locale],
+      header: seo.title[locale],
       activities,
     },
   }
