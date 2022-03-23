@@ -1,15 +1,9 @@
-
 import { Container, SimpleGrid } from '@chakra-ui/react'
 import { Card, Layout, PageTitle } from 'components'
 import { request } from 'lib'
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-
-
 export default function activities({ header, activities }) {
-
-
   return (
     <Layout scrollHeight={100} seo={{ header }}>
       <Container maxW='container.lg' centerContent>
@@ -49,4 +43,3 @@ export const getStaticProps = async context => {
     },
   }
 }
-
