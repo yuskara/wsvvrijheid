@@ -1,34 +1,34 @@
 import ROUTES from 'config/routes.json'
 
-const { project, about, contact, terms, privacy, volunteer, donate } = ROUTES
+const { activity, project, about, contact, terms, privacy, volunteer, donate } = ROUTES
 
 export const FOOTER_MENU = [
   {
     en: {
       label: 'Foundation',
-      children: [about.en, contact.en],
+      children: [about.en, contact.en, donate.en],
     },
     nl: {
       label: 'Stichting',
-      children: [about.nl, contact.nl],
+      children: [about.nl, contact.nl, donate.nl],
     },
     tr: {
       label: 'Vakıf',
-      children: [about.tr, contact.tr],
+      children: [about.tr, contact.tr, donate.tr],
     },
   },
   {
     en: {
       label: 'Menu',
-      children: [project.en, volunteer.en, donate.en],
+      children: [activity.en, project.en, volunteer.en],
     },
     nl: {
       label: 'Menu',
-      children: [project.nl, volunteer.nl, donate.nl],
+      children: [activity.nl, project.nl, volunteer.nl],
     },
     tr: {
       label: 'Menu',
-      children: [project.tr, volunteer.tr, donate.tr],
+      children: [activity.tr, project.tr, volunteer.tr],
     },
   },
   {

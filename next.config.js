@@ -94,6 +94,16 @@ const nextConfig = {
         destination: '/tr/donate',
         locale: false,
       },
+      {
+        source: '/nl/activiteiten',
+        destination: '/nl/activities',
+        locale: false,
+      },
+      {
+        source: '/tr/faaliyetler',
+        destination: '/tr/activities',
+        locale: false,
+      },
     ]
   },
 }
