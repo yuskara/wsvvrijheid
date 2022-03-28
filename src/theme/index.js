@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 
+import { components } from './components'
 import { styles } from './global'
 import { mdx } from './mdx'
 
@@ -11,24 +12,10 @@ const config = {
   cssVarPrefix: 'wsvv',
 }
 
-const theme = extendTheme({
+export const theme = extendTheme({
   config,
   fonts,
-  components: {
-    Heading: {
-      baseStyle: {
-        color: 'blue.500',
-      },
-    },
-    Link: {
-      baseStyle: {
-        _hover: {
-          textDecor: 'none',
-        },
-        textDecor: 'none',
-      },
-    },
-  },
+  components,
   styles,
   shadows: {
     outline: 'none',
@@ -36,5 +23,3 @@ const theme = extendTheme({
   },
   mdx,
 })
-
-export default theme

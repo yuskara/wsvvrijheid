@@ -9,6 +9,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
+    "test": "jest --watch",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -33,10 +34,13 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": ">=6",
+    "jest": "^27.5.1",
     "lint-staged": ">=10",
     "prettier": "^2.5.1"
   },

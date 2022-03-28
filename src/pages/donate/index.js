@@ -175,7 +175,7 @@ const DonatePage = ({ projects, title }) => {
               {amount && ` €${amount}`}
             </Button>
           </Stack>
-          {projects && <ProjectsList projects={projects} />}
+          {projects.result && <ProjectsList projects={projects.result} />}
         </SimpleGrid>
       </Container>
     </Layout>

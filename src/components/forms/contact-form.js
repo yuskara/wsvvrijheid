@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, Button, VStack } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, Button, Textarea, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useState } from 'react'
@@ -74,7 +74,13 @@ export const ContactForm = () => {
         errors={errors}
         register={register}
       />
-      <FormItem isTextarea id='message' label={t('contact.form.message-label')} errors={errors} register={register} />
+      <FormItem
+        as={Textarea}
+        id='message'
+        label={t('contact.form.message-label')}
+        errors={errors}
+        register={register}
+      />
 
       <Button variant='solid' colorScheme='blue' type='submit' isDisabled={!isValid} isLoading={isLoading} isFullWidth>
         {t`contact.form.button`}

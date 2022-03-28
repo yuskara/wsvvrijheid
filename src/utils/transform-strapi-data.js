@@ -23,21 +23,29 @@ export const transformAttributes = (id, attributes) => {
       }
     }
 
+    if (acc[key]?.data === null) acc[key] = null
+
     return acc
   }, attributes)
 }
 
 export const transformStrapiData = response => {
-  if (!response) {
+  if (!response || !response.data) {
     console.warn('No response provided!')
     return null
   }
 
   if (response.data && Array.isArray(response.data)) {
-    return response.data.map(({ id, attributes }) => {
-      return transformAttributes(id, attributes)
-    })
+    return {
+      pagination: response.meta.pagination,
+      result: response.data.map(({ id, attributes }) => {
+        return transformAttributes(id, attributes)
+      }),
+    }
   }
 
-  return transformAttributes(response.data.id, response.data.attributes)
+  return {
+    pagination: response.meta.pagination,
+    result: transformAttributes(response.data.id, response.data.attributes),
+  }
 }

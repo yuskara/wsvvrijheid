@@ -11,7 +11,7 @@ export default function Projects({ title, projects }) {
       <Container maxW='container.lg' centerContent>
         <PageTitle>{title}</PageTitle>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>
-          {projects.map(project => (
+          {projects.result.map(project => (
             <Card
               key={project.id}
               title={project[`name_${locale}`]}

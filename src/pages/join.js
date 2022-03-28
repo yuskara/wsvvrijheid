@@ -115,7 +115,7 @@ function generateSchema(t, jobs) {
     jobs: yup
       .object()
       .shape(
-        jobs.reduce((acc, h) => {
+        jobs.result.reduce((acc, h) => {
           acc[h] = yup.bool()
           return acc
         }, {}),
@@ -286,7 +286,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
                     borderWidth={2}
                     borderColor={errors.jobs ? 'red.500' : 'gray.100'}
                   >
-                    {projects.map((project, i) => (
+                    {projects.result.map((project, i) => (
                       <Stack key={i}>
                         <Text fontWeight='semibold' fontSize='sm'>
                           {project[`name_${locale}`]}
