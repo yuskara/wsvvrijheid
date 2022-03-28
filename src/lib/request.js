@@ -9,13 +9,27 @@ export const instance = axios.create({
   },
 })
 
-export const request = async ({ publicationState = 'live', locale, url, filters, populate = '*' }) => {
+export const request = async ({
+  publicationState = 'live',
+  locale,
+  url,
+  filters,
+  sort,
+  populate = '*',
+  page = 1,
+  pageSize = 10,
+}) => {
   const query = qs.stringify(
     {
       publicationState,
       locale,
-      populate,
       filters,
+      sort,
+      populate,
+      pagination: {
+        page,
+        pageSize,
+      },
     },
     {
       encodeValuesOnly: true,

@@ -13,8 +13,8 @@ export default function Volunteers({ seo, volunteers, jobs }) {
   const { locale } = useRouter()
 
   const data = useMemo(
-    () => volunteers?.filter(user => (state ? user.jobs?.some(j => j.code === state) : true)),
-    [state, volunteers],
+    () => volunteers.result?.filter(user => (state ? user.jobs?.some(j => j.code === state) : true)),
+    [state, volunteers.result],
   )
 
   return (
@@ -26,7 +26,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
             <RadioGroup onChange={setState}>
               <Stack spacing={4} justify='center'>
                 <Radio value=''>{t`all`}</Radio>
-                {jobs.map(job => (
+                {jobs.result.map(job => (
                   <Radio key={job.code} value={job.code}>
                     {job[`name_${locale}`]}
                   </Radio>

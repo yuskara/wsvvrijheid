@@ -286,7 +286,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
                     borderWidth={2}
                     borderColor={errors.jobs ? 'red.500' : 'gray.100'}
                   >
-                    {projects.map((project, i) => (
+                    {projects.result.map((project, i) => (
                       <Stack key={i}>
                         <Text fontWeight='semibold' fontSize='sm'>
                           {project[`name_${locale}`]}
@@ -312,7 +312,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
               </Stack>
 
               {/* PROJECTS */}
-              <ProjectsList projects={projects} />
+              <ProjectsList projects={projects.result} />
             </SimpleGrid>
           </>
         )}
@@ -324,7 +324,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
 export const getStaticProps = async context => {
   const projects = await request({ url: 'api/projects' })
 
-  const jobs = projects?.flatMap(p => p.jobs) || []
+  const jobs = projects.result?.flatMap(p => p.jobs) || []
 
   const seo = {
     title: {
