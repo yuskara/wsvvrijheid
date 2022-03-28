@@ -1,7 +1,8 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
-import { Card, Layout, PageTitle } from 'components'
-import { request } from 'lib'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { Card, Layout, PageTitle } from '~components'
+import { request } from '~lib'
 
 export default function Activities({ header, activities }) {
   return (

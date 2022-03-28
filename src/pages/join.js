@@ -20,8 +20,6 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Container, FormItem, Layout, PageTitle, ProjectsList } from 'components'
-import { mutation, request } from 'lib'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -29,6 +27,9 @@ import { forwardRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import * as yup from 'yup'
+
+import { Container, FormItem, Layout, PageTitle, ProjectsList } from '~components'
+import { mutation, request } from '~lib'
 
 // FIXME Need to change type in backend as well
 const heardFrom = [

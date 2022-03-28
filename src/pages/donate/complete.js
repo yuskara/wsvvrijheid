@@ -1,9 +1,10 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Center, Spinner } from '@chakra-ui/react'
-import { Container, Layout } from 'components'
-import { request } from 'lib'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useQuery } from 'react-query'
+
+import { Container, Layout } from '~components'
+import { request } from '~lib'
 
 const DonationResult = ({ status, title, description }) => (
   <Alert

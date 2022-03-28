@@ -16,8 +16,6 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
-import { Container, FormItem, Layout, ProjectsList } from 'components'
-import { request } from 'lib'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
@@ -25,6 +23,9 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineEuroCircle } from 'react-icons/ai'
 import { FaDonate } from 'react-icons/fa'
 import * as yup from 'yup'
+
+import { Container, FormItem, Layout, ProjectsList } from '~components'
+import { request } from '~lib'
 
 function generateSchema(t) {
   return yup.object().shape({

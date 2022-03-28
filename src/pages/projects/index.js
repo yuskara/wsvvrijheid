@@ -1,8 +1,9 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
-import { Card, Layout, PageTitle } from 'components'
-import { request } from 'lib'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { Card, Layout, PageTitle } from '~components'
+import { request } from '~lib'
 
 export default function Projects({ title, projects }) {
   const { locale } = useRouter()

@@ -9,8 +9,9 @@ import {
   Stack,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { Navigate } from 'components'
 import { useRouter } from 'next/router'
+
+import { Navigate } from '~components'
 
 const ChildMenuItem = ({ item }) => {
   const { asPath } = useRouter()

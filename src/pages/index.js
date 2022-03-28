@@ -1,5 +1,6 @@
-import { Layout } from 'components'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { Layout } from '~components'
 
 export default function Home() {
   return <Layout>Homepage</Layout>
