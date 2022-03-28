@@ -1,4 +1,4 @@
-import ROUTES from 'config/routes.json'
+import { ROUTES } from '~config'
 
 const { activity, project, volunteer, donate, about, contact } = ROUTES
 

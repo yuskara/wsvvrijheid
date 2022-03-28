@@ -1,7 +1,8 @@
 import { AspectRatio, Box } from '@chakra-ui/react'
 import Image from 'next/image'
 import React from 'react'
-import { getImageUrl, toBase64 } from 'utils'
+
+import { getImageUrl, toBase64 } from '~utils'
 
 const shimmer = (
   w,

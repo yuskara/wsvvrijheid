@@ -1,11 +1,12 @@
 import { Box, Center, HStack, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
-import { Container, Layout, PageTitle, UserCard } from 'components'
-import { request } from 'lib'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { Container, Layout, PageTitle, UserCard } from '~components'
+import { request } from '~lib'
 
 export default function Volunteers({ seo, volunteers, jobs }) {
   const [state, setState] = useState()

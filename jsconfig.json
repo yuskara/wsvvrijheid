@@ -4,13 +4,13 @@
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {
-      "~components/*": ["components/*"],
-      "~config/*": ["config/*"],
-      "~data/*": ["data/*"],
-      "~lib/*": ["lib/*"],
-      "~pages/*": ["pages/*"],
-      "~theme/*": ["theme/*"],
-      "~utils/*": ["utils/*"]
+      "~components": ["components"],
+      "~config": ["config"],
+      "~data": ["data"],
+      "~lib": ["lib"],
+      "~pages": ["pages"],
+      "~theme": ["theme"],
+      "~utils": ["utils"]
     }
   }
 }

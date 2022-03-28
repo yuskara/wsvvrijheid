@@ -1,9 +1,10 @@
 import { Box, Button, Heading, Link, Stack, Text, VStack } from '@chakra-ui/react'
-import { ContactForm, Container, Layout, SocialButtons } from 'components'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'react-i18next'
 import { FaWhatsapp as FaWhatsapp } from 'react-icons/fa'
 import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
+
+import { ContactForm, Container, Layout, SocialButtons } from '~components'
 
 const Contact = ({ seo }) => {
   const { t } = useTranslation()

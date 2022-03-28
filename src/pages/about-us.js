@@ -1,7 +1,8 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
-import { AnimatedBox, ChakraNextImage, Container, Layout, PageTitle } from 'components'
-import { ABOUT_US } from 'data'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { AnimatedBox, ChakraNextImage, Container, Layout, PageTitle } from '~components'
+import { ABOUT_US } from '~data'
 
 const AboutUsBlock = props => {
   const { directing = 'to-right', image, title, text } = props

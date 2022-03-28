@@ -1,4 +1,4 @@
-import { mollieClient, mutation } from 'lib'
+import { mollieClient, mutation } from '~lib'
 
 export default async function handler(req, res) {
   const { amount, name, email, method, description } = req.body

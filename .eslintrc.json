@@ -1,9 +1,27 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["simple-import-sort"],
+  "extends": ["next", "prettier"],
+  "plugins": ["simple-import-sort", "import", "prettier"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["~components", "./src/components"],
+          ["~config", "./src/config"],
+          ["~data", "./src/data"],
+          ["~lib", "./src/lib"],
+          ["~pages", "./src/pages"],
+          ["~theme", "./src/theme"],
+          ["~utils", "./src/utils"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
   "rules": {
     "no-unused-vars": "error",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "import/no-unresolved": "error",
+    "prettier/prettier": "error"
   }
 }
