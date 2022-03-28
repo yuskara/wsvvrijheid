@@ -115,7 +115,7 @@ function generateSchema(t, jobs) {
     jobs: yup
       .object()
       .shape(
-        jobs.result.reduce((acc, h) => {
+        jobs.reduce((acc, h) => {
           acc[h] = yup.bool()
           return acc
         }, {}),
@@ -312,7 +312,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
               </Stack>
 
               {/* PROJECTS */}
-              <ProjectsList projects={projects} />
+              <ProjectsList projects={projects.result} />
             </SimpleGrid>
           </>
         )}
@@ -324,7 +324,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
 export const getStaticProps = async context => {
   const projects = await request({ url: 'api/projects' })
 
-  const jobs = projects?.flatMap(p => p.jobs) || []
+  const jobs = projects.result?.flatMap(p => p.jobs) || []
 
   const seo = {
     title: {

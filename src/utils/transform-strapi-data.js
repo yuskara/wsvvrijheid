@@ -32,7 +32,7 @@ export const transformAttributes = (id, attributes) => {
 export const transformStrapiData = response => {
   if (!response || !response.data) {
     console.warn('No response provided!')
-    return null
+    return { result: null, pagination: null }
   }
 
   if (response.data && Array.isArray(response.data)) {
