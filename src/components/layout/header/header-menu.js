@@ -1,5 +1,5 @@
 import { ROUTES } from '~config'
 
-const { activity, project, volunteer, donate, about, contact } = ROUTES
+const { activity, project, club, volunteer, donate, about, contact } = ROUTES
 
-export const HEADER_MENU = [activity, project, volunteer, donate, about, contact]
+export const HEADER_MENU = [activity, project, club, volunteer, donate, about, contact]
