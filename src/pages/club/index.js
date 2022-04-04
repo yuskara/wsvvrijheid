@@ -6,9 +6,9 @@ import React from 'react'
 // import Masonry from 'react-masonry-css'
 import { Layout, PageTitle } from '~components'
 
-export default function Club({ header, images }) {
+export default function Club({ title, images }) {
   return (
-    <Layout scrollHeight={100} seo={{ header }}>
+    <Layout scrollHeight={100} seo={{ title }}>
       <Container maxW='100%' centerContent>
         <PageTitle>{header}</PageTitle>
         <ChakraProvider>
@@ -48,7 +48,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      header: seo.title[locale],
+      title: seo.title[locale],
       images,
     },
   }
