@@ -138,5 +138,19 @@
       "label": "Faaliyetler",
       "link": "/faaliyetler"
     }
+  },
+  "sign-up": {
+    "en": {
+      "label": "Sign-Up",
+      "link": "/sign-up"
+    },
+    "nl": {
+      "label": "Aanmelden",
+      "link": "/aanmelden"
+    },
+    "tr": {
+      "label": "Üye ol",
+      "link": "/uye-ol"
+    }
   }
 }

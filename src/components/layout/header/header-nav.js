@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react'
+import { Link, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { HEADER_MENU } from './header-menu'
@@ -12,6 +12,9 @@ export const HeaderNav = ({ direction = 'row' }) => {
       {HEADER_MENU.map((item, i) => {
         return <HeaderNavItem key={i} item={item[locale]} />
       })}
+      <Link href={'/sign-up'}>
+        <Text>Sing Up</Text>
+      </Link>
     </Stack>
   )
 }

@@ -33,6 +33,7 @@ export const Header = () => {
             </motion.div>
             <Box display={{ base: 'none', lg: 'block' }}>
               <LocaleSwitcher />
+
               <HeaderNav />
             </Box>
             <HeaderMobile />
