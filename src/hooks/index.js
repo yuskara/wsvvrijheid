@@ -1,1 +1,1 @@
-export * from './useChangeParams'
+export { useChangeParams } from './useChangeParams'

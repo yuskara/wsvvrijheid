@@ -3,26 +3,32 @@ import { useRouter } from 'next/router'
 export const useChangeParams = () => {
   const router = useRouter()
 
-  // Example
-  // args { category: "photo", page: 4, sort: "likes" }
-  // query { category: "photo", page: "4", sort: "likes" }
-  // `/?category=photo&page=4&sort=likes`
-  const changeParam = args => {
-    // Extract the first key-value pair from the object
-    // Example { page: 1 } => [ 'page', 1 ]
-    // Example { category: "photo" } => [ 'category', 'photo' ]
-    const [param, value] = Object.entries(args)[0]
+  const query = { ...router.query }
 
-    let { page } = router.query
+  const changeParams = args => {
+    // In the case of query has empty string param which we want to remove,
+    // it should be removed from both the query and args
+    Object.keys(query).forEach(key => {
+      if (query[key] === '' || args[key] === null) {
+        delete query[key]
+      }
+    })
 
-    // If the params is not page, then we set it to 1 by default
-    if (param !== 'page') page = 1
+    // When we provide null value for a param, remove it from the query
+    Object.keys(args).forEach(key => {
+      if (args[key] === null) {
+        delete args[key]
+      }
+    })
+
+    // If page is not specified, remove it from query
+    // so that data is always fetched by the first page
+    if (!args.page) delete query.page
 
     return router.push({
-      // Finally we set the query with the new params
-      query: { ...router.query, page, [param]: value },
+      query: { ...query, ...args },
     })
   }
 
-  return changeParam
+  return changeParams
 }

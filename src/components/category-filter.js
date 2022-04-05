@@ -11,8 +11,16 @@ export const CategoryFilter = ({ categories, currentCategory }) => {
     // TODO: Change design of category filter to be placed on the left side of the page
     // It's just for demonstration purposes.
     <ButtonGroup isAttached colorScheme='blue'>
-      {categories?.map(category => (
+      <Button
+        borderRightWidth={0}
+        variant={currentCategory == null ? 'solid' : 'outline'}
+        onClick={() => changeParam({ category: null })}
+      >
+        All
+      </Button>
+      {categories?.map((category, i) => (
         <Button
+          borderRightWidth={i === categories.length - 1 ? 1 : 0}
           variant={category.code === currentCategory ? 'solid' : 'outline'}
           key={category.id}
           onClick={() => changeParam({ category: category.code })}

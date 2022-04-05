@@ -12,8 +12,9 @@ export const Pagination = ({ pageCount, currentPage }) => {
     <ButtonGroup isAttached colorScheme='blue'>
       {Array.from({ length: pageCount }, (v, i) => (
         <Button
+          borderRightWidth={i === pageCount - 1 ? 1 : 0}
           onClick={() => changeParam({ page: i + 1 })}
-          variant={i + 1 === currentPage ? 'solid' : 'outline'}
+          variant={i + 1 === currentPage || (i === 0 && !currentPage) ? 'solid' : 'outline'}
           key={i}
         >
           {i + 1}

@@ -1,4 +1,4 @@
-import { Badge, Box, Code, Image, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Badge, Box, Button, ButtonGroup, Code, Image, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
@@ -21,6 +21,12 @@ const Club = ({ arts, query, categories, title }) => {
             changeParam={() => changeParam({ page })}
           />
 
+          <ButtonGroup colorScheme='green'>
+            <Button onClick={() => changeParam({ sort: ['likes:desc'] })}>Sort Popular Desc</Button>
+            <Button onClick={() => changeParam({ sort: ['likes:asc'] })}>Sort Popular Asc</Button>
+            <Button onClick={() => changeParam({ sort: null })}>Remove Sort</Button>
+          </ButtonGroup>
+
           <SimpleGrid columns={3} gap={4}>
             {arts.result.map(art => (
               <Box key={art.id} borderColor='gray.400' borderWidth={1}>
@@ -33,6 +39,7 @@ const Club = ({ arts, query, categories, title }) => {
                 />
                 <Stack p={2}>
                   <Text>{art.title}</Text>
+                  <Text>{art.likes} likes</Text>
                   <Wrap>
                     {art.categories.map(category => (
                       <Badge key={category.code}>{category.code}</Badge>
@@ -55,7 +62,7 @@ export default Club
 
 export const getServerSideProps = async context => {
   const { locale, query } = context
-  const { category, page = 1 } = query
+  const { category, page = 1, sort = [] } = query
 
   const filters = category && { categories: { code: { $eq: category } } }
 
@@ -64,6 +71,7 @@ export const getServerSideProps = async context => {
     filters,
     page,
     pageSize: 2,
+    sort,
     locale,
   })
 
@@ -81,7 +89,7 @@ export const getServerSideProps = async context => {
     title: {
       en: 'Art Club',
       nl: 'Kunst Club',
-      tr: 'Sanak Kulübü',
+      tr: 'Sanat Kulübü',
     },
   }
   return {
