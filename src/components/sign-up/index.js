@@ -16,10 +16,11 @@ import {
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { useState } from 'react'
-
+import axios from 'axios';
 import { Logo } from '../login/Logo'
 import { OAuthButtonGroup } from '../login/OAuthButtonGroup'
 import { PasswordField } from '../login/PasswordField'
+import { setToken } from '../../utils/token'
 
 export const SignUp = () => {
     const [name, setName] = useState('')
@@ -38,6 +39,27 @@ export const SignUp = () => {
     const handleSignUp = e => {
         e.preventDefault()
         console.log('State: ', 'name: ', name, 'Email: ', email, 'Passwod: ', password)
+        axios
+            .post('https://api.samenvvv.nl/api/auth/local/register', {
+                username: name,
+                email: email,
+                password: password,
+            })
+            .then((response) => {
+                // Handle success.
+                console.log('Well done!');
+                console.log('User profile', response.data.user);
+                console.log('User token', response.data.jwt);
+                setToken(response.data.jwt)
+            })
+            .catch((error) => {
+                // Handle error.
+                console.log('An error occurred:', error.response);
+            });
+
+
+
+
     }
 
     return (
