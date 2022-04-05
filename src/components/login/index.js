@@ -27,26 +27,27 @@ export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPasswod] = useState('')
 
-    /* const handleChange = e => {
-         console.log("fine", email)
-         e.preventDefault()
- 
-         if (e.target.id === 'email') {
-             setEmail(e.target.value)
-         } else if (e.target.id === 'password') {
-             setPasswod(e.target.value)
-         }
-     }
- */
+    const handleChange = e => {
+        console.log("fine", email)
+        e.preventDefault()
+
+        if (e.target.id === 'email') {
+            setEmail(e.target.value)
+        } else if (e.target.id === 'password') {
+            setPasswod(e.target.value)
+        }
+    }
+
     const handleSignIn = e => {
         e.preventDefault()
         login({ email, password })
-        e.target.reset
-        //  document.getElementById("email").reset()
-        //document.getElementById("password").reset()
         setEmail('')
         setPasswod('')
-
+        if (e.target.id === 'email') {
+            e.target.value = ""
+        } else if (e.target.id === 'password') {
+            e.target.value = ""
+        }
 
     }
 
@@ -74,15 +75,11 @@ export const Login = () => {
                 >
                     <Stack spacing='6'>
                         <Stack spacing='5'>
-                            <Form>
-
-                            </Form>
                             <FormControl>
                                 <FormLabel htmlFor='email'>Email</FormLabel>
-                                <Input required value={email} onChange={e => setEmail(e.target.value)} id='email' type='email' />
+                                <Input onChange={e => setEmail(e.target.value)} id='email' type='email' />
                             </FormControl>
-                            <PasswordField password={password} onChange={e => setPasswod(e.target.value)} />
-
+                            <PasswordField onChange={e => setPasswod(e.target.value)} />
                         </Stack>
                         <HStack justify='space-between'>
                             <Checkbox defaultIsChecked>Remember me</Checkbox>
@@ -106,7 +103,6 @@ export const Login = () => {
                     </Stack>
                 </Box>
             </Stack>
-
         </Container>
     )
 }
