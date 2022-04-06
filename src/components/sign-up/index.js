@@ -18,32 +18,22 @@ import * as React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
 import { Logo } from '../login/Logo'
+import { useRouter } from 'next/router'
 import { OAuthButtonGroup } from '../login/OAuthButtonGroup'
 import { PasswordField } from '../login/PasswordField'
-import { setToken } from '../../utils/token'
+import { setToken } from '../../utils/services'
+import { useForm } from 'react-hook-form'
 
 export const SignUp = () => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPasswod] = useState('')
-    const handleChange = e => {
-        e.preventDefault()
-        if (e.target.id === 'name') {
-            setName(e.target.value)
-        } else if (e.target.id === 'email') {
-            setEmail(e.target.value)
-        } else if (e.target.id === 'password') {
-            setPasswod(e.target.value)
-        }
-    }
-    const handleSignUp = e => {
-        e.preventDefault()
-        console.log('State: ', 'name: ', name, 'Email: ', email, 'Passwod: ', password)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const [error, setErrorMessage] = useState(null)
+    const router = useRouter();
+    const handleSignUp = (data) => {
         axios
             .post('https://api.samenvvv.nl/api/auth/local/register', {
-                username: name,
-                email: email,
-                password: password,
+                username: data.name,
+                email: data.email,
+                password: data.password,
             })
             .then((response) => {
                 // Handle success.
@@ -51,13 +41,19 @@ export const SignUp = () => {
                 console.log('User profile', response.data.user);
                 console.log('User token', response.data.jwt);
                 setToken(response.data.jwt)
+                localStorage.setItem("loggedUser", JSON.stringify(response.data.user))
+                reset()
+                router.push("/");
             })
             .catch((error) => {
                 // Handle error.
                 console.log('An error occurred:', error.response);
+                setErrorMessage(error.response.data.error.message)
+                setTimeout(() => {
+                    setErrorMessage("")
+                }, 2000)
+
             });
-
-
 
 
     }
@@ -66,13 +62,12 @@ export const SignUp = () => {
         <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
             <Stack spacing='8'>
                 <Stack spacing='6'>
-                    <Logo />
                     <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
                         <Heading size={useBreakpointValue({ base: 'xs', md: 'sm' })}>Create an account</Heading>
                         <HStack spacing='1' justify='center'>
                             <Text color='muted'>Already have an account?</Text>
                             <Button variant='link' as={Link} href='/login' colorScheme='blue'>
-                                Log in
+                                Sign in
                             </Button>
                         </HStack>
                     </Stack>
@@ -84,30 +79,37 @@ export const SignUp = () => {
                     boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
                     borderRadius={{ base: 'none', sm: 'xl' }}
                 >
-                    <Stack spacing='6'>
+                    <Stack spacing='6' as="form" onSubmit={handleSubmit(handleSignUp)} >
                         <Stack spacing='5'>
-                            <FormControl isRequired>
+                            {error ? <Text color='red.500' >{error}</Text> : ""}
+                            <FormControl >
                                 <FormLabel htmlFor='name'>Name</FormLabel>
-                                <Input onChange={handleChange} id='name' type='text' />
+                                <Input name="name" id='name' type='text' {...register("name", { required: "Name is required" })} />
+                                <Text color="red.400">{errors?.name?.message}</Text>
                                 <FormLabel htmlFor='email'>Email</FormLabel>
-                                <Input onChange={handleChange} id='email' type='email' />
-                                <PasswordField onChange={handleChange} />
+                                <Input name='email' id='email' type='email' {...register("email", { required: "email is required" })} />
+                                <Text color="red.400">{errors?.email?.message}</Text>
+                                <PasswordField register={register} errors={errors} />
                             </FormControl>
                             <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
                                 At least 8 characters long
                             </Text>
                         </Stack>
                         <Stack spacing='6'>
-                            <Button
+                            <Input
+                                as={Button}
                                 variant='solid'
                                 cursor='pointer'
                                 borderStyle='solid'
                                 colorScheme='blue'
-                                borderColor='blue.500'
-                                onClick={handleSignUp}
+                                color='blue.400'
+                                borderColor='white.700'
+                                bg='blue.600'
+                                type='submit'
+
                             >
                                 Create Account
-                            </Button>
+                            </Input>
                             <HStack>
                                 <Divider />
                                 <Text fontSize='sm' whiteSpace='nowrap' color='muted'>

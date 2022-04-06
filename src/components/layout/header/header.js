@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Link } from '@chakra-ui/react'
+import { Box, Flex, Image, Link, Slack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
@@ -6,6 +6,7 @@ import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
+import { Profile } from '../profile'
 
 export const Header = () => {
   return (
@@ -32,8 +33,10 @@ export const Header = () => {
               </Link>
             </motion.div>
             <Box display={{ base: 'none', lg: 'block' }}>
-              <LocaleSwitcher />
-
+              <Flex py={1} justify='flex-end'>
+                <LocaleSwitcher />
+                <Profile />
+              </Flex>
               <HeaderNav />
             </Box>
             <HeaderMobile />

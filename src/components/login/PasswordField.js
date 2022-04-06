@@ -7,6 +7,7 @@ import {
     InputRightElement,
     useDisclosure,
     useMergeRefs,
+    Text
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
@@ -15,7 +16,7 @@ export const PasswordField = React.forwardRef((props, ref) => {
     const { isOpen, onToggle } = useDisclosure()
     const inputRef = React.useRef(null)
     const mergeRef = useMergeRefs(inputRef, ref)
-
+    const { errors, register } = props
     const onClickReveal = () => {
         onToggle()
 
@@ -44,10 +45,11 @@ export const PasswordField = React.forwardRef((props, ref) => {
                     name='password'
                     type={isOpen ? 'text' : 'password'}
                     autoComplete='current-password'
-                    required
+                    {...register("password", { required: "password invalid", minLength: { value: 8, message: "too short" } })}
                     {...props}
                 />
             </InputGroup>
+            <Text color="red.400">{errors?.password?.message}</Text>
         </FormControl>
     )
 })

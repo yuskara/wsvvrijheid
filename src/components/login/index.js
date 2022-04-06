@@ -14,41 +14,47 @@ import {
     Text,
     useBreakpointValue,
     useColorModeValue,
+    FormErrorMessage
 } from '@chakra-ui/react'
 import * as React from 'react'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
-
+import axios from 'axios'
 import { Logo } from './Logo'
 import { OAuthButtonGroup } from './OAuthButtonGroup'
 import { PasswordField } from './PasswordField'
 import { login } from '../../utils'
+import { useForm } from 'react-hook-form'
+import { setToken } from 'utils/services'
 
 export const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPasswod] = useState('')
-
-    const handleChange = e => {
-        console.log("fine", email)
-        e.preventDefault()
-
-        if (e.target.id === 'email') {
-            setEmail(e.target.value)
-        } else if (e.target.id === 'password') {
-            setPasswod(e.target.value)
-        }
-    }
-
-    const handleSignIn = e => {
-        e.preventDefault()
-        login({ email, password })
-        setEmail('')
-        setPasswod('')
-        if (e.target.id === 'email') {
-            e.target.value = ""
-        } else if (e.target.id === 'password') {
-            e.target.value = ""
-        }
-
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm()
+    const [errorMessage, setErrorMessage] = useState(null)
+    const router = useRouter();
+    const handleSignIn = (data) => {
+        console.log("Data", data)
+        axios
+            .post('https://api.samenvvv.nl/api/auth/local', {
+                identifier: data.email,
+                password: data.password,
+            })
+            .then((response) => {
+                // Handle success.
+                console.log("response", response)
+                setToken(response.data.jwt)
+                localStorage.setItem("loggedUser", JSON.stringify(response.data.user))
+                reset()
+                router.push("/");
+            })
+            .catch((error) => {
+                // Handle error.
+                console.log('An error occurred:', error);
+                setErrorMessage(error.response.data.error.message)
+                setTimeout(() => {
+                    setErrorMessage("")
+                    reset()
+                }, 2000)
+            });
     }
 
     return (
@@ -73,13 +79,15 @@ export const Login = () => {
                     boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
                     borderRadius={{ base: 'none', sm: 'xl' }}
                 >
-                    <Stack spacing='6'>
-                        <Stack spacing='5'>
+                    <Stack spacing='6' as="form" onSubmit={handleSubmit(handleSignIn)}>
+                        <Stack spacing='5' >
+                            {errorMessage ? <Text color='red.500' >{errorMessage}</Text> : ""}
                             <FormControl>
                                 <FormLabel htmlFor='email'>Email</FormLabel>
-                                <Input onChange={e => setEmail(e.target.value)} id='email' type='email' />
-                            </FormControl>
-                            <PasswordField onChange={e => setPasswod(e.target.value)} />
+                                <Input name='email' id='email' type='email' {...register("email", { required: "email is required" })} />
+                                <Text color="red.400">{errors?.email?.message}</Text>
+                            </FormControl >
+                            <PasswordField register={register} errors={errors} />
                         </Stack>
                         <HStack justify='space-between'>
                             <Checkbox defaultIsChecked>Remember me</Checkbox>
@@ -88,9 +96,10 @@ export const Login = () => {
                             </Button>
                         </HStack>
                         <Stack spacing='6'>
-                            <Button onClick={handleSignIn} variant='primary'>
+                            <Input color='blue.600' as={Button} type='submit' variant='primary'>{
+                            }
                                 Sign in
-                            </Button>
+                            </Input>
                             <HStack>
                                 <Divider />
                                 <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
