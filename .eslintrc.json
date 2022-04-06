@@ -12,34 +12,14 @@
     "import/resolver": {
       "alias": {
         "map": [
-          [
-            "~components",
-            "./src/components"
-          ],
-          [
-            "~config",
-            "./src/config"
-          ],
-          [
-            "~data",
-            "./src/data"
-          ],
-          [
-            "~lib",
-            "./src/lib"
-          ],
-          [
-            "~pages",
-            "./src/pages"
-          ],
-          [
-            "~theme",
-            "./src/theme"
-          ],
-          [
-            "~utils",
-            "./src/utils"
-          ]
+          ["~components", "./src/components"],
+          ["~config", "./src/config"],
+          ["~data", "./src/data"],
+          ["~hooks", "./src/hooks"],
+          ["~lib", "./src/lib"],
+          ["~pages", "./src/pages"],
+          ["~theme", "./src/theme"],
+          ["~utils", "./src/utils"]
         ],
         "extensions": [
           ".js",
