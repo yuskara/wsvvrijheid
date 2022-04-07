@@ -1,16 +1,27 @@
-import { Code } from '@chakra-ui/react'
+import { Button, Code } from '@chakra-ui/react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import { Container, Layout } from '~components'
 import { withSession } from '~lib'
 
 const Profile = ({ user }) => {
+  const router = useRouter()
+
+  const onLogout = () => {
+    axios.post('/api/auth/logout').then(() => {
+      router.push('/login')
+    })
+  }
+
   return (
     <Layout>
       <Container>
         <pre>
           <Code>{JSON.stringify(user, null, 2)}</Code>
         </pre>
+        <Button onClick={onLogout}>Logout</Button>
       </Container>
     </Layout>
   )
