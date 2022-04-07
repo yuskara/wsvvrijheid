@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const payment = await mollieClient.payments.get(mollieId)
 
   // Update donation status and mollieId fields in database
-  await mutation.edit('api/donates', payment.metadata.id, {
+  await mutation.put('api/donates', payment.metadata.id, {
     data: { status: payment.status, mollieId },
   })
 
