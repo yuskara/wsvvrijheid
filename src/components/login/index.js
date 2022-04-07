@@ -26,35 +26,62 @@ import { PasswordField } from './PasswordField'
 import { login } from '../../utils'
 import { useForm } from 'react-hook-form'
 import { setToken } from 'utils/services'
+import { useUser } from '~hooks'
 
 export const Login = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm()
     const [errorMessage, setErrorMessage] = useState(null)
+    useUser('/profile', true)
+
+    const [errorMsg, setErrorMsg] = useState('')
     const router = useRouter();
-    const handleSignIn = (data) => {
-        console.log("Data", data)
-        axios
-            .post('https://api.samenvvv.nl/api/auth/local', {
-                identifier: data.email,
-                password: data.password,
-            })
-            .then((response) => {
-                // Handle success.
-                console.log("response", response)
-                setToken(response.data.jwt)
-                localStorage.setItem("loggedUser", JSON.stringify(response.data.user))
-                reset()
-                router.push("/");
-            })
-            .catch((error) => {
-                // Handle error.
-                console.log('An error occurred:', error);
-                setErrorMessage(error.response.data.error.message)
-                setTimeout(() => {
-                    setErrorMessage("")
+    /*
+        const handleSignIn = (data) => {
+            console.log("Data", data)
+            axios
+                .post('https://api.samenvvv.nl/api/auth/local', {
+                    identifier: data.email,
+                    password: data.password,
+                })
+                .then((response) => {
+                    // Handle success.
+                    console.log("response", response)
+                    setToken(response.data.jwt)
+                    localStorage.setItem("loggedUser", JSON.stringify(response.data.user))
                     reset()
-                }, 2000)
-            });
+                    router.push("/");
+                })
+                .catch((error) => {
+                    // Handle error.
+                    console.log('An error occurred:', error);
+                    setErrorMessage(error.response.data.error.message)
+                    setTimeout(() => {
+                        setErrorMessage("")
+                        reset()
+                    }, 2000)
+                });
+        }
+    */
+    //
+    const handleSubmitSign = async event => {
+        console.log("event : ", event)
+        //   event.preventDefault()
+
+        const body = {
+            identifier: event.email,
+            password: event.password,
+        }
+        console.log("body", body)
+        try {
+            await axios.post('/api/auth/login', body)
+            router.push('/profile')
+        } catch (error) {
+            if (error?.response?.data?.error?.message) {
+                setErrorMsg(error?.response?.data?.error?.message)
+            } else {
+                console.error('An unexpected error happened:', error)
+            }
+        }
     }
 
     return (
@@ -79,7 +106,7 @@ export const Login = () => {
                     boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
                     borderRadius={{ base: 'none', sm: 'xl' }}
                 >
-                    <Stack spacing='6' as="form" onSubmit={handleSubmit(handleSignIn)}>
+                    <Stack spacing='6' as="form" onSubmit={handleSubmit(handleSubmitSign)}>
                         <Stack spacing='5' >
                             {errorMessage ? <Text color='red.500' >{errorMessage}</Text> : ""}
                             <FormControl>

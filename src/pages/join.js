@@ -139,7 +139,7 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
   const toast = useToast()
 
   const { mutate, isLoading, isSuccess } = useMutation('create-volunteer', data =>
-    mutation.create('api/volunteers', { data }),
+    mutation.post('api/volunteers', { data }),
   )
 
   const {

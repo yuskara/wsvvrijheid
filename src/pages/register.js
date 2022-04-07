@@ -2,18 +2,18 @@ import { Box } from '@chakra-ui/react'
 
 //import { useTranslation } from 'react-i18next'
 import { Layout } from '~components'
-import { Login } from '~components'
+import { SignUp } from '../components/sign-up/sign-up-form'
 
-const LoginPage = ({ seo }) => {
-    //   const { t } = useTranslation()
+const Register = ({ seo }) => {
+    //const { t } = useTranslation()
 
     return (
         <Layout seo={seo}>
             <Box minH='inherit'>
-                <Login />
+                <SignUp />
             </Box>
         </Layout>
     )
 }
 
-export default LoginPage
+export default Register
