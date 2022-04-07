@@ -1,10 +1,11 @@
 import { Button, Code } from '@chakra-ui/react'
 import axios from 'axios'
+import { withIronSessionSsr } from 'iron-session/next'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 import { Container, Layout } from '~components'
-import { withSession } from '~lib'
+import { sessionOptions } from '~lib'
 
 const Profile = ({ user }) => {
   const router = useRouter()
@@ -29,10 +30,10 @@ const Profile = ({ user }) => {
 
 export default Profile
 
-export const getServerSideProps = withSession(context => {
-  const { req } = context
-  const user = req.session.get('user')
-  if (!user)
+export const getServerSideProps = withIronSessionSsr(async function ({ req }) {
+  const user = req.session.user
+
+  if (!user) {
     return {
       redirect: {
         permanent: false,
@@ -40,10 +41,9 @@ export const getServerSideProps = withSession(context => {
       },
       props: {},
     }
+  }
 
   return {
-    props: {
-      user,
-    },
+    props: { user },
   }
-})
+}, sessionOptions)

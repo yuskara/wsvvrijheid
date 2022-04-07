@@ -1,12 +1,12 @@
-import nc from 'next-connect'
+import { withIronSessionApiRoute } from 'iron-session/next'
 
-import { sessionMiddleware } from '~lib'
+import { sessionOptions } from '~lib'
 
-const handler = nc()
-  .use(sessionMiddleware)
-  .post(async (req, res) => {
-    req.session.destroy()
-    res.send()
-  })
+async function logoutRoute(req, res) {
+  req.session.destroy()
+  res.json({ isLoggedIn: false, token: null })
+}
+
+const handler = withIronSessionApiRoute(logoutRoute, sessionOptions)
 
 export default handler

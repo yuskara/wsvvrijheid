@@ -1,39 +1,32 @@
-import nc from 'next-connect'
+import { withIronSessionApiRoute } from 'iron-session/next'
 
-import { mutation, sessionMiddleware } from '~lib'
+import { mutation, sessionOptions } from '~lib'
 
-const handler = nc()
-  .use(sessionMiddleware)
-  .post(async (req, res) => {
-    const { identifier, password } = req.body
+const loginRoute = async (req, res) => {
+  const { identifier, password } = req.body
 
-    try {
-      const response = await mutation.post(`api/auth/local`, {
-        identifier,
-        password,
-      })
-      console.log('response', response)
-      const user = { ...response.data.user, token: response.data.jwt }
+  try {
+    const response = await mutation.post(`api/auth/local`, {
+      identifier,
+      password,
+    })
 
-      if (!user.confirmed) {
-        return res.status(401).json({
-          statusCode: 401,
-          message: 'User not confirmed',
-        })
-      }
+    const user = { user: response.data.user, isLoggedIn: true, token: response.data.jwt }
 
-      req.session.set('user', user)
-      await req.session.save()
-      res.json(user)
-    } catch (error) {
-      console.log('error', error.message)
-      if (!error.response?.data.error.message) {
-        return res.status(500).json({ message: 'Internal server error' })
-      } else {
-        const messages = error.response.data.error.message
-        return res.status(403).json({ message: messages })
-      }
+    req.session = user
+    await req.session.save()
+    res.json(user)
+  } catch (error) {
+    console.log('error', error)
+    if (!error.response?.data?.error.message) {
+      return res.status(500).json({ message: 'Internal server error' })
+    } else {
+      const messages = error.response?.data?.error.message
+      return res.status(403).json({ message: messages })
     }
-  })
+  }
+}
+
+const handler = withIronSessionApiRoute(loginRoute, sessionOptions)
 
 export default handler
