@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const { amount, name, email, method, description } = req.body
 
   // Create blank donate in database
-  const donate = await mutation.create('api/donates', {
+  const donate = await mutation.post('api/donates', {
     data: {
       name,
       email,
