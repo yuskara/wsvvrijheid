@@ -24,3 +24,4 @@ export const useUser = (redirectTo = '', redirectIfFound = false) => {
 
     return { user, isLoading }
 }
+

@@ -1,5 +1,7 @@
+
 import { HStack, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { withIronSessionSsr } from 'iron-session/next'
+
 import React from 'react'
 
 import { Container, Layout } from '~components'
@@ -20,6 +22,7 @@ const Profile = ({ user }) => {
             <Text>{user?.email}</Text>
           </HStack>
         </Stack>
+
       </Container>
     </Layout>
   )

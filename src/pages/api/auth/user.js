@@ -20,6 +20,7 @@ async function userRoute(req, res) {
     })
   }
 }
+
 const handler = withIronSessionApiRoute(userRoute, sessionOptions)
 
 export default handler
