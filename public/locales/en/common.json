@@ -46,12 +46,13 @@
   "login": {
     "sign-up-header": {
       "title": "Create an account",
-      "text": "Already have an account? Sign in",
+      "text": "Already have an account?",
       "button":"Sign in"
     },
     "sign-in-header": {
       "title": "Log in to your account",
-      "text": "Don't have an account? Sign up"
+      "text": "Don't have an account?",
+      "button":"Sign up"
     },
     "name": {
       "title": "Name",

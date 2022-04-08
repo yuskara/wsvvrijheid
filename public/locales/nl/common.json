@@ -45,12 +45,13 @@
   "login": {
     "sign-up-header": {
       "title": "Maak een account aan",
-      "text": "Heeft u al een account? Meedoen",
+      "text": "Heeft u al een account?",
       "button": "Inloggen"
     },
     "sign-in-header": {
       "title": "Log in op uw account",
-      "text": "Heb je geen account? Meld je aan"
+      "text": "Heb je geen account? Meld je aan",
+      "button":"Inschrijven"
     },
     "name": {
       "title": "Naam",
@@ -62,13 +63,13 @@
       "required": "Email is verplicht"
     },
     "password": {
-      "title": "wachtwoord",
+      "title": "Wachtwoord",
       "invalid": "Te kort",
       "required": "Wachtwoordveld is verplicht",
       "warning": "Minstens 8 karakters lang",
       "forgot-password": "Wachtwoord vergeten?"
     },
-    "create-account": "Crearen Account",
+    "create-account": "Account Aanmaken",
     "sign-in": "Inloggen",
     "sign-up-with": "of zingen met",
     "sign-in-with": "or ga verder met",

@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '~components'
 
@@ -15,3 +16,13 @@ const Register = ({ seo }) => {
 }
 
 export default Register
+
+export const getStaticProps = async context => {
+  const { locale } = context
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
+}
