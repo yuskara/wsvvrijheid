@@ -36,7 +36,7 @@ export const Login = () => {
   } = useForm()
   const [errorMessage, setErrorMessage] = useState('')
   const { t } = useTranslation()
-  useUser('/', true)
+  useUser('/profile', true)
 
   const router = useRouter()
 

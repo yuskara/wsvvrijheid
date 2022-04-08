@@ -27,7 +27,8 @@ const Profile = ({ user }) => {
 
 export default Profile
 
-export const getServerSideProps = withIronSessionSsr(async function ({ req }) {
+export const getServerSideProps = withIronSessionSsr(async function ({ req, locale }) {
+  const { serverSideTranslations } = require('next-i18next/serverSideTranslations')
   const user = req.session.user
 
   if (!user) {
@@ -41,6 +42,9 @@ export const getServerSideProps = withIronSessionSsr(async function ({ req }) {
   }
 
   return {
-    props: { user },
+    props: {
+      user,
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
   }
 }, sessionOptions)

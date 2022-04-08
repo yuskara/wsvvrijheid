@@ -21,6 +21,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useUser } from '~hooks'
+
 import { OAuthButtonGroup } from '../login/oauth-button-group'
 import { PasswordField } from '../login/password-field'
 
@@ -34,6 +36,8 @@ export const SignUp = () => {
   const [error, setErrorMessage] = useState(null)
   const router = useRouter()
   const { t } = useTranslation()
+  useUser('/profile', true)
+
   const handleSubmitSignUp = async data => {
     const body = {
       username: data.name,

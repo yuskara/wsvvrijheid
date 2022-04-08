@@ -8,7 +8,7 @@ import { ProfileMenu } from './profil-menu'
 
 export const Profile = () => {
   // const { locale } = useRouter()
-  const resp = useUser('/', true)
+  const resp = useUser()
   const { t } = useTranslation()
   return (
     <Flex py={1} justify='flex-end' margin='10px'>

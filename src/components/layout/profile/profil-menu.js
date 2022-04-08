@@ -7,7 +7,7 @@ import React from 'react'
 import { useUser } from '~hooks'
 
 export const ProfileMenu = () => {
-  const resp = useUser('/', true)
+  const resp = useUser()
   const router = useRouter()
   const { t } = useTranslation()
 
