@@ -72,7 +72,7 @@ export const Login = () => {
             <Heading size={useBreakpointValue({ base: 'xs', md: 'sm' })}>{t('login.sign-in-header.title')}</Heading>
             <HStack spacing='1' justify='center'>
               <Text color='muted'>{t('login.sign-in-header.text')}</Text>
-              <Button variant='link' as={Link} href='/register' colorScheme='blue'>
+              <Button variant='link' as={Link} href='/user/register' colorScheme='blue'>
                 {t('login.sign-in-header.button')}
               </Button>
             </HStack>
