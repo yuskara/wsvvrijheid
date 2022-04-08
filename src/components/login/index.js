@@ -47,8 +47,7 @@ export const Login = () => {
     }
 
     try {
-      const response = await axios.post('/api/auth/login', body)
-      console.log('response', response)
+      await axios.post('/api/auth/login', body)
       reset()
       router.push('/')
     } catch (error) {
