@@ -43,6 +43,48 @@
     "header": "Contributors",
     "filter": "Filter by team: Total contributors"
   },
+  "login": {
+    "sign-up-header": {
+      "title": "Create an account",
+      "text": "Already have an account? Sign in",
+      "button":"Sign in"
+    },
+    "sign-in-header": {
+      "title": "Log in to your account",
+      "text": "Don't have an account? Sign up"
+    },
+    "name": {
+      "title": "Name",
+      "required": "Name field is required"
+    },
+    "email": {
+      "title": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "password": {
+      "title": "Password",
+      "invalid": "Too short",
+      "required": "Password field is required",
+      "warning": "At least 8 characters long",
+      "forgot-password": "Forgot password?"
+    },
+    "create-account": "Create Account",
+    "sign-in": "Sign in",
+    "sign-up-with": "or sign up with",
+    "sign-in-with": "or continue with",
+    "remember-me": "Remember me"
+  },
+  "profile": {
+    "title": "Profile",
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "logout": "logout",
+    "my-profile": "My Profile",
+    "user-name": "Username",
+    "email": "Email",
+    "my-arts": "My Arts"
+  },
   "apply-form": {
     "name": {
       "input": "Name",

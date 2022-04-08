@@ -1,12 +1,12 @@
-import { Box, Flex, Image, Link, Slack } from '@chakra-ui/react'
+import { Box, Flex, Image, Link } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
+import { Profile } from '../profile'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
-import { Profile } from '../profile'
 
 export const Header = () => {
   return (

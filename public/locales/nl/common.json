@@ -42,6 +42,48 @@
     "header": "Bijdragers",
     "filter": "Filter op team: Totaal aantal bijdragers "
   },
+  "login": {
+    "sign-up-header": {
+      "title": "Maak een account aan",
+      "text": "Heeft u al een account? Meedoen",
+      "button": "Zingen in"
+    },
+    "sign-in-header": {
+      "title": "Log in op uw account",
+      "text": "Heb je geen account? Meld je aan"
+    },
+    "name": {
+      "title": "Naam",
+      "required": "Naamveld is verplicht"
+    },
+    "email": {
+      "title": "E-mail",
+      "invalid": "Ongeldig e-mailadres",
+      "required": "Email is verplicht"
+    },
+    "password": {
+      "title": "wachtwoord",
+      "invalid": "Te kort",
+      "required": "Wachtwoordveld is verplicht",
+      "warning": "Minstens 8 karakters lang",
+      "forgot-password": "Wachtwoord vergeten?"
+    },
+    "create-account": "Crearen Account",
+    "sign-in": "Zingen in",
+    "sign-up-with": "of zingen met",
+    "sign-in-with": "or ga verder met",
+    "remember-me": "Onthoud mij"
+  },
+  "profile": {
+    "title": "Profiel",
+    "sign-in": "Zing mee",
+    "sign-up": "Zing-up",
+    "logout": "Uitloggen",
+    "my-profile": "Mijn profiel",
+    "user-name": "Gebruikersnaam",
+    "email": "E-mail",
+    "my-arts": "Mijn Kunsten"
+  },
   "apply-form": {
     "name": {
       "input": "Naam",

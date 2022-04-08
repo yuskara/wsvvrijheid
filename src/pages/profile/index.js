@@ -1,47 +1,46 @@
-import { Button, Code } from '@chakra-ui/react'
-import axios from 'axios'
+import { HStack, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { withIronSessionSsr } from 'iron-session/next'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 import { Container, Layout } from '~components'
 import { sessionOptions } from '~lib'
 
 const Profile = ({ user }) => {
-    const router = useRouter()
-    const onLogout = () => {
-        axios.post('/api/auth/logout').then(() => {
-            router.push('/login')
-        })
-    }
-    return (
-        <Layout>
-            <Container>
-                <pre>
-                    <Code>{JSON.stringify(user, null, 2)}</Code>
-                </pre>
-                <Button onClick={onLogout}>Logout</Button>
-            </Container>
-        </Layout>
-    )
+  console.log('User', user)
+  return (
+    <Layout>
+      <Container>
+        <Stack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch' marginTop={'50px'}>
+          <HStack>
+            <Text>Username: </Text>
+            <Text>{user?.username}</Text>
+          </HStack>
+          <HStack>
+            <Text>Email: </Text>
+            <Text>{user?.email}</Text>
+          </HStack>
+        </Stack>
+      </Container>
+    </Layout>
+  )
 }
 
 export default Profile
 
 export const getServerSideProps = withIronSessionSsr(async function ({ req }) {
-    const user = req.session.user
+  const user = req.session.user
 
-    if (!user) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: '/login',
-            },
-            props: {},
-        }
-    }
-
+  if (!user) {
     return {
-        props: { user },
+      redirect: {
+        permanent: false,
+        destination: '/user/login',
+      },
+      props: {},
     }
+  }
+
+  return {
+    props: { user },
+  }
 }, sessionOptions)

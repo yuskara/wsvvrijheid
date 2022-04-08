@@ -12,6 +12,7 @@ import React from 'react'
 import { FaBars } from 'react-icons/fa'
 
 import { LocaleSwitcher } from '../locale-switcher'
+import { Profile } from '../profile'
 import { HeaderNav } from './header-nav'
 
 export const HeaderMobile = () => {
@@ -29,6 +30,7 @@ export const HeaderMobile = () => {
         </DrawerContent>
       </Drawer>
       <LocaleSwitcher />
+      <Profile />
       <IconButton variant='outline' colorScheme='blackAlpha' onClick={onToggle} aria-label='menu' icon={<FaBars />} />
     </HStack>
   )

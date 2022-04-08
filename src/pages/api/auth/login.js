@@ -3,7 +3,6 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { mutation, sessionOptions } from '~lib'
 
 const loginRoute = async (req, res) => {
-  console.log("login router", req, "response", res)
   const { identifier, password } = req.body
 
   try {

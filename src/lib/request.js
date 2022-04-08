@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+
 import { transformStrapiData } from '~utils'
 
 export const fetcher = axios.create({
