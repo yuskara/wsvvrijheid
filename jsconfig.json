@@ -7,6 +7,7 @@
       "~components": ["components"],
       "~config": ["config"],
       "~data": ["data"],
+      "~hooks": ["hooks"],
       "~lib": ["lib"],
       "~pages": ["pages"],
       "~theme": ["theme"],

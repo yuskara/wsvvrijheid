@@ -8,6 +8,7 @@
           ["~components", "./src/components"],
           ["~config", "./src/config"],
           ["~data", "./src/data"],
+          ["~hooks", "./src/hooks"],
           ["~lib", "./src/lib"],
           ["~pages", "./src/pages"],
           ["~theme", "./src/theme"],

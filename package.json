@@ -21,6 +21,7 @@
     "axios": "^0.26.1",
     "eslint-plugin-prettier": "^4.0.0",
     "framer-motion": "^6.2.8",
+    "iron-session": "^6.1.2",
     "next": "12.1.0",
     "next-i18next": "^10.5.0",
     "next-seo": "^5.1.0",
