@@ -47,12 +47,12 @@
     "sign-up-header": {
       "title": "Create an account",
       "text": "Already have an account?",
-      "button":"Sign in"
+      "button": "Sign in"
     },
     "sign-in-header": {
       "title": "Log in to your account",
       "text": "Don't have an account?",
-      "button":"Sign up"
+      "button": "Sign up"
     },
     "name": {
       "title": "Name",
@@ -68,7 +68,13 @@
       "invalid": "Too short",
       "required": "Password field is required",
       "warning": "At least 8 characters long",
-      "forgot-password": "Forgot password?"
+      "forgot-password": "Forgot password?",
+      "matches": {
+        "lowercase": "Your password must contain at least one lowercase letter [a...z]",
+        "uppercase": "Your password must contain at least one uppercase letter [A..Z]",
+        "number": "Your password must contain at least one number [1,2,3...]",
+        "special": "Your password must contain at least one special character [(?=@...]"
+      }
     },
     "create-account": "Create Account",
     "sign-in": "Sign in",

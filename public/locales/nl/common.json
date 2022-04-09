@@ -51,7 +51,7 @@
     "sign-in-header": {
       "title": "Log in op uw account",
       "text": "Heb je geen account? Meld je aan",
-      "button":"Inschrijven"
+      "button": "Inschrijven"
     },
     "name": {
       "title": "Naam",
@@ -67,12 +67,18 @@
       "invalid": "Te kort",
       "required": "Wachtwoordveld is verplicht",
       "warning": "Minstens 8 karakters lang",
-      "forgot-password": "Wachtwoord vergeten?"
+      "forgot-password": "Wachtwoord vergeten?",
+      "matches": {
+        "lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
+        "uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
+        "number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
+        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]"
+      }
     },
     "create-account": "Account Aanmaken",
     "sign-in": "Inloggen",
     "sign-up-with": "of zingen met",
-    "sign-in-with": "or ga verder met",
+    "sign-in-with": "of ga verder met",
     "remember-me": "Onthoud mij"
   },
   "profile": {

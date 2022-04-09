@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { useUser } from '~hooks'
 
-export const Profile = () => {
+export const ProfileMenu = () => {
   // const { locale } = useRouter()
   const resp = useUser()
   const { t } = useTranslation()

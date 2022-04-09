@@ -68,7 +68,13 @@
       "invalid": "Çok kısa",
       "required": "Parola alanı zorunludur",
       "warning": "Parola en az 8 karakter olmalıdır",
-      "forgot-password": "Parolanızı mı unuttunuz?"
+      "forgot-password": "Parolanızı mı unuttunuz?",
+      "matches": {
+        "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
+        "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
+        "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+      }
     },
     "create-account": "Hesap oluştur",
     "sign-in": "Giriş yap",

@@ -4,7 +4,7 @@ import Headroom from 'react-headroom'
 
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
-import { Profile } from '../profile'
+import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
@@ -35,7 +35,7 @@ export const Header = () => {
             <Box display={{ base: 'none', lg: 'block' }}>
               <Flex py={1} justify='flex-end'>
                 <LocaleSwitcher />
-                <Profile />
+                <ProfileMenu />
               </Flex>
               <HeaderNav />
             </Box>

@@ -1,18 +1,17 @@
-import { Button, ButtonGroup, VisuallyHidden } from '@chakra-ui/react'
-
-import { GitHubIcon, GoogleIcon, TwitterIcon } from './provider-icons'
+import { Box, Button, ButtonGroup, VisuallyHidden } from '@chakra-ui/react'
+import { FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa'
 const providers = [
   {
     name: 'Google',
-    icon: <GoogleIcon boxSize='5' />,
+    icon: <Box as={FaGoogle} color='red.500' boxSize='5' />,
   },
   {
     name: 'Twitter',
-    icon: <TwitterIcon boxSize='5' />,
+    icon: <Box as={FaTwitter} color='twitter.500' boxSize='5' />,
   },
   {
-    name: 'GitHub',
-    icon: <GitHubIcon boxSize='5' />,
+    name: 'Facebook',
+    icon: <Box as={FaFacebook} color='facebook.500' boxSize='5' />,
   },
 ]
 

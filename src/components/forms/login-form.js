@@ -8,37 +8,58 @@ import {
   FormLabel,
   Heading,
   HStack,
-  Input,
   Link,
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue,
 } from '@chakra-ui/react'
+import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import * as React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import { useUser } from '~hooks'
 
+import { FormItem } from './form-item'
 import { OAuthButtonGroup } from './oauth-button-group'
 import { PasswordField } from './password-field'
+const schema = t =>
+  yup.object({
+    password: yup
+      .string()
+      .min(8, t('login.password.warning'))
+      .max(32)
+      .required(t('login.password.required'))
+      .matches(RegExp('(.*[a-z].*)'), t('login.password.matches.lowercase'))
+      .matches(RegExp('(.*[A-Z].*)'), t('login.password.matches.uppercase'))
+      .matches(RegExp('(.*\\d.*)'), t('login.password.matches.number'))
+      .matches(RegExp('[!@#$%^&*(),.?":{}|<>]'), t('login.password.matches.special')),
+    email: yup
+      .string()
+      .email(t`contact.form.email-invalid`)
+      .required(t`login.email.required`),
+    message: yup.string().required(t`login.email.required`),
+  })
 
-export const Login = () => {
+export const LoginForm = () => {
+  const { t } = useTranslation()
+  const [errorMessage, setErrorMessage] = useState('')
+  useUser('/profile', true)
+
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm()
-  const [errorMessage, setErrorMessage] = useState('')
-  const { t } = useTranslation()
-  useUser('/profile', true)
-
-  const router = useRouter()
+  } = useForm({
+    resolver: yupResolver(schema(t)),
+    mode: 'all',
+  })
 
   const handleSubmitSign = async data => {
     const body = {
@@ -69,7 +90,6 @@ export const Login = () => {
       }
     }
   }
-
   return (
     <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
       <Stack spacing='8'>
@@ -87,8 +107,7 @@ export const Login = () => {
         <Box
           py={{ base: '0', sm: '8' }}
           px={{ base: '4', sm: '10' }}
-          bg={useBreakpointValue({ base: 'transparent', sm: 'bg-surface' })}
-          boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
+          bg={{ base: 'transparent', sm: 'bg-surface' }}
           borderRadius={{ base: 'none', sm: 'xl' }}
         >
           <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitSign)}>
@@ -96,15 +115,9 @@ export const Login = () => {
               {errorMessage ? <Text color='red.500'>{errorMessage}</Text> : ''}
               <FormControl>
                 <FormLabel htmlFor='email'>{t('login.email.title')}</FormLabel>
-                <Input
-                  name='email'
-                  id='email'
-                  type='email'
-                  {...register('email', { required: t('login.email.required') })}
-                />
-                <Text color='red.400'>{errors?.email?.message}</Text>
+                <FormItem name='email' id='email' type='email' register={register} errors={errors} />
+                <PasswordField register={register} errors={errors} />
               </FormControl>
-              <PasswordField register={register} errors={errors} />
             </Stack>
             <HStack justify='space-between'>
               <Checkbox defaultIsChecked>{t('login.remember-me')}</Checkbox>
@@ -113,19 +126,9 @@ export const Login = () => {
               </Button>
             </HStack>
             <Stack spacing='6'>
-              <Input
-                as={Button}
-                variant='solid'
-                cursor='pointer'
-                borderStyle='solid'
-                colorScheme='blue'
-                color='white'
-                borderColor='white.700'
-                bg='blue.600'
-                type='submit'
-              >
+              <Button type='submit' colorScheme='blue'>
                 {t('login.sign-in')}
-              </Input>
+              </Button>
               <HStack>
                 <Divider />
                 <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
