@@ -22,8 +22,7 @@ const registerRoute = async (req, res) => {
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {
-      const messages = error.response?.data?.error.message
-      return res.status(403).json({ message: messages })
+      res.json(error.response?.data)
     }
   }
 }

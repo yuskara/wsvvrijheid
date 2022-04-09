@@ -1,4 +1,6 @@
 import { Avatar, Flex, Link, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 //import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -8,7 +10,7 @@ export const Profile = () => {
   // const { locale } = useRouter()
   const resp = useUser()
   const { t } = useTranslation()
-
+  const router = useRouter()
   const logOut = async e => {
     e.preventDefault()
     axios.post('/api/auth/logout').then(() => {

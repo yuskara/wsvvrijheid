@@ -47,15 +47,22 @@ export const Login = () => {
     }
 
     try {
-      await axios.post('/api/auth/login', body)
-      reset()
-      router.push('/')
-    } catch (error) {
-      if (error?.response?.data?.error?.message) {
-        setErrorMessage(error?.response?.data?.error?.message)
+      const resp = await axios.post('/api/auth/login', body)
+      if (resp?.data?.error) {
+        setErrorMessage(resp?.data?.error?.message)
         setTimeout(() => {
           setErrorMessage('')
           reset()
+        }, 2000)
+      } else {
+        reset()
+        router.push('/')
+      }
+    } catch (error) {
+      if (error?.response?.data?.error?.message) {
+        setErrorMessage(eerror?.response?.data?.error?.message)
+        setTimeout(() => {
+          setErrorMessage('')
         }, 2000)
       } else {
         console.error('An unexpected error happened:', error)
