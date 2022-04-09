@@ -11,7 +11,7 @@ const nextConfig = {
       '127.0.0.1',
       'picsum.photos',
       'images.unsplash.com',
-      'admin.samenvvv.nl',
+      'api.samenvvv.nl',
       'samenvvv.nl',
       'media.istockphoto.com',
       'pbs.twimg.com',

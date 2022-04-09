@@ -1,12 +1,12 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 
-import { mutation, sessionOptions } from '~lib'
+import { fetcher, sessionOptions } from '~lib'
 
 const loginRoute = async (req, res) => {
   const { identifier, password } = req.body
 
   try {
-    const response = await mutation.post(`api/auth/local`, {
+    const response = await fetcher.post(`api/auth/local`, {
       identifier,
       password,
     })

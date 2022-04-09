@@ -48,9 +48,21 @@ export const request = async ({
 }
 
 export const mutation = {
-  post: async (url, data) => fetcher.post(`/${url}`, data),
-  put: async (url, id, data) => fetcher.put(`/${url}/${id}`, data),
-  delete: async (url, id) => fetcher.delete(`/${url}/${id}`),
+  post: async (url, data) => {
+    const response = await fetcher.post(`/${url}`, data)
+    return transformStrapiData(response.data).result
+  },
+  put: async (url, id, data) => {
+    const response = await fetcher.put(`/${url}/${id}`, data)
+    return transformStrapiData(response.data).result
+  },
+  delete: async (url, id) => {
+    const response = await fetcher.delete(`/${url}/${id}`)
+    return transformStrapiData(response.data).result
+  },
   // https://docs.strapi.io/developer-docs/latest/plugins/i18n.html#creating-a-localization-for-an-existing-entry
-  localize: async (url, id, data) => fetcher.post(`/${url}/${id}/localization`, data),
+  localize: async (url, id, data) => {
+    const response = fetcher.post(`/${url}/${id}/localization`, data)
+    return transformStrapiData(response.data).result
+  },
 }
