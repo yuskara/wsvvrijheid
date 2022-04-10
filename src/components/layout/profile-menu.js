@@ -1,7 +1,8 @@
-import { Avatar, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
+import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { FiLogIn } from 'react-icons/fi'
 
 import { Navigate } from '~components'
 import { useUser } from '~hooks'
@@ -18,12 +19,19 @@ export const ProfileMenu = () => {
     })
   }
 
-  if (!user?.user) return <Navigate href={'/user/login'}>{t('profile.sign-in')}</Navigate>
+  if (!user?.user)
+    return (
+      <Navigate as={Button} size='sm' colorScheme='blue' rightIcon={<FiLogIn />} href={'/user/login'}>
+        {t('profile.sign-in')}
+      </Navigate>
+    )
 
   return (
     <Menu>
       <MenuButton>
-        <Avatar name={user.user.username}> </Avatar>
+        <Avatar boxSize={10} rounded='lg' name={user.user.username}>
+          {' '}
+        </Avatar>
       </MenuButton>
       <MenuList>
         <MenuItem>{user.user.username}</MenuItem>
