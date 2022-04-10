@@ -1,6 +1,7 @@
 export { CategoryFilter } from './category-filter'
 export { ContactForm } from './forms/contact-form'
 export { FormItem } from './forms/form-item'
+export { HomeHero } from './home-hero'
 export { Container } from './layout/container'
 export { Layout } from './layout/layout'
 export { ProjectsList } from './projects-list'
