@@ -1,13 +1,18 @@
-import { Box, Flex, Image, Link } from '@chakra-ui/react'
+import { Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
+import { useAuth } from '~hooks'
+
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
+import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
 export const Header = () => {
+  const { isLoggedIn } = useAuth()
+
   return (
     <Headroom style={{ zIndex: 999 }}>
       <Flex
@@ -31,10 +36,16 @@ export const Header = () => {
                 />
               </Link>
             </motion.div>
-            <Box display={{ base: 'none', lg: 'block' }}>
-              <LocaleSwitcher />
-              <HeaderNav />
-            </Box>
+            <HStack display={{ base: 'none', lg: 'flex' }} align='center' spacing={4}>
+              <Stack spacing={1}>
+                <HStack justify='end'>
+                  <LocaleSwitcher />
+                  {!isLoggedIn && <ProfileMenu />}
+                </HStack>
+                <HeaderNav />
+              </Stack>
+              {isLoggedIn && <ProfileMenu />}
+            </HStack>
             <HeaderMobile />
           </Flex>
         </Container>

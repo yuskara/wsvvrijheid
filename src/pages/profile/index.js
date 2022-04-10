@@ -1,28 +1,25 @@
-import { Button, Code } from '@chakra-ui/react'
-import axios from 'axios'
+import { HStack, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { withIronSessionSsr } from 'iron-session/next'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 import { Container, Layout } from '~components'
 import { sessionOptions } from '~lib'
 
 const Profile = ({ user }) => {
-  const router = useRouter()
-
-  const onLogout = () => {
-    axios.post('/api/auth/logout').then(() => {
-      router.push('/login')
-    })
-  }
-
+  console.log('User', user)
   return (
     <Layout>
       <Container>
-        <pre>
-          <Code>{JSON.stringify(user, null, 2)}</Code>
-        </pre>
-        <Button onClick={onLogout}>Logout</Button>
+        <Stack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch' marginTop={'50px'}>
+          <HStack>
+            <Text>Username: </Text>
+            <Text>{user?.username}</Text>
+          </HStack>
+          <HStack>
+            <Text>Email: </Text>
+            <Text>{user?.email}</Text>
+          </HStack>
+        </Stack>
       </Container>
     </Layout>
   )
@@ -30,20 +27,24 @@ const Profile = ({ user }) => {
 
 export default Profile
 
-export const getServerSideProps = withIronSessionSsr(async function ({ req }) {
+export const getServerSideProps = withIronSessionSsr(async function ({ req, locale }) {
+  const { serverSideTranslations } = require('next-i18next/serverSideTranslations')
   const user = req.session.user
 
   if (!user) {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: '/user/login',
       },
       props: {},
     }
   }
 
   return {
-    props: { user },
+    props: {
+      user,
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
   }
 }, sessionOptions)

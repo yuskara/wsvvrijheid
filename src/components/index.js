@@ -1,6 +1,8 @@
 export { CategoryFilter } from './category-filter'
 export { ContactForm } from './forms/contact-form'
 export { FormItem } from './forms/form-item'
+export { LoginForm } from './forms/login-form'
+export { SignupForm as SignUp } from './forms/signup-form'
 export { Container } from './layout/container'
 export { Layout } from './layout/layout'
 export { ProjectsList } from './projects-list'
