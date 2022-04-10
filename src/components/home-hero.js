@@ -1,8 +1,8 @@
-import { Box, chakra, keyframes } from '@chakra-ui/react'
+import { chakra, Flex, keyframes } from '@chakra-ui/react'
 import { useTransform, useViewportScroll } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
-const move = keyframes`
+const moveHorizontal = keyframes`
   0% { transform: translateX(50px); }
   50% { transform: translateX(-100px); }
   100% { transform: translateX(50px); }
@@ -13,13 +13,13 @@ export const HomeHero = () => {
   const { scrollYProgress } = useViewportScroll()
   const yRange = useTransform(scrollYProgress, [0, 1], [0, 100])
 
-  const animation = useCallback((sn = 20) => `${move} infinite ${sn}s ease-in-out`, [])
+  const animation = useCallback((sn = 20) => `${moveHorizontal} infinite ${sn}s ease-in-out`, [])
 
   useEffect(() => yRange.onChange(setPos), [yRange])
 
   return (
-    <Box pos='relative'>
-      <chakra.svg w='full' viewBox='0 0 3600 1800' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <Flex w={{ base: '200vw', lg: 'full' }} pos='relative' left='50%' transform='translateX(-50%)'>
+      <chakra.svg h='full' viewBox='0 0 3600 1800' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <path
           id='cloud'
           d='M2631.43 424.819C2560.67 424.768 2490.25 434.223 2422.14 452.918C2251.1 238.209 1983.65 100 1683.09 100C1237.29 100 864.428 403.983 770.651 810.844C740.753 804.723 709.762 805.941 680.466 814.388C651.17 822.836 624.488 838.249 602.819 859.24C581.151 880.231 565.176 906.143 556.332 934.644C547.487 963.146 546.05 993.343 552.15 1022.52C380.339 1065.56 246.602 1201.03 209.998 1371.28C185.801 1483.85 205.892 1601.18 266.288 1700H3178.52C3320.65 1559.96 3400.25 1370.87 3400 1173.9C3400 760.19 3055.89 424.819 2631.43 424.819Z'
@@ -857,6 +857,6 @@ export const HomeHero = () => {
           />
         </g>
       </chakra.svg>
-    </Box>
+    </Flex>
   )
 }
