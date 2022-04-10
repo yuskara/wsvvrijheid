@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Heading, HStack, Link, Stack, Text } from '@chakra-ui/react'
+import { Button, Container, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import { Navigate } from '~components'
 import { useAuth } from '~hooks'
 
 import { FormItem } from './form-item'
@@ -75,48 +76,46 @@ export const SignupForm = () => {
 
   return (
     <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
-      <Stack spacing='8'>
+      <Stack spacing='8' shadow='lg' bg='white' p={{ base: 8, lg: 12 }} rounded='lg'>
         <Stack spacing='6'>
           <Stack spacing={{ base: '2', md: '3' }} textAlign='center'>
             <Heading>{t('login.sign-up-header.title')}</Heading>
             <HStack spacing='1' justify='center'>
               <Text color='muted'>{t('login.sign-up-header.text')}</Text>
-              <Button variant='link' as={Link} href='/user/login' colorScheme='blue'>
+              <Navigate variant='link' as={Button} href='/user/login' colorScheme='blue'>
                 {t('login.sign-up-header.button')}
-              </Button>
+              </Navigate>
             </HStack>
           </Stack>
         </Stack>
-        <Box py={{ base: '0', sm: '8' }} px={{ base: '4', sm: '10' }} borderRadius={{ base: 'none', sm: 'xl' }}>
-          <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitSignUp)}>
-            <Stack spacing='5'>
-              {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
-              <FormItem id='username' label={t('login.name.title')} register={register} errors={errors} />
-              <FormItem id='email' type='email' label={t('login.email.title')} register={register} errors={errors} />
-              <FormItem
-                id='password'
-                type='password'
-                label={t('login.password.title')}
-                autoComplete='current-password'
-                register={register}
-                errors={errors}
-              />
-            </Stack>
-            <Stack spacing='6'>
-              <Button type='submit' colorScheme='blue'>
-                {t('login.create-account')}
-              </Button>
-              <HStack>
-                <Divider />
-                <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
-                  {t('login.sign-up-with')}
-                </Text>
-                <Divider />
-              </HStack>
-              <OAuthButtonGroup />
-            </Stack>
+        <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitSignUp)}>
+          <Stack spacing='5'>
+            {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
+            <FormItem id='username' label={t('login.name.title')} register={register} errors={errors} />
+            <FormItem id='email' type='email' label={t('login.email.title')} register={register} errors={errors} />
+            <FormItem
+              id='password'
+              type='password'
+              label={t('login.password.title')}
+              autoComplete='current-password'
+              register={register}
+              errors={errors}
+            />
           </Stack>
-        </Box>
+          <Stack spacing='6'>
+            <Button type='submit' colorScheme='blue'>
+              {t('login.create-account')}
+            </Button>
+            <HStack>
+              <Divider />
+              <Text fontSize='sm' whiteSpace='nowrap' color='muted'>
+                {t('login.sign-up-with')}
+              </Text>
+              <Divider />
+            </HStack>
+            <OAuthButtonGroup />
+          </Stack>
+        </Stack>
       </Stack>
     </Container>
   )
