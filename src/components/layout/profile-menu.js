@@ -1,58 +1,43 @@
-import { Avatar, Flex, Link, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
+import { Avatar, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-//import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { Navigate } from '~components'
 import { useUser } from '~hooks'
 
 export const ProfileMenu = () => {
-  // const { locale } = useRouter()
-  const resp = useUser()
+  const { user } = useUser()
   const { t } = useTranslation()
   const router = useRouter()
+
   const logOut = async e => {
     e.preventDefault()
     axios.post('/api/auth/logout').then(() => {
       router.push('/user/login')
     })
   }
+
+  if (!user?.user) return <Navigate href={'/user/login'}>{t('profile.sign-in')}</Navigate>
+
   return (
-    <Flex py={1} justify='flex-end' margin='10px'>
-      {resp.user?.user ? (
-        <Menu>
-          <MenuButton>
-            <Avatar name={resp ? resp?.user?.user?.username : ''}> </Avatar>
-          </MenuButton>
-          <MenuList>
-            <MenuItem> {resp ? resp?.user?.user?.username : ''} </MenuItem>
-            <MenuGroup title={t('profile.title')}>
-              <MenuItem as={Link} href={'/profile'}>
-                {' '}
-                {t('profile.my-profile')}{' '}
-              </MenuItem>
-              <MenuItem> {t('profile.my-arts')} </MenuItem>
-            </MenuGroup>
-            <MenuDivider />
-            <MenuItem color='red.400' onClick={logOut}>
-              {' '}
-              {t('profile.logout')}
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      ) : (
-        <Menu>
-          <MenuButton>Login</MenuButton>
-          <MenuList>
-            <MenuItem as={Link} href={'/user/login'}>
-              {t('profile.sign-in')}
-            </MenuItem>
-            <MenuItem as={Link} href={'/user/register'}>
-              {t('profile.sign-up')}
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      )}
-    </Flex>
+    <Menu>
+      <MenuButton>
+        <Avatar name={user.user.username}> </Avatar>
+      </MenuButton>
+      <MenuList>
+        <MenuItem>{user.user.username}</MenuItem>
+        <MenuGroup title={t('profile.title')}>
+          <MenuItem as={Navigate} href={'/profile'}>
+            {t('profile.my-profile')}
+          </MenuItem>
+          <MenuItem>{t('profile.my-arts')}</MenuItem>
+        </MenuGroup>
+        <MenuDivider />
+        <MenuItem color='red.400' onClick={logOut}>
+          {t('profile.logout')}
+        </MenuItem>
+      </MenuList>
+    </Menu>
   )
 }
