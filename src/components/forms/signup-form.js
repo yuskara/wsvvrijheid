@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useUser } from '~hooks'
+import { useAuth } from '~hooks'
 
 import { FormItem } from './form-item'
 import { OAuthButtonGroup } from './oauth-button-group'
@@ -31,7 +31,7 @@ const schema = t =>
   })
 
 export const SignupForm = () => {
-  useUser('/profile', true)
+  useAuth('/profile', true)
 
   const [errorMessage, setErrorMessage] = useState(null)
 

@@ -2,7 +2,7 @@ import { Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
-import { useUser } from '~hooks'
+import { useAuth } from '~hooks'
 
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
@@ -11,7 +11,7 @@ import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
 export const Header = () => {
-  const { user } = useUser()
+  const { isLoggedIn } = useAuth()
 
   return (
     <Headroom style={{ zIndex: 999 }}>
@@ -36,15 +36,15 @@ export const Header = () => {
                 />
               </Link>
             </motion.div>
-            <HStack display={{ base: 'none', lg: 'flex' }} align='center'>
+            <HStack display={{ base: 'none', lg: 'flex' }} align='center' spacing={4}>
               <Stack spacing={1}>
                 <HStack justify='end'>
                   <LocaleSwitcher />
-                  {!user?.isLoggedIn && <ProfileMenu />}
+                  {!isLoggedIn && <ProfileMenu />}
                 </HStack>
                 <HeaderNav />
               </Stack>
-              {user?.isLoggedIn && <ProfileMenu />}
+              {isLoggedIn && <ProfileMenu />}
             </HStack>
             <HeaderMobile />
           </Flex>

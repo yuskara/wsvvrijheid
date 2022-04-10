@@ -1,12 +1,12 @@
 import axios from 'axios'
 import Router from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useQuery } from 'react-query'
 
-export const useUser = (redirectTo = '', redirectIfFound = false) => {
-  const { data: response, isLoading } = useQuery('me', () => axios.post('/api/auth/user'))
+export const useAuth = (redirectTo = '', redirectIfFound = false) => {
+  const { data, isLoading } = useQuery('me', () => axios.post('/api/auth/user'))
 
-  const user = response?.data
+  const user = useMemo(() => data?.data || {}, [data])
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
@@ -22,5 +22,5 @@ export const useUser = (redirectTo = '', redirectIfFound = false) => {
     }
   }, [user, redirectIfFound, redirectTo])
 
-  return { user, isLoading }
+  return { ...user, isLoading }
 }
