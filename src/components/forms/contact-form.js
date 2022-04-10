@@ -45,7 +45,7 @@ export const ContactForm = () => {
     }
     try {
       setIsLoading(true)
-      axios.post(`${process.env.NEXT_PUBLIC_ADMIN_URL}/email`, emailData)
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/email`, emailData)
     } catch (error) {
       setIsError(true)
       setIsSuccess(false)

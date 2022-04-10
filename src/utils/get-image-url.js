@@ -1,5 +1,5 @@
 export const getImageUrl = (image, type) => {
-  const basePath = process.env.NEXT_PUBLIC_ADMIN_URL
+  const basePath = process.env.NEXT_PUBLIC_API_URL
   if (image == null) return ''
 
   if (typeof image === 'string') return image.startsWith('http') ? image : `${basePath}${image}`
