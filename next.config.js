@@ -104,6 +104,26 @@ const nextConfig = {
         destination: '/tr/activities',
         locale: false,
       },
+      {
+        source: '/tr/uye-ol',
+        destination: '/tr/sign-up',
+        locale: false,
+      },
+      {
+        source: '/nl/aanmelden',
+        destination: '/nl/sign-up',
+        locale: false,
+      },
+      {
+        source: '/tr/giris-yap',
+        destination: '/tr/giris-yap',
+        locale: false,
+      },
+      {
+        source: '/nl/log-in',
+        destination: '/nl/log-in',
+        locale: false,
+      },
     ]
   },
 }

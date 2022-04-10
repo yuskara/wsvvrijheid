@@ -46,7 +46,6 @@ export const request = async ({
     return null
   }
 }
-
 export const mutation = {
   post: async (url, data) => {
     const response = await fetcher.post(`/${url}`, data)
