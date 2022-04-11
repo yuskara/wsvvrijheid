@@ -6,7 +6,6 @@ import { Container, Layout } from '~components'
 import { sessionOptions } from '~lib'
 
 const Profile = ({ user }) => {
-  console.log('User', user)
   return (
     <Layout>
       <Container>
