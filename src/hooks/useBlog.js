@@ -12,7 +12,9 @@ const getBlogState = () =>
 export const useBlog = blog => {
   const [hasLiked, setHasLiked] = useState(getBlogState().likes.some(id => id === blog?.id))
   const [isViewed, setIsViewed] = useState(getBlogState().views.some(id => id === blog.id))
-  const [blogState, setBlogState] = useState(getBlogState())
+  const [blogStorage, setBlogStorage] = useState(getBlogState())
+  const [views, setViews] = useState(blog.views)
+  const [likes, setLikes] = useState(blog.likes)
 
   useEffect(() => {
     let timer
@@ -20,7 +22,8 @@ export const useBlog = blog => {
       if (!isViewed) {
         timer = setTimeout(async () => {
           const result = await viewBlogMutation(blog)
-          setBlogState({ ...blogState, views: [...blogState.views, result.id] })
+          setViews(prev => prev + 1)
+          setBlogStorage({ ...blogStorage, views: [...blogStorage.views, result.id] })
           setIsViewed(true)
         }, 10000)
       }
@@ -29,29 +32,30 @@ export const useBlog = blog => {
     return () => {
       clearTimeout(timer)
     }
-  }, [blog, isViewed, blogState])
+  }, [blog, isViewed, blogStorage])
 
   useEffect(() => {
-    setHasLiked(blogState.likes.some(id => id === blog?.id))
+    setHasLiked(blogStorage.likes.some(id => id === blog?.id))
 
-    localStorage.setItem(LOCAL_STORAGE_BLOG_KEY, JSON.stringify(blogState))
-  }, [blogState, blog])
+    localStorage.setItem(LOCAL_STORAGE_BLOG_KEY, JSON.stringify(blogStorage))
+  }, [blogStorage, blog])
 
   const likeBlog = async () => {
     const result = await likeBlogMutation(blog)
-    setBlogState({ ...blogState, likes: [...blogState.likes, result.id] })
+    setLikes(prev => prev + 1)
+    setBlogStorage({ ...blogStorage, likes: [...blogStorage.likes, result.id] })
   }
 
   const unlikeBlog = async () => {
     const result = await unlikeBlogMutation(blog)
-
-    const filteredLikes = blogState.likes.filter(id => id !== result.id)
-    setBlogState({ ...blogState, likes: filteredLikes })
+    setLikes(prev => prev - 1)
+    const filteredLikes = blogStorage.likes.filter(id => id !== result.id)
+    setBlogStorage({ ...blogStorage, likes: filteredLikes })
   }
 
   const toggleLike = async () => {
     hasLiked ? unlikeBlog() : likeBlog()
   }
 
-  return { hasLiked, toggleLike, likes: blogState.likes.length, views: blogState.views.length }
+  return { hasLiked, toggleLike, likes, views }
 }
