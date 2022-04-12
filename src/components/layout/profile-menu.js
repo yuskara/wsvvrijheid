@@ -21,7 +21,7 @@ export const ProfileMenu = () => {
 
   if (!user)
     return (
-      <Navigate as={Button} size='sm' colorScheme='blue' rightIcon={<FiLogIn />} href={'/user/login'}>
+      <Navigate as={Button} size='sm' colorScheme='blue' variant='outline' rightIcon={<FiLogIn />} href={'/user/login'}>
         {t('profile.sign-in')}
       </Navigate>
     )
