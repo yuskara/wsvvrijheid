@@ -11,7 +11,7 @@ const nextConfig = {
       '127.0.0.1',
       'picsum.photos',
       'images.unsplash.com',
-      'admin.samenvvv.nl',
+      'api.samenvvv.nl',
       'samenvvv.nl',
       'media.istockphoto.com',
       'pbs.twimg.com',
@@ -102,6 +102,26 @@ const nextConfig = {
       {
         source: '/tr/faaliyetler',
         destination: '/tr/activities',
+        locale: false,
+      },
+      {
+        source: '/tr/uye-ol',
+        destination: '/tr/sign-up',
+        locale: false,
+      },
+      {
+        source: '/nl/aanmelden',
+        destination: '/nl/sign-up',
+        locale: false,
+      },
+      {
+        source: '/tr/giris-yap',
+        destination: '/tr/giris-yap',
+        locale: false,
+      },
+      {
+        source: '/nl/log-in',
+        destination: '/nl/log-in',
         locale: false,
       },
     ]

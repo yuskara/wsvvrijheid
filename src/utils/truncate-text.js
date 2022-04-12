@@ -1,4 +1,6 @@
 export const truncateText = (text, maxLen) => {
+  if (!text || typeof text !== 'string') return ''
+
   //trim the string to the maximum length
   const str = text.substr(0, maxLen)
 

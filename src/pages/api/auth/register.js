@@ -3,12 +3,13 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 
 import { sessionOptions } from '~lib'
 
-const loginRoute = async (req, res) => {
-  const { identifier, password } = req.body
+const registerRoute = async (req, res) => {
+  const { username, email, password } = req.body
 
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
-      identifier,
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`, {
+      username,
+      email,
       password,
     })
 
@@ -16,7 +17,7 @@ const loginRoute = async (req, res) => {
 
     if (token) {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me?populate=*`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token.trim()}` },
       })
 
       const auth = { user: response.data, token, isLoggedIn: true }
@@ -26,7 +27,6 @@ const loginRoute = async (req, res) => {
       res.json(auth)
     }
   } catch (error) {
-    console.log('error', error.response?.data)
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {
@@ -35,6 +35,6 @@ const loginRoute = async (req, res) => {
   }
 }
 
-const handler = withIronSessionApiRoute(loginRoute, sessionOptions)
+const handler = withIronSessionApiRoute(registerRoute, sessionOptions)
 
 export default handler
