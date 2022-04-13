@@ -31,28 +31,14 @@ export default function Activities({ activities, query, title }) {
 }
 export const getServerSideProps = async context => {
   const { locale, query } = context
-  const { category, page = 1, sort = [] } = query
-  const filters = category && { categories: { code: { $eq: category } } }
+  const { page } = query
 
   const activities = await request({
     url: 'api/activities',
-    filters,
     page,
-    pageSize: 2,
-    sort,
+    pageSize: 10,
     locale,
   })
-
-  console.log('-------------' + query)
-  console.log(query)
-
-  const allCategories = await request({
-    url: 'api/categories',
-    pageSize: 1,
-    locale,
-  })
-
-  const activitiesCategories = allCategories.result.filter(category => category.activities?.length > 0)
 
   const seo = {
     title: {
@@ -67,7 +53,6 @@ export const getServerSideProps = async context => {
       ...(await serverSideTranslations(locale, ['common'])),
       title: seo.title[locale],
       query: context.query,
-      categories: activitiesCategories,
       activities,
     },
   }
