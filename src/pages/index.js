@@ -1,54 +1,50 @@
 import { Avatar, Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Container, HomeHero, Layout } from '~components'
 
 export default function Home() {
+  const { t } = useTranslation()
+
   return (
     <Layout>
       <Box minH='inherit' bg='gray.100'>
         <Container maxW='container.md'>
           <VStack flex={1} py={16} spacing={4} textAlign='center'>
             <Heading fontWeight='black'>Wees de Stem voor Vrijheid</Heading>
-            <Text fontSize='xl'>
-              Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması
-              için çalışmalar yapıyoruz.
-            </Text>
+            <Text fontSize='xl'>{t`home.hero`}</Text>
           </VStack>
         </Container>
         <Box overflow='hidden'>
           <HomeHero />
         </Box>
       </Box>
-      <Box bg='blue.100' py={16}>
+      <Box bg='blue.100' py={{ base: 16, lg: 32 }}>
         <Container>
           <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign='center'>
             <VStack spacing={4}>
               <Avatar size='2xl' src='/images/who-we-are.svg' />
               <Text fontSize='xl' fontWeight='semibold'>
-                Biz Kimiz?
+                {t`home.about.who-we-are.title`}
               </Text>
-              <Text>
-                Hukukun üstünlüğünü, demokrasi ve insan haklarını destekleyen, Hollanda’da yaşayan çeşitli meslek sahibi
-                gönüllüler tarafından kurulmuştur.
-              </Text>
+              <Text>{t`home.about.who-we-are.description`}</Text>
             </VStack>
             <VStack spacing={4}>
               <Avatar size='2xl' src='/images/mission.svg' />
               <Text fontSize='xl' fontWeight='semibold'>
-                Misyon
+                {t`home.about.mission.title`}
               </Text>
-              <Text>
-                Dünyanın farklı coğrafyalarında kişiler veya devletler tarafından işlenen insan hakları ihlallerinin
-                azalması veya son bulması için çalışmalar yapmak.
-              </Text>
+              <Text>{t`home.about.mission.description`}</Text>
             </VStack>
             <VStack spacing={4}>
               <Avatar size='2xl' src='/images/vision.svg' />
               <Text fontSize='xl' fontWeight='semibold'>
-                Vizyon
+                <Text>{t`home.about.vision.title`}</Text>
               </Text>
-              <Text>İnsan hakları ihlalleri kamuoyuna paylaşıldıkça ihlaller azalacak veya sona erecektir.</Text>
+              <Text>
+                <Text>{t`home.about.vision.description`}</Text>
+              </Text>
             </VStack>
           </SimpleGrid>
         </Container>
