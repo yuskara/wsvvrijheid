@@ -11,10 +11,10 @@ export const HomeProject = ({ project, index }) => {
   return (
     <Center py={{ base: 16, lg: 32 }} minH={{ base: '100vh', lg: '50vh' }} bg={project.colors.bg}>
       <Container>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} justifyItems='center'>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} justifyItems='center' gap={8}>
           <Image
             order={{ base: 1, lg: index % 2 ? 2 : 1 }}
-            image={project.image}
+            src={project.image}
             boxSize={200}
             alt={project.title[locale]}
           />
