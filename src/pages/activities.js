@@ -1,14 +1,14 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Card, Layout, PageTitle } from '~components'
+import { Card, Layout, PageTitle, Pagination } from '~components'
 import { request } from '~lib'
 
-export default function Activities({ header, activities }) {
+export default function Activities({ activities, query, title }) {
   return (
-    <Layout scrollHeight={100} seo={{ header }}>
+    <Layout seo={{ header }}>
       <Container maxW='container.lg' centerContent>
-        <PageTitle>{header}</PageTitle>
+        <PageTitle>{title}</PageTitle>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>
           {activities.result.map(activity => (
             <Card
@@ -20,13 +20,25 @@ export default function Activities({ header, activities }) {
             />
           ))}
         </SimpleGrid>
+        <Pagination
+          pageCount={activities.pagination.pageCount}
+          currentPage={+query.page}
+          changeParam={() => changeParam({ page })}
+        />
       </Container>
     </Layout>
   )
 }
-export const getStaticProps = async context => {
-  const { locale } = context
-  const activities = await request({ locale, url: 'api/activities' })
+export const getServerSideProps = async context => {
+  const { locale, query } = context
+  const { page } = query
+
+  const activities = await request({
+    url: 'api/activities',
+    page,
+    pageSize: 10,
+    locale,
+  })
 
   const seo = {
     title: {
@@ -39,7 +51,8 @@ export const getStaticProps = async context => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      header: seo.title[locale],
+      title: seo.title[locale],
+      query: context.query,
       activities,
     },
   }
