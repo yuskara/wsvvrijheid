@@ -1,4 +1,4 @@
-import { Box, Center, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react'
+import { Box, Center, Heading, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <Box minH='inherit' bg='gray.100'>
+      <Stack justify='space-between' minH='inherit' bg='gray.100'>
         <Container maxW='container.md'>
           <VStack flex={1} py={16} spacing={4} textAlign='center'>
             <Heading fontWeight='black'>Wees de Stem voor Vrijheid</Heading>
@@ -20,7 +20,7 @@ export default function Home() {
         <Box overflow='hidden'>
           <HomeHero />
         </Box>
-      </Box>
+      </Stack>
       <Center bg='blue.100' py={{ base: 16, lg: 32 }} minH='50vh'>
         <Container>
           <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign='center'>
