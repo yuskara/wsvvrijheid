@@ -8,8 +8,7 @@ async function userRoute(req, res) {
     // and then do a database request
     // to get more information on the user if needed
     res.json({
-      user: req.session.user,
-      token: req.session.token,
+      ...req.session,
       isLoggedIn: true,
     })
   } else {

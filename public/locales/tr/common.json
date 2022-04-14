@@ -56,6 +56,55 @@
     "header": "Katkıda bulunanlar",
     "filter": "Takıma göre filtrele: Toplam katkıda bulunan "
   },
+  "login": {
+    "sign-up-header": {
+      "title": "Hesap oluştur",
+      "text": "Zaten bir hesabınız var mı?",
+      "button": "Giriş yapın"
+    },
+    "sign-in-header": {
+      "title": "Giriş yapın",
+      "text": "Hesabınız yok mu? ",
+      "button": "Kayıt ol"
+    },
+    "name": {
+      "title": "İsim",
+      "required": "İsim alanı zorunludur"
+    },
+    "email": {
+      "title": "E-posta",
+      "invalid": "Geçersiz e-posta adresi",
+      "required": "E-posta alanı zorunludur"
+    },
+    "password": {
+      "title": "Parola",
+      "invalid": "Çok kısa",
+      "required": "Parola alanı zorunludur",
+      "warning": "Parola en az 8 karakter olmalıdır",
+      "forgot-password": "Parolanızı mı unuttunuz?",
+      "matches": {
+        "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
+        "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
+        "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+      }
+    },
+    "create-account": "Hesap oluştur",
+    "sign-in": "Giriş yap",
+    "sign-up-with": "veya ",
+    "sign-in-with": "veya devam et",
+    "remember-me": "Beni hatırla"
+  },
+  "profile": {
+    "title": "Profil",
+    "sign-in": "Giriş yap",
+    "sign-up": "Kayıt ol",
+    "logout": "Çıkış yap",
+    "my-profile": "Profilim",
+    "user-name": "Kullanıcı adı",
+    "email": "E-posta",
+    "my-arts": "Eserlerim"
+  },
   "apply-form": {
     "name": {
       "input": "Ad",

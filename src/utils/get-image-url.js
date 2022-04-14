@@ -1,6 +1,7 @@
 export const getImageUrl = (image, type) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+
   if (image == null) return ''
 
   if (typeof image === 'string')

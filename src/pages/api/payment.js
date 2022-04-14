@@ -24,10 +24,10 @@ export default async function handler(req, res) {
     method,
     billingEmail: email,
     metadata: {
-      id: donate.data.data.id,
+      id: donate.id,
     },
     description: description ?? 'no description',
-    redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/donate/complete?id=${donate.data.data.id}`,
+    redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/donate/complete?id=${donate.id}`,
     webhookUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/payment-status`,
   })
 
