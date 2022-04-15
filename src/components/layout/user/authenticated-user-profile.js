@@ -13,42 +13,33 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FaHeart } from 'react-icons/fa'
+import { useQuery } from 'react-query'
 
 import { useAuth } from '~hooks'
 import { request } from '~lib'
 
 export const AuthenticatedUserProfile = () => {
   const user = useAuth()
-  const [arts, setArts] = useState(null)
+
   const { locale } = useRouter()
-  useEffect(() => {
-    const getData = async () => {
-      await request({
+  const { data } = useQuery({
+    queryKey: ['arts', user.username],
+    queryFn: () =>
+      request({
         url: 'api/arts',
-        locale: locale,
+        locale,
         filters: {
-          artist: {
-            user: {
-              id: {
-                $eq: user.id,
-              },
-            },
-          },
+          artist: { user: { id: { $eq: user.id } } },
         },
-        populate: ['artist.user', 'images'],
-      })
-        .then(res => setArts(res.result))
-        .catch(er => console.log('Error ', er))
-    }
-    getData()
-  }, [user.id])
+        populate: ['images'],
+      }),
+  })
+  const rejected = data?.result?.filter(art => art.status === 'rejected')
+  const approved = data?.result?.filter(art => art.status === 'approved')
 
-  const rejected = arts?.filter(art => art.status === 'rejected')
-  const approved = arts?.filter(art => art.status === 'approved')
-
-  console.log('Arts> ', arts, '\n', 'rejected> ', rejected, 'approved; ', approved, 'user: ', user)
+  console.log('Rejected> ', rejected, 'approved; ', approved, 'user: ', user)
 
   return (
     <Stack spacing={4} align='stretch'>
