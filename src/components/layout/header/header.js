@@ -14,7 +14,7 @@ export const Header = ({ isScrolled, isDark }) => {
   const { isLoggedIn } = useAuth()
 
   return (
-    <Headroom style={{ zIndex: 999 }}>
+    <Headroom>
       <Flex
         bg={isScrolled ? 'white' : 'transparent'}
         borderBottomWidth={isScrolled ? 1 : 0}

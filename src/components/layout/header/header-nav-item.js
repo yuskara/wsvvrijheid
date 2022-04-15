@@ -1,5 +1,4 @@
 import {
-  Link,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -35,15 +34,15 @@ const ParentMenuItem = ({ item }) => {
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Link fontWeight={600} p={2}>
+        <Navigate href={item.link} fontWeight={600}>
           {item.label}
-        </Link>
+        </Navigate>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent>
+        <PopoverContent mt={2}>
           <PopoverArrow />
           <PopoverBody>
-            <Stack spacing={2}>
+            <Stack spacing={4} py={4}>
               {item.children.map(item => (
                 <ChildMenuItem key={item.link} item={item} />
               ))}
