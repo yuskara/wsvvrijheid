@@ -1,6 +1,6 @@
 import { ROUTES } from '~config'
 
-const { activity, project, about, contact, terms, privacy, volunteer, donate } = ROUTES
+const { activity, about, contact, terms, privacy, volunteer, donate } = ROUTES
 
 export const FOOTER_MENU = [
   {
@@ -20,15 +20,15 @@ export const FOOTER_MENU = [
   {
     en: {
       label: 'Menu',
-      children: [activity.en, project.en, volunteer.en],
+      children: [activity.en, volunteer.en],
     },
     nl: {
       label: 'Menu',
-      children: [activity.nl, project.nl, volunteer.nl],
+      children: [activity.nl, volunteer.nl],
     },
     tr: {
       label: 'Menu',
-      children: [activity.tr, project.tr, volunteer.tr],
+      children: [activity.tr, volunteer.tr],
     },
   },
   {

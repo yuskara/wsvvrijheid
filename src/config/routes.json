@@ -1,16 +1,86 @@
 {
-  "project": {
+  "activity": {
     "en": {
-      "label": "Projects",
-      "link": "/projects"
+      "label": "Activities",
+      "link": "/activities"
     },
     "nl": {
-      "label": "Projecten",
-      "link": "/projecten"
+      "label": "Activiteiten",
+      "link": "/activiteiten"
     },
     "tr": {
-      "label": "Projeler",
-      "link": "/projeler"
+      "label": "Faaliyetler",
+      "link": "/faaliyetler"
+    }
+  },
+  "lotus": {
+    "en": {
+      "label": "Lotus van de Media",
+      "link": "/lotus"
+    },
+    "nl": {
+      "label": "Lotus van de Media",
+      "link": "/lotus"
+    },
+    "tr": {
+      "label": "Lotus van de Media",
+      "link": "/lotus"
+    }
+  },
+  "artStop": {
+    "en": {
+      "label": "Art Stop",
+      "link": "/art-stop"
+    },
+    "nl": {
+      "label": "Kunsthalte",
+      "link": "/art-stop"
+    },
+    "tr": {
+      "label": "Sanat Durağı",
+      "link": "/art-stop"
+    }
+  },
+  "samenvvv": {
+    "en": {
+      "label": "Samenvvv",
+      "link": "/samenvvv"
+    },
+    "nl": {
+      "label": "Samenvvv",
+      "link": "/samenvvv"
+    },
+    "tr": {
+      "label": "Samenvvv",
+      "link": "/samenvvv"
+    }
+  },
+  "academy": {
+    "en": {
+      "label": "Academy",
+      "link": "/academy"
+    },
+    "nl": {
+      "label": "Academy",
+      "link": "/academy"
+    },
+    "tr": {
+      "label": "Academy",
+      "link": "/academy"
+    }
+  },
+  "blog": {
+    "en": {
+      "label": "Blog",
+      "link": "/blog"
+    },
+    "nl": {
+      "label": "Blog",
+      "link": "/blog"
+    },
+    "tr": {
+      "label": "Blog",
+      "link": "/blog"
     }
   },
   "announcement": {
@@ -125,20 +195,7 @@
       "link": "/gonulluler"
     }
   },
-  "activity": {
-    "en": {
-      "label": "Activities",
-      "link": "/activities"
-    },
-    "nl": {
-      "label": "Activiteiten",
-      "link": "/activiteiten"
-    },
-    "tr": {
-      "label": "Faaliyetler",
-      "link": "/faaliyetler"
-    }
-  },
+  
   "sign-up": {
     "en": {
       "label": "Sign-Up",

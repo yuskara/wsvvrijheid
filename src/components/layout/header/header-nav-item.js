@@ -35,9 +35,7 @@ const ParentMenuItem = ({ item }) => {
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Link fontWeight={600} p={2}>
-          {item.label}
-        </Link>
+        <Link fontWeight={600}>{item.label}</Link>
       </PopoverTrigger>
       <Portal>
         <PopoverContent>
