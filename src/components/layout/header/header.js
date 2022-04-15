@@ -26,7 +26,7 @@ export const Header = ({ isScrolled, isDark }) => {
           '.chakra-link': {
             color: !isScrolled && isDark ? 'white' : 'initial',
             _hover: {
-              color: 'blue.500',
+              color: !isScrolled && isDark ? 'whiteAlpha.800' : 'blue.500',
             },
           },
         }}
