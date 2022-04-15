@@ -1,4 +1,18 @@
 {
+  "project": {
+    "en": {
+      "label": "Projects",
+      "link": "/projects"
+    },
+    "nl": {
+      "label": "Projecten",
+      "link": "/projecten"
+    },
+    "tr": {
+      "label": "Projeler",
+      "link": "/projeler"
+    }
+  },
   "activity": {
     "en": {
       "label": "Activities",
@@ -16,57 +30,57 @@
   "lotus": {
     "en": {
       "label": "Lotus van de Media",
-      "link": "/lotus"
+      "link": "/projects/lotus"
     },
     "nl": {
       "label": "Lotus van de Media",
-      "link": "/lotus"
+      "link": "/projects/lotus"
     },
     "tr": {
       "label": "Lotus van de Media",
-      "link": "/lotus"
+      "link": "/projects/lotus"
     }
   },
   "artStop": {
     "en": {
       "label": "Art Stop",
-      "link": "/art-stop"
+      "link": "/projects/art-stop"
     },
     "nl": {
       "label": "Kunsthalte",
-      "link": "/art-stop"
+      "link": "/projects/art-stop"
     },
     "tr": {
       "label": "Sanat Durağı",
-      "link": "/art-stop"
+      "link": "/projects/art-stop"
     }
   },
   "samenvvv": {
     "en": {
       "label": "Samenvvv",
-      "link": "/samenvvv"
+      "link": "/projects/samenvvv"
     },
     "nl": {
       "label": "Samenvvv",
-      "link": "/samenvvv"
+      "link": "/projects/samenvvv"
     },
     "tr": {
       "label": "Samenvvv",
-      "link": "/samenvvv"
+      "link": "/projects/samenvvv"
     }
   },
   "academy": {
     "en": {
       "label": "Academy",
-      "link": "/academy"
+      "link": "/projects/academy"
     },
     "nl": {
-      "label": "Academy",
-      "link": "/academy"
+      "label": "Academie",
+      "link": "/projects/academy"
     },
     "tr": {
-      "label": "Academy",
-      "link": "/academy"
+      "label": "Akademi",
+      "link": "/projects/academy"
     }
   },
   "blog": {

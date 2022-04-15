@@ -1,8 +1,22 @@
 import { ROUTES } from '~config'
 
-const { activity, about, contact, terms, privacy, volunteer, donate } = ROUTES
+const { activity, about, contact, donate, lotus, artStop, samenvvv, academy, terms, privacy, volunteer } = ROUTES
 
 export const FOOTER_MENU = [
+  {
+    en: {
+      label: 'Projects',
+      children: [lotus.en, artStop.en, samenvvv.en, academy.en],
+    },
+    nl: {
+      label: 'Projecten',
+      children: [lotus.nl, artStop.nl, samenvvv.nl, academy.nl],
+    },
+    tr: {
+      label: 'Projeler',
+      children: [lotus.tr, artStop.tr, samenvvv.tr, academy.tr],
+    },
+  },
   {
     en: {
       label: 'Foundation',

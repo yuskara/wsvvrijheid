@@ -7,14 +7,17 @@ export const HEADER_MENU = [
   {
     en: {
       label: ' Projects',
+      link: '/projects',
       children: [lotus.en, artStop.en, samenvvv.en, academy.en],
     },
     nl: {
-      label: ' Projects',
+      label: ' Projecten',
+      link: '/projects',
       children: [lotus.nl, artStop.nl, samenvvv.nl, academy.nl],
     },
     tr: {
-      label: ' Projects',
+      label: ' Projeler',
+      link: '/projects',
       children: [lotus.tr, artStop.tr, samenvvv.tr, academy.tr],
     },
   },
@@ -24,14 +27,17 @@ export const HEADER_MENU = [
   {
     en: {
       label: 'Wsvvrijheid',
+      link: '/',
       children: [volunteer.en, about.en, contact.en],
     },
     nl: {
       label: 'Wsvvrijheid',
+      link: '/',
       children: [volunteer.nl, about.nl, contact.nl],
     },
     tr: {
       label: 'Wsvvrijheid',
+      link: '/',
       children: [volunteer.tr, about.tr, contact.tr],
     },
   },

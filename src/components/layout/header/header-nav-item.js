@@ -1,5 +1,4 @@
 import {
-  Link,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -35,7 +34,9 @@ const ParentMenuItem = ({ item }) => {
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Link fontWeight={600}>{item.label}</Link>
+        <Navigate href={item.link} fontWeight={600}>
+          {item.label}
+        </Navigate>
       </PopoverTrigger>
       <Portal>
         <PopoverContent>
