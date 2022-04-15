@@ -21,7 +21,7 @@ export const ProfileMenu = () => {
 
   if (!user)
     return (
-      <Navigate as={Button} size='sm' colorScheme='blue' rightIcon={<FiLogIn />} href={'/user/login'}>
+      <Navigate as={Button} size='sm' colorScheme='blue' variant='outline' rightIcon={<FiLogIn />} href={'/user/login'}>
         {t('profile.sign-in')}
       </Navigate>
     )
@@ -29,7 +29,11 @@ export const ProfileMenu = () => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar boxSize={{ base: 10, lg: 12 }} rounded='lg' name={user.username}></Avatar>
+        <Avatar
+          boxSize={{ base: 10, lg: 12 }}
+          src={`${process.env.NEXT_PUBLIC_API_URL}${user.avatar?.formats.thumbnail.url || user.avatar?.url}`}
+          name={user.username}
+        />
       </MenuButton>
       <MenuList>
         <MenuItem>{user.username}</MenuItem>

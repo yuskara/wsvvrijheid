@@ -8,6 +8,7 @@ import { sessionOptions } from '~lib'
 import { AuthenticatedUserProfile } from '../../components/layout/user/authenticated-user-profile'
 
 const Profile = () => {
+
   return (
     <Layout>
       <Container>

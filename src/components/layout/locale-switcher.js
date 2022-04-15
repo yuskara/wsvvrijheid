@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, HStack } from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 export const LocaleSwitcher = ({}) => {
@@ -13,24 +13,22 @@ export const LocaleSwitcher = ({}) => {
   }
 
   return (
-    <HStack justify='flex-end'>
-      <ButtonGroup isAttached d='flex' size='xs' alignItems='center'>
-        {locales.map(code => {
-          if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
+    <ButtonGroup spacing={0} size='sm' alignItems='center'>
+      {locales.map(code => {
+        if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
 
-          return (
-            <Button
-              key={code}
-              size='xs'
-              onClick={() => handleChangeLanguage(code)}
-              colorScheme={locale === code ? 'blue' : 'blackAlpha'}
-              variant={locale === code ? 'solid' : 'ghost'}
-            >
-              {code.toUpperCase()}
-            </Button>
-          )
-        })}
-      </ButtonGroup>
-    </HStack>
+        return (
+          <Button
+            key={code}
+            px={2}
+            onClick={() => handleChangeLanguage(code)}
+            colorScheme={locale === code ? 'blue' : 'blackAlpha'}
+            variant={locale === code ? 'outline' : 'ghost'}
+          >
+            {code.toUpperCase()}
+          </Button>
+        )
+      })}
+    </ButtonGroup>
   )
 }

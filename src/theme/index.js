@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 
+import { colors } from './colors'
 import { components } from './components'
 import { styles } from './global'
 import { mdx } from './mdx'
@@ -15,6 +16,7 @@ const config = {
 export const theme = extendTheme({
   config,
   fonts,
+  colors,
   components,
   styles,
   shadows: {
