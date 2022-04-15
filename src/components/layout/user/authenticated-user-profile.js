@@ -1,6 +1,20 @@
-import { Avatar, Button, ButtonGroup, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  HStack,
+  Image,
+  Stack,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { FaHeart } from 'react-icons/fa'
 
 import { useAuth } from '~hooks'
 import { request } from '~lib'
@@ -8,8 +22,6 @@ import { request } from '~lib'
 export const AuthenticatedUserProfile = () => {
   const user = useAuth()
   const [arts, setArts] = useState(null)
-  const [showArt, setShowArt] = useState(true)
-  const [tools, setTools] = useState(false)
   const { locale } = useRouter()
   useEffect(() => {
     const getData = async () => {
@@ -38,20 +50,6 @@ export const AuthenticatedUserProfile = () => {
 
   console.log('Arts> ', arts, '\n', 'rejected> ', rejected, 'approved; ', approved, 'user: ', user)
 
-  const showApproved = e => {
-    e.preventDefault()
-    setShowArt(true)
-    setTools(false)
-  }
-  const showRejected = e => {
-    e.preventDefault()
-    setShowArt(false)
-    setTools(false)
-  }
-  const showTools = e => {
-    e.preventDefault()
-    setTools(true)
-  }
   return (
     <Stack spacing={4} align='stretch'>
       <VStack
@@ -72,65 +70,62 @@ export const AuthenticatedUserProfile = () => {
           <Text color={'white'}>{user?.user?.username}</Text>
         </HStack>
       </VStack>
-
-      <vStack direction='flex' justify='space-between'>
-        <ButtonGroup colorScheme='blue.400' variant='ghost'>
-          <Button onClick={showApproved}>My arts</Button>
-          <Button onClick={showRejected}>My Returned Arts</Button>
-          <Button onClick={showTools}>General Tools</Button>
-        </ButtonGroup>
-        <Stack>
-          {tools ? (
-            <>
-              {
-                //gereral tools here
-              }
-              <Stack>
-                <Text>Username: {user?.user?.username}</Text>
-                <Text>Email: {user?.user?.email}</Text>
-              </Stack>
-            </>
-          ) : showArt ? (
-            <HStack direction={'flex'}>
-              {
-                //Appraved Arts  here
-              }
+      <Tabs isLazy>
+        <TabList>
+          <Tab>My Arts</Tab>
+          <Tab>My Rejected Arts</Tab>
+          <Tab>General Tools</Tab>
+        </TabList>
+        <TabPanels>
+          {/* Approved arts */}
+          <TabPanel>
+            <HStack>
               {approved?.map(art => {
-                return art?.images?.map((el, index) => {
-                  return (
-                    <VStack key={index} alt='no image'>
-                      <Image src={process.env.NEXT_PUBLIC_API_URL + el.formats?.thumbnail?.url} alt='no image' />
-                      <HStack>
-                        <Text>{art.title}</Text>
-                        <Text>Likes: {art.likes}</Text>
-                      </HStack>
-                    </VStack>
-                  )
+                return art?.images?.map((images, index) => {
+                  return <Arts art={art} images={images} key={index} />
                 })
               })}
             </HStack>
-          ) : (
-            <HStack direction={'flex'}>
-              {
-                //Rejected Arts  here
-              }
+          </TabPanel>
+          {/* rejected arts */}
+          <TabPanel>
+            <HStack>
               {rejected?.map(art => {
-                return art?.images?.map((el, index) => {
-                  return (
-                    <VStack key={index} alt='no image'>
-                      <Image src={process.env.NEXT_PUBLIC_API_URL + el.formats?.thumbnail?.url} alt='no image' />
-                      <HStack>
-                        <Text>{art.title}</Text>
-                        <Text>Likes: {art.likes}</Text>
-                      </HStack>
-                    </VStack>
-                  )
+                return art?.images?.map((images, index) => {
+                  return <Arts art={art} images={images} key={index} />
                 })
               })}
             </HStack>
-          )}
-        </Stack>
-      </vStack>
+          </TabPanel>
+          {/* general tools*/}
+          <TabPanel>
+            <Tools user={user} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Stack>
+  )
+}
+
+export const Tools = props => {
+  const { user } = props
+  return (
+    <Stack>
+      <Text>Username: {user?.user?.username}</Text>
+      <Text>Email: {user?.user?.email}</Text>
+    </Stack>
+  )
+}
+export const Arts = props => {
+  const { art, images, index } = props
+  return (
+    <VStack key={index} alt='no image'>
+      <Image src={process.env.NEXT_PUBLIC_API_URL + images.formats?.thumbnail?.url} alt='no image' />
+      <HStack>
+        <Text>{art.title}</Text>
+        <Box as={FaHeart} color='red'></Box>
+        <Text> {art.likes}</Text>
+      </HStack>
+    </VStack>
   )
 }

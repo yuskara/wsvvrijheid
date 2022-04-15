@@ -1,8 +1,8 @@
-import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
+import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { FiLogIn } from 'react-icons/fi'
+import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { Navigate } from '~components'
 import { useAuth } from '~hooks'
@@ -41,7 +41,8 @@ export const ProfileMenu = () => {
         </MenuGroup>
         <MenuDivider />
         <MenuItem color='red.400' onClick={logOut}>
-          {t('profile.logout')}
+          <FiLogOut />
+          <Text marginLeft={'10px'}>{t('profile.logout')}</Text>
         </MenuItem>
       </MenuList>
     </Menu>
