@@ -39,10 +39,10 @@ const ParentMenuItem = ({ item }) => {
         </Navigate>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent>
+        <PopoverContent mt={2}>
           <PopoverArrow />
           <PopoverBody>
-            <Stack spacing={2}>
+            <Stack spacing={4} py={4}>
               {item.children.map(item => (
                 <ChildMenuItem key={item.link} item={item} />
               ))}

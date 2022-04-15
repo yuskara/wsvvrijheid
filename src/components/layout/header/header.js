@@ -14,7 +14,7 @@ export const Header = () => {
   const { isLoggedIn } = useAuth()
 
   return (
-    <Headroom style={{ zIndex: 999 }}>
+    <Headroom>
       <Flex
         bg='white'
         borderBottomWidth={1}
