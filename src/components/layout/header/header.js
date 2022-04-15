@@ -24,7 +24,7 @@ export const Header = ({ isScrolled, isDark }) => {
         h={{ base: '64px', lg: '100px' }}
         sx={{
           '.chakra-link': {
-            color: isDark ? 'white' : 'initial',
+            color: !isScrolled && isDark ? 'white' : 'initial',
             _hover: {
               color: 'blue.500',
             },
@@ -47,12 +47,12 @@ export const Header = ({ isScrolled, isDark }) => {
             <HStack display={{ base: 'none', lg: 'flex' }} align='center' spacing={4}>
               <Stack spacing={1}>
                 <HStack justify='end'>
-                  <LocaleSwitcher />
-                  {!isLoggedIn && <ProfileMenu />}
+                  <LocaleSwitcher isDark={isDark} isScrolled={isScrolled} />
+                  {!isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} />}
                 </HStack>
                 <HeaderNav />
               </Stack>
-              {isLoggedIn && <ProfileMenu />}
+              {isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} />}
             </HStack>
             <HeaderMobile />
           </Flex>
