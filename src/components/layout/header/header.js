@@ -23,7 +23,7 @@ export const Header = ({ isScrolled, isDark }) => {
         align='center'
         h={{ base: '64px', lg: '100px' }}
         sx={{
-          '.chakra-link': {
+          '& .header-menu-item': {
             color: !isScrolled && isDark ? 'white' : 'initial',
             _hover: {
               color: !isScrolled && isDark ? 'whiteAlpha.800' : 'blue.500',
