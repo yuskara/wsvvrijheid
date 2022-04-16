@@ -4,10 +4,10 @@ import React from 'react'
 import { AuthenticatedUserProfile, Layout } from '~components'
 import { sessionOptions } from '~lib'
 
-const Profile = () => {
+const Profile = ({ user }) => {
   return (
     <Layout isDark>
-      <AuthenticatedUserProfile />
+      <AuthenticatedUserProfile user={user} />
     </Layout>
   )
 }

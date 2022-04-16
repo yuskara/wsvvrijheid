@@ -19,15 +19,12 @@ import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 import { useQuery } from 'react-query'
 
-import { useAuth } from '~hooks'
 import { request } from '~lib'
 
 import { Container } from '../layout/container'
 import { Hero } from '../layout/hero'
 
-export const AuthenticatedUserProfile = () => {
-  const user = useAuth()
-
+export const AuthenticatedUserProfile = ({ user }) => {
   const { locale } = useRouter()
   const { data } = useQuery({
     queryKey: ['arts', user.username],
@@ -38,7 +35,7 @@ export const AuthenticatedUserProfile = () => {
         filters: {
           artist: { user: { id: { $eq: user.id } } },
         },
-        populate: ['images'],
+        populate: ['artist.user', 'images'],
       }),
   })
 
@@ -51,11 +48,11 @@ export const AuthenticatedUserProfile = () => {
         <Stack>
           <Avatar
             size='lg'
-            src={`${process.env.NEXT_PUBLIC_API_URL}${user?.user?.avatar?.formats.thumbnail.url || user.avatar?.url}`}
-            name={user?.user?.username}
+            src={`${process.env.NEXT_PUBLIC_API_URL}${user.avatar?.formats.thumbnail.url || user.avatar?.url}`}
+            name={user.username}
           />
           <HStack justifyContent='center' alignItems={'center'} alignContent={'flex-end'} bg='transparent'>
-            <Text color={'white'}>{user?.user?.username}</Text>
+            <Text color={'white'}>{user.username}</Text>
           </HStack>
         </Stack>
       </Hero>
@@ -108,8 +105,8 @@ export const Settings = props => {
   const { user } = props
   return (
     <Stack>
-      <Text>Username: {user?.user?.username}</Text>
-      <Text>Email: {user?.user?.email}</Text>
+      <Text>Username: {user.username}</Text>
+      <Text>Email: {user.email}</Text>
     </Stack>
   )
 }
