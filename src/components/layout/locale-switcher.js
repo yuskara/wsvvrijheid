@@ -1,7 +1,7 @@
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button, ButtonGroup, DarkMode } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-export const LocaleSwitcher = ({}) => {
+export const LocaleSwitcher = ({ isDark, isScrolled }) => {
   const { locales, push, pathname, locale, asPath, components } = useRouter()
 
   const slug =
@@ -17,13 +17,30 @@ export const LocaleSwitcher = ({}) => {
       {locales.map(code => {
         if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
 
-        return (
+        let variant = 'ghost'
+        if (locale === code) {
+          if (!isScrolled && isDark) variant = 'solid'
+          else variant = 'outline'
+        }
+
+        return !isScrolled && isDark ? (
+          <DarkMode key={code}>
+            <Button
+              px={2}
+              onClick={() => handleChangeLanguage(code)}
+              colorScheme={locale === code ? 'blue' : !isScrolled && isDark ? 'gray' : 'blackAlpha'}
+              variant={variant}
+            >
+              {code.toUpperCase()}
+            </Button>
+          </DarkMode>
+        ) : (
           <Button
             key={code}
             px={2}
             onClick={() => handleChangeLanguage(code)}
-            colorScheme={locale === code ? 'blue' : 'blackAlpha'}
-            variant={locale === code ? 'outline' : 'ghost'}
+            colorScheme={locale === code ? 'blue' : !isScrolled && isDark ? 'gray' : 'blackAlpha'}
+            variant={variant}
           >
             {code.toUpperCase()}
           </Button>

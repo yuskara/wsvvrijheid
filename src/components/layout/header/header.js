@@ -2,19 +2,16 @@ import { Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
-import { useAuth } from '~hooks'
-
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
 import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
-export const Header = ({ isScrolled, isDark }) => {
-  const { isLoggedIn } = useAuth()
-
+export const Header = ({ isScrolled, isDark, auth }) => {
+  console.log('auth', auth)
   return (
-    <Headroom style={{ zIndex: 999 }}>
+    <Headroom>
       <Flex
         bg={isScrolled ? 'white' : 'transparent'}
         borderBottomWidth={isScrolled ? 1 : 0}
@@ -23,10 +20,10 @@ export const Header = ({ isScrolled, isDark }) => {
         align='center'
         h={{ base: '64px', lg: '100px' }}
         sx={{
-          '.chakra-link': {
-            color: isDark ? 'white' : 'initial',
+          '& .header-menu-item': {
+            color: !isScrolled && isDark ? 'white' : 'initial',
             _hover: {
-              color: 'blue.500',
+              color: !isScrolled && isDark ? 'whiteAlpha.800' : 'blue.500',
             },
           },
         }}
@@ -47,12 +44,12 @@ export const Header = ({ isScrolled, isDark }) => {
             <HStack display={{ base: 'none', lg: 'flex' }} align='center' spacing={4}>
               <Stack spacing={1}>
                 <HStack justify='end'>
-                  <LocaleSwitcher />
-                  {!isLoggedIn && <ProfileMenu />}
+                  <LocaleSwitcher isDark={isDark} isScrolled={isScrolled} />
+                  {!auth?.isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
                 </HStack>
                 <HeaderNav />
               </Stack>
-              {isLoggedIn && <ProfileMenu />}
+              {auth?.isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
             </HStack>
             <HeaderMobile />
           </Flex>
