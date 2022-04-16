@@ -16,10 +16,8 @@ import { useTranslation } from 'next-i18next'
 import { FiLogIn, FiLogOut } from 'react-icons/fi'
 
 import { Navigate } from '~components'
-import { useAuth } from '~hooks'
 
-export const ProfileMenu = ({ isDark, isScrolled }) => {
-  const { user } = useAuth()
+export const ProfileMenu = ({ isDark, isScrolled, auth }) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -30,7 +28,7 @@ export const ProfileMenu = ({ isDark, isScrolled }) => {
     })
   }
 
-  if (!user)
+  if (!auth?.user)
     return !isScrolled && isDark ? (
       <DarkMode>
         <Navigate
@@ -62,12 +60,12 @@ export const ProfileMenu = ({ isDark, isScrolled }) => {
       <MenuButton>
         <Avatar
           boxSize={{ base: 10, lg: 12 }}
-          src={`${process.env.NEXT_PUBLIC_API_URL}${user.avatar?.formats.thumbnail.url || user.avatar?.url}`}
-          name={user.username}
+          src={`${process.env.NEXT_PUBLIC_API_URL}${auth.user.avatar?.formats.thumbnail.url || auth.user.avatar?.url}`}
+          name={auth.user.username}
         />
       </MenuButton>
       <MenuList>
-        <MenuItem>{user.username}</MenuItem>
+        <MenuItem>{auth.user.username}</MenuItem>
         <MenuGroup title={t('profile.title')}>
           <MenuItem as={Navigate} href={'/profile'}>
             {t('profile.my-profile')}

@@ -2,17 +2,13 @@ import { Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Headroom from 'react-headroom'
 
-import { useAuth } from '~hooks'
-
 import { Container } from '../container'
 import { LocaleSwitcher } from '../locale-switcher'
 import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
-export const Header = ({ isScrolled, isDark }) => {
-  const { isLoggedIn } = useAuth()
-
+export const Header = ({ isScrolled, isDark, auth }) => {
   return (
     <Headroom>
       <Flex
@@ -48,11 +44,11 @@ export const Header = ({ isScrolled, isDark }) => {
               <Stack spacing={1}>
                 <HStack justify='end'>
                   <LocaleSwitcher isDark={isDark} isScrolled={isScrolled} />
-                  {!isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} />}
+                  {!auth && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
                 </HStack>
                 <HeaderNav />
               </Stack>
-              {isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} />}
+              {auth && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
             </HStack>
             <HeaderMobile />
           </Flex>
