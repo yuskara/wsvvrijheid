@@ -106,11 +106,6 @@
     "my-rejected-arts": "Mijn Afgewezen Kunsten",
     "general-settings": "Algemene Instellingen"
   },
-  "auth-profile":{
-    "my-arts":"Mijn Kunsten",
-    "my-rejected-arts":"Mijn Afgewezen Kunst",
-    "general-settings":"Algemene Instellingen"
-    },
   "apply-form": {
     "name": {
       "input": "Naam",

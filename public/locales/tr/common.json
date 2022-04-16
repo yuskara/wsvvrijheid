@@ -107,11 +107,6 @@
     "my-rejected-arts": "Reddedilen Eserlerim",
     "general-settings": "Genel Ayarlar"
   },
-  "auth-profile":{
-    "my-arts":"Eserlerim",
-    "my-rejected-arts":"Reddedilen Eserlerim",
-    "general-settings":"Genel Ayarlar"
-    },
   "apply-form": {
     "name": {
       "input": "Ad",
