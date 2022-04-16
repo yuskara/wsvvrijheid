@@ -9,6 +9,7 @@ import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
 export const Header = ({ isScrolled, isDark, auth }) => {
+  console.log('auth', auth)
   return (
     <Headroom>
       <Flex
@@ -44,11 +45,11 @@ export const Header = ({ isScrolled, isDark, auth }) => {
               <Stack spacing={1}>
                 <HStack justify='end'>
                   <LocaleSwitcher isDark={isDark} isScrolled={isScrolled} />
-                  {!auth && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
+                  {!auth?.isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
                 </HStack>
                 <HeaderNav />
               </Stack>
-              {auth && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
+              {auth?.isLoggedIn && <ProfileMenu isDark={isDark} isScrolled={isScrolled} auth={auth} />}
             </HStack>
             <HeaderMobile />
           </Flex>
