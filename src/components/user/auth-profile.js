@@ -26,6 +26,7 @@ import { Hero } from '../layout/hero'
 
 export const AuthenticatedUserProfile = ({ user }) => {
   const { locale } = useRouter()
+
   const { data } = useQuery({
     queryKey: ['arts', user.username],
     queryFn: () =>
@@ -35,7 +36,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
         filters: {
           artist: { user: { id: { $eq: user.id } } },
         },
-        populate: ['artist.user', 'images'],
+        populate: ['images'],
       }),
   })
 
