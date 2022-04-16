@@ -1,4 +1,15 @@
-import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react'
+import {
+  Avatar,
+  Button,
+  DarkMode,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+  Text,
+} from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -7,7 +18,7 @@ import { FiLogIn, FiLogOut } from 'react-icons/fi'
 import { Navigate } from '~components'
 import { useAuth } from '~hooks'
 
-export const ProfileMenu = () => {
+export const ProfileMenu = ({ isDark, isScrolled }) => {
   const { user } = useAuth()
   const { t } = useTranslation()
   const router = useRouter()
@@ -20,8 +31,28 @@ export const ProfileMenu = () => {
   }
 
   if (!user)
-    return (
-      <Navigate as={Button} size='sm' colorScheme='blue' variant='outline' rightIcon={<FiLogIn />} href={'/user/login'}>
+    return !isScrolled && isDark ? (
+      <DarkMode>
+        <Navigate
+          as={Button}
+          size='sm'
+          colorScheme='blue'
+          variant={!isScrolled && isDark ? 'solid' : 'outline'}
+          rightIcon={<FiLogIn />}
+          href={'/user/login'}
+        >
+          {t('profile.sign-in')}
+        </Navigate>
+      </DarkMode>
+    ) : (
+      <Navigate
+        as={Button}
+        size='sm'
+        colorScheme='blue'
+        variant={!isScrolled && isDark ? 'solid' : 'outline'}
+        rightIcon={<FiLogIn />}
+        href={'/user/login'}
+      >
         {t('profile.sign-in')}
       </Navigate>
     )
