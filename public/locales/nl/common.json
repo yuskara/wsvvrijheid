@@ -102,7 +102,9 @@
     "my-profile": "Mijn Profiel",
     "user-name": "Gebruikersnaam",
     "email": "E-mail",
-    "my-arts": "Mijn Kunsten"
+    "my-arts": "Mijn Kunsten",
+    "my-rejected-arts": "Mijn Afgewezen Kunsten",
+    "general-settings": "Algemene Instellingen"
   },
   "auth-profile":{
     "my-arts":"Mijn Kunsten",

@@ -9,7 +9,6 @@ import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
 export const Header = ({ isScrolled, isDark, auth }) => {
-  console.log('auth', auth)
   return (
     <Headroom>
       <Flex

@@ -28,7 +28,6 @@ import { Hero } from '../layout/hero'
 export const AuthenticatedUserProfile = ({ user }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
-  // {t`read-more`}
 
   const { data } = useQuery({
     queryKey: ['arts', user.username],
@@ -64,13 +63,13 @@ export const AuthenticatedUserProfile = ({ user }) => {
         <Tabs isLazy my={4}>
           <TabList>
             <Tab fontWeight='semibold'>
-              <Box as={FaPaintBrush} mr={1} /> {t`auth-profile.my-arts`}
+              <Box as={FaPaintBrush} mr={1} /> {t`profile.my-arts`}
             </Tab>
             <Tab fontWeight='semibold'>
-              <Box as={MdRemoveModerator} mr={1} /> {t`auth-profile.my-rejected-arts`}
+              <Box as={MdRemoveModerator} mr={1} /> {t`profile.my-rejected-arts`}
             </Tab>
             <Tab fontWeight='semibold'>
-              <Box as={IoMdSettings} mr={1} /> {t`auth-profile.general-settings`}
+              <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
             </Tab>
           </TabList>
           <TabPanels>

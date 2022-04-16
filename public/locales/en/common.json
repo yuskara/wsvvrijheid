@@ -103,7 +103,9 @@
     "my-profile": "My Profile",
     "user-name": "Username",
     "email": "Email",
-    "my-arts": "My Arts"
+    "my-arts": "My Arts",
+    "my-rejected-arts": "My Rejected Arts",
+    "general-settings": "General Settings"
   },
   "auth-profile":{
     "my-arts":"My Arts",
