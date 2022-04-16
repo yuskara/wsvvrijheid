@@ -13,6 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { FaPaintBrush, FaRegHeart } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
@@ -26,6 +27,8 @@ import { Hero } from '../layout/hero'
 
 export const AuthenticatedUserProfile = ({ user }) => {
   const { locale } = useRouter()
+  const { t } = useTranslation()
+  // {t`read-more`}
 
   const { data } = useQuery({
     queryKey: ['arts', user.username],
@@ -61,13 +64,13 @@ export const AuthenticatedUserProfile = ({ user }) => {
         <Tabs isLazy my={4}>
           <TabList>
             <Tab fontWeight='semibold'>
-              <Box as={FaPaintBrush} mr={1} /> My Arts
+              <Box as={FaPaintBrush} mr={1} /> {t`auth-profile.my-arts`}
             </Tab>
             <Tab fontWeight='semibold'>
-              <Box as={MdRemoveModerator} mr={1} /> My Rejected Arts
+              <Box as={MdRemoveModerator} mr={1} /> {t`auth-profile.my-rejected-arts`}
             </Tab>
             <Tab fontWeight='semibold'>
-              <Box as={IoMdSettings} mr={1} /> General Settings
+              <Box as={IoMdSettings} mr={1} /> {t`auth-profile.general-settings`}
             </Tab>
           </TabList>
           <TabPanels>

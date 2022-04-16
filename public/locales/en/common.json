@@ -105,6 +105,12 @@
     "email": "Email",
     "my-arts": "My Arts"
   },
+  "auth-profile":{
+    "my-arts":"My Arts",
+    "my-rejected-arts":"My Rejected Arts",
+    "general-settings":"General Settings"
+  },
+
   "apply-form": {
     "name": {
       "input": "Name",

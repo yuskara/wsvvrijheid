@@ -104,6 +104,11 @@
     "email": "E-mail",
     "my-arts": "Mijn Kunsten"
   },
+  "auth-profile":{
+    "my-arts":"Mijn Kunsten",
+    "my-rejected-arts":"Mijn afgewezen kunst",
+    "general-settings":"Algemene instellingen"
+    },
   "apply-form": {
     "name": {
       "input": "Naam",
