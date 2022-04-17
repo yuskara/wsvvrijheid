@@ -104,7 +104,19 @@
     "email": "E-mail",
     "my-arts": "Mijn Kunsten",
     "my-rejected-arts": "Mijn Afgewezen Kunsten",
-    "general-settings": "Algemene Instellingen"
+    "general-settings": "Algemene Instellingen",
+    "art": {
+      "delete": {
+        "title": "Verwijder Kunst",
+        "text": "Weet je zeker dat je deze afbeelding wilt verwijderen?",
+        "button": "Verwijder"
+      },
+      "unpublish": {
+        "title": "Deactiveer Art",
+        "text": "Weet u zeker dat u de publicatie van deze kunst ongedaan wilt maken? U kunt het later altijd opnieuw publiceren.",
+        "button": "Deactiveer"
+      }
+    }
   },
   "apply-form": {
     "name": {

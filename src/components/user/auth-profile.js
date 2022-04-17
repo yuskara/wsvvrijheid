@@ -1,26 +1,13 @@
-import {
-  Avatar,
-  Box,
-  HStack,
-  Image,
-  SimpleGrid,
-  Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from '@chakra-ui/react'
+import { Avatar, Box, HStack, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { FaPaintBrush, FaRegHeart } from 'react-icons/fa'
+import { FaPaintBrush } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 import { useQuery } from 'react-query'
 
-import { ChakraCarousel, Container, Hero } from '~components'
+import { ArtCard, Container, Hero } from '~components'
 import { request } from '~lib'
 
 export const AuthenticatedUserProfile = ({ user }) => {
@@ -31,12 +18,13 @@ export const AuthenticatedUserProfile = ({ user }) => {
     queryKey: ['arts', user.username],
     queryFn: () =>
       request({
+        // TODO Fetch draft arts to allow user to publish them
         url: 'api/arts',
         locale,
         filters: {
           artist: { user: { id: { $eq: user.id } } },
         },
-        populate: ['images'],
+        populate: ['artist.user', 'images'],
       }),
   })
 
@@ -75,7 +63,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
             <TabPanel px={0}>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4, lg: 6 }} gap={4}>
                 {approved?.map(art => {
-                  return <ArtCard art={art} key={art.id} />
+                  return <ArtCard art={art} user={user} key={art.id} />
                 })}
               </SimpleGrid>
             </TabPanel>
@@ -83,7 +71,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
             <TabPanel>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4, lg: 6 }} gap={4}>
                 {rejected?.map(art => {
-                  return <ArtCard art={art} key={art.id} />
+                  return <ArtCard art={art} user={user} key={art.id} />
                 })}
               </SimpleGrid>
             </TabPanel>
@@ -104,37 +92,6 @@ export const Settings = props => {
     <Stack>
       <Text>Username: {user.username}</Text>
       <Text>Email: {user.email}</Text>
-    </Stack>
-  )
-}
-
-export const ArtCard = props => {
-  const { art } = props
-  return (
-    <Stack alt='no image'>
-      <ChakraCarousel gap={4} slidePerView={{ md: 1, xl: 1 }}>
-        {art?.images?.map((image, index) => (
-          <Box key={index}>
-            <Image
-              pos='relative'
-              zIndex={-1}
-              boxSize={200}
-              objectFit='cover'
-              src={process.env.NEXT_PUBLIC_API_URL + image.url}
-              alt='no image'
-              rounded='md'
-              userSelect='none'
-            />
-          </Box>
-        ))}
-      </ChakraCarousel>
-      <HStack justify='space-between'>
-        <Text isTruncated>{art.title}</Text>
-        <HStack>
-          <Box as={FaRegHeart} color='red'></Box>
-          <Text>{art.likes}</Text>
-        </HStack>
-      </HStack>
     </Stack>
   )
 }
