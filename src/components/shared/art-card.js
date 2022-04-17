@@ -85,7 +85,7 @@ export const ArtCard = ({ art, user }) => {
         </AlertDialog>
       )}
 
-      <Stack pos='relative'>
+      <Stack pos='relative' role='group'>
         {/* Card Image */}
         <ChakraCarousel gap={4} slidePerView={{ md: 1, xl: 1 }}>
           {art?.images?.map((image, index) => (
@@ -112,10 +112,15 @@ export const ArtCard = ({ art, user }) => {
               aria-label='Art actions'
               pos='absolute'
               zIndex={1}
-              top={2}
+              top={1}
               right={2}
               colorScheme='blackAlpha'
+              // variant='ghost'
+              color='white'
               icon={<BsThreeDotsVertical />}
+              opacity={0}
+              _groupHover={{ opacity: 1 }}
+              transition='opacity 0.2s'
             />
             <MenuList>
               <MenuItem onClick={() => onHandleAction('unpublish')}>{t`profile.art.unpublish.button`}</MenuItem>
