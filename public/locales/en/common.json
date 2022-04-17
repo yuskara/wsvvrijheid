@@ -112,6 +112,11 @@
         "text": "Are you sure you want to delete this art?",
         "button": "Delete"
       },
+      "publish": {
+        "title": "Publish Art",
+        "text": "Are you sure you want to publish this art?",
+        "button": "Publish"
+      },
       "unpublish": {
         "title": "Unpublish Art",
         "text": "Are you sure you want to unpublish this art? You can always re-publish it later.",

@@ -19,6 +19,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
     queryFn: () =>
       request({
         // TODO Fetch draft arts to allow user to publish them
+        publicationState: 'preview',
         url: 'api/arts',
         locale,
         filters: {
@@ -61,7 +62,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
           <TabPanels>
             {/* Approved arts */}
             <TabPanel px={0}>
-              <SimpleGrid columns={{ base: 1, sm: 2, md: 4, lg: 6 }} gap={4}>
+              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {approved?.map(art => {
                   return <ArtCard art={art} user={user} key={art.id} />
                 })}
@@ -69,7 +70,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
             </TabPanel>
             {/* rejected arts */}
             <TabPanel>
-              <SimpleGrid columns={{ base: 1, sm: 2, md: 4, lg: 6 }} gap={4}>
+              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {rejected?.map(art => {
                   return <ArtCard art={art} user={user} key={art.id} />
                 })}

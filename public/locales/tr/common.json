@@ -112,6 +112,11 @@
         "text": "Eserinizi silmek istediğinizden emin misiniz?",
         "button": "Sil"
       },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
       "unpublish": {
         "title": "Yayından Kaldır",
         "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",

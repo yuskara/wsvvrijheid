@@ -5,6 +5,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Badge,
   Box,
   Button,
   HStack,
@@ -22,6 +23,7 @@ import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaRegHeart } from 'react-icons/fa'
+import { MdDeleteOutline, MdOutlinePublishedWithChanges, MdOutlineUnpublished } from 'react-icons/md'
 
 import { ChakraCarousel } from './carousel'
 
@@ -51,8 +53,16 @@ export const ArtCard = ({ art, user }) => {
       text: t`profile.art.unpublish.text`,
       button: t`profile.art.unpublish.button`,
       colorScheme: 'orange',
-      // TODO Create useUnpublishArt hook and invalidate cache
+      // TODO Create usePublishArt({ publish: false }) hook and invalidate cache
       action: function onUnpublishArt() {},
+    },
+    publish: {
+      title: t`profile.art.publish.title`,
+      text: t`profile.art.publish.text`,
+      button: t`profile.art.publish.button`,
+      colorScheme: 'orange',
+      // TODO Create usePublishArt({ publish: true }) hook and invalidate cache
+      action: function onPublishArt() {},
     },
   }
 
@@ -93,7 +103,7 @@ export const ArtCard = ({ art, user }) => {
               key={index}
               pos='relative'
               zIndex={-1}
-              h={200}
+              h={300}
               w='full'
               objectFit='cover'
               src={process.env.NEXT_PUBLIC_API_URL + image.url}
@@ -112,21 +122,40 @@ export const ArtCard = ({ art, user }) => {
               aria-label='Art actions'
               pos='absolute'
               zIndex={1}
-              top={1}
+              top={0}
               right={2}
               colorScheme='blackAlpha'
-              // variant='ghost'
               color='white'
               icon={<BsThreeDotsVertical />}
               opacity={0}
               _groupHover={{ opacity: 1 }}
               transition='opacity 0.2s'
             />
-            <MenuList>
-              <MenuItem onClick={() => onHandleAction('unpublish')}>{t`profile.art.unpublish.button`}</MenuItem>
-              <MenuItem onClick={() => onHandleAction('delete')}>{t`profile.art.delete.button`}</MenuItem>
+            <MenuList fontSize='md'>
+              {art.publishedAt && (
+                <MenuItem onClick={() => onHandleAction('unpublish')}>
+                  <Box as={MdOutlineUnpublished} mr={2} />
+                  {t`profile.art.unpublish.button`}
+                </MenuItem>
+              )}
+              {!art.publishedAt && (
+                <MenuItem onClick={() => onHandleAction('publish')}>
+                  <Box as={MdOutlinePublishedWithChanges} mr={2} />
+                  {t`profile.art.publish.button`}
+                </MenuItem>
+              )}
+              <MenuItem color='red.500' onClick={() => onHandleAction('delete')}>
+                <Box as={MdDeleteOutline} mr={2} />
+                {t`profile.art.delete.button`}
+              </MenuItem>
             </MenuList>
           </Menu>
+        )}
+
+        {!art.publishedAt && (
+          <Badge variant='outline' userSelect='none' pos='absolute' top={0} left={2}>
+            Draft
+          </Badge>
         )}
 
         {/* Card Footer */}
