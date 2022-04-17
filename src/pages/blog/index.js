@@ -7,10 +7,10 @@ import { getBlogs } from '~lib'
 // TODO: Implement author filter
 const Blogs = ({ seo, blogs }) => {
   return (
-    <Layout seo={seo} scrollHeight={100}>
+    <Layout seo={seo}>
       {blogs?.[0] ? (
         <>
-          <Hero title='Blog' isFullHeight={false} />
+          <Hero title='Blog' />
           <Container maxW='container.lg'>
             <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
               {blogs?.map((blog, index) => (

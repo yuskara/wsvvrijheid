@@ -7,9 +7,22 @@
   "news": "Haber",
   "projects": "Projeler",
   "all": "Tümü",
-  "about": {
-    "title": "Ne yapıyoruz?",
-    "description": "something"
+  "home": {
+    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanmasıiçin çalışmalar yapıyoruz.",
+    "about": {
+      "who-we-are": {
+        "title": "Biz Kimiz?",
+        "description": "Hukukun üstünlüğünü, demokrasi ve insan haklarını destekleyen, Hollanda’da yaşayan çeşitli meslek sahibi gönüllüler tarafından kurulmuş bir vakıfız."
+      },
+      "mission": {
+        "title": "Misyonumuz",
+        "description": "Dünyanın farklı coğrafyalarında kişiler veya devletler tarafından işlenen insan hakları ihlallerinin azalması veya son bulması için çalışmalar yapmak."
+      },
+      "vision": {
+        "title": "Vizyonumuz",
+        "description": "İnsan hakları ihlalleri kamuoyuna paylaşıldıkça ihlaller azalacak veya sona erecektir."
+      }
+    }
   },
   "copyright": "WSVVrijheid. Bütün hakları saklıdır",
   "support": "Destek",
@@ -90,7 +103,9 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim"
+    "my-arts": "Eserlerim",
+    "my-rejected-arts": "Reddedilen Eserlerim",
+    "general-settings": "Genel Ayarlar"
   },
   "apply-form": {
     "name": {
