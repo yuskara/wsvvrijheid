@@ -11,7 +11,7 @@ import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
 export const Header = ({ isDark, auth }) => {
-  const { isScrolled } = useScroll()
+  const isScrolled = useScroll()
 
   return (
     <Headroom>
