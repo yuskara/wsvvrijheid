@@ -1,5 +1,6 @@
 export { useAuth } from './useAuth'
 export { useBlog } from './useBlog'
+export { useBoundingRect } from './useBoundingReact'
 export { useChangeParams } from './useChangeParams'
 export { useLocaleTimeFormat } from './useLocaleTimeFormat'
 export { useScroll } from './useScroll'

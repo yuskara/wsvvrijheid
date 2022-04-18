@@ -1,29 +1,14 @@
-import {
-  Avatar,
-  Box,
-  HStack,
-  Image,
-  SimpleGrid,
-  Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from '@chakra-ui/react'
+import { Avatar, Box, HStack, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { FaPaintBrush, FaRegHeart } from 'react-icons/fa'
+import { FaPaintBrush } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 import { useQuery } from 'react-query'
 
+import { ArtCard, Container, Hero } from '~components'
 import { request } from '~lib'
-
-import { Container } from '../layout/container'
-import { Hero } from '../layout/hero'
 
 export const AuthenticatedUserProfile = ({ user }) => {
   const { locale } = useRouter()
@@ -33,12 +18,14 @@ export const AuthenticatedUserProfile = ({ user }) => {
     queryKey: ['arts', user.username],
     queryFn: () =>
       request({
+        // TODO Fetch draft arts to allow user to publish them
+        publicationState: 'preview',
         url: 'api/arts',
         locale,
         filters: {
           artist: { user: { id: { $eq: user.id } } },
         },
-        populate: ['images'],
+        populate: ['artist.user', 'images'],
       }),
   })
 
@@ -75,23 +62,19 @@ export const AuthenticatedUserProfile = ({ user }) => {
           <TabPanels>
             {/* Approved arts */}
             <TabPanel px={0}>
-              <SimpleGrid columns={{ base: 1, sm: 2, md: 4, lg: 6 }} gap={4}>
+              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {approved?.map(art => {
-                  return art?.images?.map((images, index) => {
-                    return <ArtCard art={art} images={images} key={index} />
-                  })
+                  return <ArtCard art={art} user={user} key={art.id} />
                 })}
               </SimpleGrid>
             </TabPanel>
             {/* rejected arts */}
             <TabPanel>
-              <HStack>
+              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {rejected?.map(art => {
-                  return art?.images?.map((images, index) => {
-                    return <ArtCard art={art} images={images} key={index} />
-                  })
+                  return <ArtCard art={art} user={user} key={art.id} />
                 })}
-              </HStack>
+              </SimpleGrid>
             </TabPanel>
             {/* general Settings */}
             <TabPanel>
@@ -110,28 +93,6 @@ export const Settings = props => {
     <Stack>
       <Text>Username: {user.username}</Text>
       <Text>Email: {user.email}</Text>
-    </Stack>
-  )
-}
-
-export const ArtCard = props => {
-  const { art, images, index } = props
-  return (
-    <Stack key={index} alt='no image'>
-      <Image
-        h={200}
-        objectFit='cover'
-        src={process.env.NEXT_PUBLIC_API_URL + images.formats?.thumbnail?.url}
-        alt='no image'
-        rounded='md'
-      />
-      <HStack justify='space-between'>
-        <Text isTruncated>{art.title}</Text>
-        <HStack>
-          <Box as={FaRegHeart} color='red'></Box>
-          <Text>{art.likes}</Text>
-        </HStack>
-      </HStack>
     </Stack>
   )
 }
