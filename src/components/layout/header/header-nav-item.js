@@ -18,6 +18,7 @@ const ChildMenuItem = ({ item }) => {
 
   return (
     <Navigate
+      className='header-menu-item'
       href={link}
       fontWeight={600}
       px={2}
@@ -34,7 +35,7 @@ const ParentMenuItem = ({ item }) => {
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Navigate href={item.link} fontWeight={600}>
+        <Navigate className='header-menu-item' href={item.link} fontWeight={600}>
           {item.label}
         </Navigate>
       </PopoverTrigger>

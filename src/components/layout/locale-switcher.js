@@ -1,8 +1,11 @@
 import { Button, ButtonGroup, DarkMode } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-export const LocaleSwitcher = ({ isDark, isScrolled }) => {
+import { useScroll } from '~hooks'
+
+export const LocaleSwitcher = ({ isDark }) => {
   const { locales, push, pathname, locale, asPath, components } = useRouter()
+  const isScrolled = useScroll()
 
   const slug =
     components?.[pathname]?.props?.pageProps?.pageData?.slugs || components?.[pathname]?.props?.pageProps?.slug

@@ -103,7 +103,26 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim"
+    "my-arts": "Eserlerim",
+    "my-rejected-arts": "Reddedilen Eserlerim",
+    "general-settings": "Genel Ayarlar",
+    "art": {
+      "delete": {
+        "title": "Eseri Sil",
+        "text": "Eserinizi silmek istediğinizden emin misiniz?",
+        "button": "Sil"
+      },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
+      "unpublish": {
+        "title": "Yayından Kaldır",
+        "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",
+        "button": "Yayından Kaldır"
+      }
+    }
   },
   "apply-form": {
     "name": {
