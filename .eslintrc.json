@@ -1,5 +1,5 @@
 {
-  "extends": ["next", "prettier"],
+  "extends": ["next/babel", "prettier"],
   "plugins": ["simple-import-sort", "import", "prettier"],
   "settings": {
     "import/resolver": {
