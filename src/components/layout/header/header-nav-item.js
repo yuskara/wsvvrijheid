@@ -1,5 +1,4 @@
 import {
-  Link,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -19,9 +18,11 @@ const ChildMenuItem = ({ item }) => {
 
   return (
     <Navigate
+      className='header-menu-item'
       href={link}
       fontWeight={600}
-      p={2}
+      px={2}
+      py={{ base: 2, lg: 0 }}
       color={link !== '/' && asPath.includes(link) ? 'blue.500' : 'gray.700'}
       _hover={{ color: 'blue.500' }}
     >
@@ -34,15 +35,15 @@ const ParentMenuItem = ({ item }) => {
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Link fontWeight={600} p={2}>
+        <Navigate className='header-menu-item' href={item.link} fontWeight={600}>
           {item.label}
-        </Link>
+        </Navigate>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent>
+        <PopoverContent mt={2}>
           <PopoverArrow />
           <PopoverBody>
-            <Stack>
+            <Stack spacing={4} py={4}>
               {item.children.map(item => (
                 <ChildMenuItem key={item.link} item={item} />
               ))}

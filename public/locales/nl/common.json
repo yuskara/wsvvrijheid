@@ -6,9 +6,22 @@
   "event": "Evenement",
   "projects": "Projecten",
   "all": "Alle",
-  "about": {
-    "title": "What wij doen?",
-    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
+  "home": {
+    "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",
+    "about": {
+      "who-we-are": {
+        "title": "Wie Zijn Wij?",
+        "description": "Wij zijn een stichting opgericht door vrijwilligers uit verschillende beroepen die in Nederland wonen en ondersteunen de rechtsstaat, democratie en mensenrechten."
+      },
+      "mission": {
+        "title": "Onze Missie",
+        "description": "Werken aan het verminderen of beëindigen van mensenrechtenschendingen door individuen of staten in verschillende geografische gebieden van de wereld."
+      },
+      "vision": {
+        "title": "Onze Visie",
+        "description": "Naarmate mensenrechtenschendingen met het publiek worden gedeeld, zullen de schendingen afnemen of eindigen."
+      }
+    }
   },
   "copyright": "WSVVrijheid. Alle rechten voorbehouden",
   "support": "Steun",
@@ -41,6 +54,74 @@
   "contributors": {
     "header": "Bijdragers",
     "filter": "Filter op team: Totaal aantal bijdragers "
+  },
+  "login": {
+    "sign-up-header": {
+      "title": "Maak een account aan",
+      "text": "Heeft u al een account?",
+      "button": "Inloggen"
+    },
+    "sign-in-header": {
+      "title": "Log in op uw account",
+      "text": "Heb je geen account?",
+      "button": "Inschrijven"
+    },
+    "name": {
+      "title": "Naam",
+      "required": "Naamveld is verplicht"
+    },
+    "email": {
+      "title": "E-mail",
+      "invalid": "Ongeldig e-mailadres",
+      "required": "Email is verplicht"
+    },
+    "password": {
+      "title": "Wachtwoord",
+      "invalid": "Te kort",
+      "required": "Wachtwoordveld is verplicht",
+      "warning": "Minstens 8 karakters lang",
+      "forgot-password": "Wachtwoord vergeten?",
+      "matches": {
+        "lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
+        "uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
+        "number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
+        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]"
+      }
+    },
+    "create-account": "Account Aanmaken",
+    "sign-in": "Inloggen",
+    "sign-up-with": "of zingen met",
+    "sign-in-with": "of ga verder met",
+    "remember-me": "Onthoud mij"
+  },
+  "profile": {
+    "title": "Profiel",
+    "sign-in": "Inloggen",
+    "sign-up": "Inschrijven",
+    "logout": "Uitloggen",
+    "my-profile": "Mijn Profiel",
+    "user-name": "Gebruikersnaam",
+    "email": "E-mail",
+    "my-arts": "Mijn Kunsten",
+    "my-rejected-arts": "Mijn Afgewezen Kunsten",
+    "general-settings": "Algemene Instellingen",
+    "art": {
+      "delete": {
+        "title": "Verwijder Kunst",
+        "text": "Weet je zeker dat je deze afbeelding wilt verwijderen?",
+        "button": "Verwijder"
+      },
+      "publish": {
+        "title": "Publiceer Art",
+        "text": "Weet u zeker dat u de deze kunst wilt publiceren?",
+        "button": "Publiceer"
+      },
+      "unpublish": {
+        "title": "Deactiveer Art",
+        "text": "Weet u zeker dat u de publicatie van deze kunst ongedaan wilt maken? U kunt het later altijd opnieuw publiceren.",
+        "button": "Deactiveer"
+      }
+    }
   },
   "apply-form": {
     "name": {

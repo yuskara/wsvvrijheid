@@ -25,14 +25,10 @@ export const ChakraNextImage = ({ image, format, nextImageProps, alt, ratio, ...
   const alternativeText = typeof image === 'string' ? alt || 'alternative text' : image?.alternativeText
 
   const ImageWrapper = props =>
-    ratio ? (
-      <AspectRatio ratio={ratio === 'twitter' ? 1200 / 675 : 1} {...props} {...rest} />
-    ) : (
-      <Box pos='relative' {...props} {...rest} />
-    )
+    ratio ? <AspectRatio ratio={ratio === 'twitter' ? 1200 / 675 : 1} {...props} /> : <Box pos='relative' {...props} />
 
   return (
-    <ImageWrapper>
+    <ImageWrapper overflow='hidden' {...rest}>
       <Image
         objectFit='cover'
         layout='fill'

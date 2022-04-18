@@ -7,9 +7,22 @@
   "news": "Haber",
   "projects": "Projeler",
   "all": "Tümü",
-  "about": {
-    "title": "Ne yapıyoruz?",
-    "description": "something"
+  "home": {
+    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanmasıiçin çalışmalar yapıyoruz.",
+    "about": {
+      "who-we-are": {
+        "title": "Biz Kimiz?",
+        "description": "Hukukun üstünlüğünü, demokrasi ve insan haklarını destekleyen, Hollanda’da yaşayan çeşitli meslek sahibi gönüllüler tarafından kurulmuş bir vakıfız."
+      },
+      "mission": {
+        "title": "Misyonumuz",
+        "description": "Dünyanın farklı coğrafyalarında kişiler veya devletler tarafından işlenen insan hakları ihlallerinin azalması veya son bulması için çalışmalar yapmak."
+      },
+      "vision": {
+        "title": "Vizyonumuz",
+        "description": "İnsan hakları ihlalleri kamuoyuna paylaşıldıkça ihlaller azalacak veya sona erecektir."
+      }
+    }
   },
   "copyright": "WSVVrijheid. Bütün hakları saklıdır",
   "support": "Destek",
@@ -42,6 +55,74 @@
   "contributors": {
     "header": "Katkıda bulunanlar",
     "filter": "Takıma göre filtrele: Toplam katkıda bulunan "
+  },
+  "login": {
+    "sign-up-header": {
+      "title": "Hesap oluştur",
+      "text": "Zaten bir hesabınız var mı?",
+      "button": "Giriş yapın"
+    },
+    "sign-in-header": {
+      "title": "Giriş yapın",
+      "text": "Hesabınız yok mu? ",
+      "button": "Kayıt ol"
+    },
+    "name": {
+      "title": "İsim",
+      "required": "İsim alanı zorunludur"
+    },
+    "email": {
+      "title": "E-posta",
+      "invalid": "Geçersiz e-posta adresi",
+      "required": "E-posta alanı zorunludur"
+    },
+    "password": {
+      "title": "Parola",
+      "invalid": "Çok kısa",
+      "required": "Parola alanı zorunludur",
+      "warning": "Parola en az 8 karakter olmalıdır",
+      "forgot-password": "Parolanızı mı unuttunuz?",
+      "matches": {
+        "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
+        "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
+        "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+      }
+    },
+    "create-account": "Hesap oluştur",
+    "sign-in": "Giriş yap",
+    "sign-up-with": "veya ",
+    "sign-in-with": "veya devam et",
+    "remember-me": "Beni hatırla"
+  },
+  "profile": {
+    "title": "Profil",
+    "sign-in": "Giriş yap",
+    "sign-up": "Kayıt ol",
+    "logout": "Çıkış yap",
+    "my-profile": "Profilim",
+    "user-name": "Kullanıcı adı",
+    "email": "E-posta",
+    "my-arts": "Eserlerim",
+    "my-rejected-arts": "Reddedilen Eserlerim",
+    "general-settings": "Genel Ayarlar",
+    "art": {
+      "delete": {
+        "title": "Eseri Sil",
+        "text": "Eserinizi silmek istediğinizden emin misiniz?",
+        "button": "Sil"
+      },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
+      "unpublish": {
+        "title": "Yayından Kaldır",
+        "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",
+        "button": "Yayından Kaldır"
+      }
+    }
   },
   "apply-form": {
     "name": {

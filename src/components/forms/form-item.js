@@ -3,14 +3,18 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
+  useBoolean,
 } from '@chakra-ui/react'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 export const FormItem = props => {
   const { id, type, as, leftElement, label, helperText, errors, register, isRequired, ...rest } = props
-
+  const [isOpen, setIsOpen] = useBoolean()
   const Tag = as || Input
 
   return (
@@ -22,7 +26,17 @@ export const FormItem = props => {
       )}
       <InputGroup>
         {leftElement && <InputLeftElement pointerEvents='none'>{leftElement}</InputLeftElement>}
-        <Tag id={id} type={type} placeholder={label} {...register(id)} {...rest} />
+        {type === 'password' && (
+          <InputRightElement>
+            <IconButton
+              variant='link'
+              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+              icon={isOpen ? <HiEyeOff /> : <HiEye />}
+              onClick={setIsOpen.toggle}
+            />
+          </InputRightElement>
+        )}
+        <Tag id={id} type={isOpen ? 'text' : type} placeholder={label} {...register(id)} {...rest} />
       </InputGroup>
       <FormErrorMessage>{errors?.[id]?.message}</FormErrorMessage>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}

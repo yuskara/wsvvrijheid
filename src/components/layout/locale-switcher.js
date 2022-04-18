@@ -1,8 +1,11 @@
-import { Button, ButtonGroup, HStack } from '@chakra-ui/react'
+import { Button, ButtonGroup, DarkMode } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-export const LocaleSwitcher = ({}) => {
+import { useScroll } from '~hooks'
+
+export const LocaleSwitcher = ({ isDark }) => {
   const { locales, push, pathname, locale, asPath, components } = useRouter()
+  const isScrolled = useScroll()
 
   const slug =
     components?.[pathname]?.props?.pageProps?.pageData?.slugs || components?.[pathname]?.props?.pageProps?.slug
@@ -13,24 +16,39 @@ export const LocaleSwitcher = ({}) => {
   }
 
   return (
-    <HStack py={1} justify='flex-end'>
-      <ButtonGroup isAttached d='flex' size='xs' alignItems='center'>
-        {locales.map(code => {
-          if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
+    <ButtonGroup spacing={0} size='sm' alignItems='center'>
+      {locales.map(code => {
+        if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
 
-          return (
+        let variant = 'ghost'
+        if (locale === code) {
+          if (!isScrolled && isDark) variant = 'solid'
+          else variant = 'outline'
+        }
+
+        return !isScrolled && isDark ? (
+          <DarkMode key={code}>
             <Button
-              key={code}
-              size='xs'
+              px={2}
               onClick={() => handleChangeLanguage(code)}
-              colorScheme={locale === code ? 'blue' : 'blackAlpha'}
-              variant={locale === code ? 'solid' : 'ghost'}
+              colorScheme={locale === code ? 'blue' : !isScrolled && isDark ? 'gray' : 'blackAlpha'}
+              variant={variant}
             >
               {code.toUpperCase()}
             </Button>
-          )
-        })}
-      </ButtonGroup>
-    </HStack>
+          </DarkMode>
+        ) : (
+          <Button
+            key={code}
+            px={2}
+            onClick={() => handleChangeLanguage(code)}
+            colorScheme={locale === code ? 'blue' : !isScrolled && isDark ? 'gray' : 'blackAlpha'}
+            variant={variant}
+          >
+            {code.toUpperCase()}
+          </Button>
+        )
+      })}
+    </ButtonGroup>
   )
 }
