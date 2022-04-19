@@ -24,7 +24,7 @@ function getDimensionObject(node) {
   }
 }
 
-export const useBoundingRect = limit => {
+export const useBoundingRect = () => {
   const [dimensions, setDimensions] = useState({})
   const [node, setNode] = useState(null)
 
@@ -38,7 +38,7 @@ export const useBoundingRect = limit => {
 
       measure()
 
-      const listener = debounce(limit ? limit : 100, measure)
+      const listener = debounce(5000, measure)
 
       window.addEventListener('resize', listener)
       window.addEventListener('scroll', listener)
@@ -47,7 +47,7 @@ export const useBoundingRect = limit => {
         window.removeEventListener('scroll', listener)
       }
     }
-  }, [node, limit])
+  }, [node])
 
   return [ref, dimensions, node]
 }

@@ -29,7 +29,7 @@ export default function AboutUs({ title, content, seo }) {
     <Layout seo={seo} isDark>
       <Hero title={title} />
       <Container>
-        <VStack my={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
+        <VStack py={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
           {content.map(({ title, description, image }, i) => (
             <Box key={i} alignSelf={i % 2 === 0 ? 'start' : 'end'}>
               <AboutUsBlock

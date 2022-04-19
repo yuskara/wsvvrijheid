@@ -1,3 +1,4 @@
+export * from './art'
 export { useAuth } from './useAuth'
 export { useBlog } from './useBlog'
 export { useBoundingRect } from './useBoundingReact'
