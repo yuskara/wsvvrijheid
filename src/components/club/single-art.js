@@ -1,4 +1,5 @@
-const { Stack, Box, HStack, Heading, Text, Avatar, Image } = require('@chakra-ui/react')
+import { Avatar, Box, Button, Heading, HStack, Image, Stack, Text } from '@chakra-ui/react'
+import { FaShare } from 'react-icons/fa'
 
 export const SingleArt = props => {
   const { singleArt } = props
@@ -15,7 +16,12 @@ export const SingleArt = props => {
       <Image boxSize='550px' src={`${process.env.NEXT_PUBLIC_API_URL}${imageUrlTwo[0]}`} alt='single-page' />
       <Stack>
         <Heading as='h6' size='xs'>
-          {singleArt?.title}
+          <HStack direction={['column', 'row']} justifyContent='space-between'>
+            <Text>{singleArt?.title}</Text>{' '}
+            <Button colorScheme='blue'>
+              <FaShare />
+            </Button>
+          </HStack>
         </Heading>
         <Text>{singleArt?.content}</Text>
         <HStack>

@@ -1,4 +1,15 @@
-import { Box, Button, Heading, HStack, Input, InputGroup, InputLeftElement, Stack, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Link,
+  Stack,
+  VStack,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { FaPlus, FaSearch } from 'react-icons/fa'
@@ -44,6 +55,9 @@ const Club = ({ title }) => {
             <Button colorScheme='blue'>Phograph</Button>
             <Button colorScheme='blue'>Image</Button>
             <Button colorScheme='blue'>Painting</Button>
+            <Button as={Link} href='./club/single-arts-page' colorScheme='red'>
+              Single Page
+            </Button>
           </HStack>
         </Heading>
         {artsQuery.data && (
