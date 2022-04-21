@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
-import { useDeleteArt, usePublishArt, useUnpublishArt } from '~hooks'
+import { useDeleteArt, usePublishArt, useUnpublishArt } from '~services'
 
 export const ArtCardAlertDialog = ({ art, actionType, isOpen, onClose, queryKey }) => {
   const { t } = useTranslation()

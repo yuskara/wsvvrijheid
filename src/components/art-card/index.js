@@ -2,7 +2,7 @@ import { Avatar, Badge, HStack, IconButton, Stack, Text, useDisclosure } from '@
 import { useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 
-import { useLikeArt } from '~hooks'
+import { useLikeArt } from '~services'
 
 import { ArtCardActions } from './actions'
 import { ArtCardAlertDialog } from './alert-dialog'

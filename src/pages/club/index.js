@@ -1,65 +1,85 @@
-import { Box, HStack, Stack } from '@chakra-ui/react'
+import { Box, HStack, Spinner, Stack, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate, QueryClient, useQuery } from 'react-query'
+import { useState } from 'react'
+import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtCard, CategoryFilter, Container, Layout, MasonryGrid, Pagination } from '~components'
+import { ArtCard, CategoryFilter, Container, Layout, MasonryGrid, Pagination, SearchForm } from '~components'
 import { useAuth, useChangeParams } from '~hooks'
-import { getArtCategories, getArts } from '~lib'
+import { getArts, useArts, useGetArtCategories } from '~services'
 
 const Club = ({ title }) => {
   const changeParam = useChangeParams()
   const { user } = useAuth()
+  const { t } = useTranslation()
+  const [searchTerm, setSearchTerm] = useState()
 
   const {
-    query: { page, category },
+    query: { page, categories },
     locale,
   } = useRouter()
 
-  const categoryQuery = useQuery({
-    queryKey: ['art-categories', locale],
-    queryFn: () => getArtCategories(locale),
+  const categoryQuery = useGetArtCategories(locale)
+
+  // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
+  // queryKey = [arts, locale, searchTerm, category, page]
+  const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
+
+  // Custom useQuery hook or fetching arts
+  const artsQuery = useArts(queryKey, {
+    url: 'api/arts',
+    categories,
+    searchTerm,
+    page,
+    locale,
+    pageSize: 2, // TODO Remove this to use the default page size
   })
 
-  const queryKey = ['arts', locale, category || null, page || '1']
-
-  const artsQuery = useQuery({
-    queryKey,
-    queryFn: () =>
-      getArts({
-        url: 'api/arts',
-        category,
-        page,
-        locale,
-        pageSize: 2,
-      }),
-  })
+  useUpdateEffect(() => {
+    artsQuery.refetch()
+  }, [searchTerm])
 
   return (
-    <Layout seo={{ title }} isLoading={artsQuery.isLoading || categoryQuery.isLoading}>
+    // TODO Remove `isLoading` condition from the `Layout` and
+    // create skeleton components for both the `MasonryGrid` and the `CategoryFilter`
+    <Layout seo={{ title }}>
       <Container minH='inherit'>
-        {artsQuery.data && (
-          <HStack py={8} align='start' spacing={8} minH='inherit' alignItems='stretch'>
-            <Box w={200}>
-              <CategoryFilter categories={categoryQuery.data} currentCategory={category} />
-            </Box>
+        <HStack py={8} align='start' spacing={8} minH='inherit'>
+          <Box w={200}>
+            {/* TODO Create skeleton component for category filter
+                  <CategoryFilterSkeleton 
+                    isLoaded={categoryQuery.isFetched && !categoryQuery.isLoading}>
+              */}
+            <CategoryFilter categories={categoryQuery.data} />
+          </Box>
+          <Stack spacing={4} flex={1} alignSelf='stretch'>
+            <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
 
-            <Stack justify='space-between' w='full'>
+            <Stack flex={1} justify='space-between' w='full'>
+              {/* TODO Create skeleton component for masonry grid
+                    <MasonryGridSkeleton isLoaded={artsQuery.isFetched && !artsQuery.isLoading}>
+                */}
               <MasonryGrid gap={4}>
-                {artsQuery.data.result.map(art => (
-                  <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
-                ))}
+                {artsQuery.isLoading ? (
+                  <Spinner />
+                ) : (
+                  artsQuery.data?.result.map(art => (
+                    // TODO Add link to navigate to the art page
+                    <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
+                  ))
+                )}
               </MasonryGrid>
               <Box alignSelf='center'>
                 <Pagination
-                  pageCount={artsQuery.data.pagination.pageCount}
+                  pageCount={artsQuery.data?.pagination.pageCount}
                   currentPage={+page}
                   changeParam={() => changeParam({ page })}
                 />
               </Box>
             </Stack>
-          </HStack>
-        )}
+          </Stack>
+        </HStack>
       </Container>
     </Layout>
   )
@@ -72,8 +92,11 @@ export const getStaticProps = async context => {
   const queryClient = new QueryClient()
 
   queryClient.prefetchQuery({
-    // [arts, category, page]
-    queryKey: ['arts', locale, null, '1'],
+    // We will be using `queryKey` in nested components especially invalidate queries after mutations
+    // So, we need to keep the same order of the `queryKey` array
+
+    // queryKey: [arts, locale, searchTerm, category, page]
+    queryKey: ['arts', '', locale, null, '1'],
     queryFn: () => getArts({ locale }),
   })
 
