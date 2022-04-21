@@ -3,13 +3,15 @@ import { useMutation, useQueryClient } from 'react-query'
 
 import { mutation } from '~lib'
 
-export const useUnpublishArt = queryKey => {
+export const publishArt = ({ id }) => mutation.put('api/arts', id, { data: { publishedAt: new Date() } })
+
+export const usePublishArt = queryKey => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationKey: 'delete-art',
-    mutationFn: ({ id }) => mutation.put('api/arts', id, { data: { publishedAt: null } }),
+    mutationFn: publishArt,
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called
@@ -23,8 +25,8 @@ export const useUnpublishArt = queryKey => {
     onSuccess: () => {
       // TODO Add translations
       toast({
-        title: 'Art Unpublished',
-        description: 'Art has been unpublished',
+        title: 'Art Published',
+        description: 'Art has been published',
         status: 'success',
         duration: 5000,
         isClosable: true,

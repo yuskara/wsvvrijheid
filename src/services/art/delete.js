@@ -3,13 +3,15 @@ import { useMutation, useQueryClient } from 'react-query'
 
 import { mutation } from '~lib'
 
+export const deleteArt = ({ id }) => mutation.delete('api/arts', id)
+
 export const useDeleteArt = queryKey => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
   return useMutation({
     mutationKey: 'delete-art',
-    mutationFn: ({ id }) => mutation.delete('api/arts', id),
+    mutationFn: deleteArt,
     onSettled: () => {
       // It's difficult to invalidate cache for paginated or filtering queries
       // Cache invalidation strategy might differ depending on where the mutation is called
