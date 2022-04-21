@@ -2,7 +2,7 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { BlogCard, Container, Hero, Layout } from '~components'
-import { getBlogs } from '~lib'
+import { getBlogs } from '~services'
 
 // TODO: Implement author filter
 const Blogs = ({ seo, blogs }) => {

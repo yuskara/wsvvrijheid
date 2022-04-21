@@ -6,8 +6,7 @@ import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
 import { ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
 import { useLocaleTimeFormat } from '~hooks'
-import { getBlog, getBlogPaths } from '~lib'
-import { useBlog } from '~services'
+import { getBlog, getBlogPaths, useBlog } from '~services'
 import { getReadingTime } from '~utils'
 
 const BlogInfo = ({ blog, link, readingTime }) => {

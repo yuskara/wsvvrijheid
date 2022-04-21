@@ -118,7 +118,7 @@ export const getStaticProps = async context => {
     // See: `useGetArt` (services/art/find-one.js)
     // [arts, locale, slug]
     queryKey: ['art', locale, params.slug],
-    queryFn: () => getArt(locale, slug),
+    queryFn: () => getArt(locale, params.slug),
   })
 
   // TODO Provide available seo props (description, image, etc.)
