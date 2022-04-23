@@ -67,6 +67,16 @@
       "text": "Hesabınız yok mu? ",
       "button": "Kayıt ol"
     },
+    "forgot-pass-header": {
+      "title": "Şifremi unuttum",
+      "button": "Submit",
+      "text": "E-posta adresinize sifre yenileme linki gönderildi lutfen kontrol ediniz."
+    },
+    "reset-pass-header": {
+      "title": "Şifre yenile",
+      "button": "Submit",
+      "text": "Sifreniz başarıyla yenilendi, login olabilirsiniz."
+    },
     "name": {
       "title": "İsim",
       "required": "İsim alanı zorunludur"
@@ -86,7 +96,8 @@
         "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
         "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
         "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
-        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]",
+        "password-match": "Şifreleriniz eşleşmiyor"
       }
     },
     "create-account": "Hesap oluştur",

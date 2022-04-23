@@ -66,6 +66,16 @@
       "text": "Heb je geen account?",
       "button": "Inschrijven"
     },
+    "forgot-pass-header": {
+      "title": "Wachtwoord vergeten?",
+      "button": "Submit",
+      "text": "Voer uw e-mailadres in en we sturen u een link om uw wachtwoord opnieuw in te stellen."
+    },
+    "reset-pass-header": {
+      "title": "Wachtwoord opnieuw instellen",
+      "button": "Submit",
+      "text": "Wachtwoord succesvol opnieuw ingesteld. U kunt nu inloggen."
+    },
     "name": {
       "title": "Naam",
       "required": "Naamveld is verplicht"
@@ -81,11 +91,13 @@
       "required": "Wachtwoordveld is verplicht",
       "warning": "Minstens 8 karakters lang",
       "forgot-password": "Wachtwoord vergeten?",
+      "password-confirm": "Bevestig wachtwoord",
       "matches": {
         "lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
         "uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
         "number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
-        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]"
+        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]",
+        "password-match": "Wachtwoorden komen niet overeen"
       }
     },
     "create-account": "Account Aanmaken",
