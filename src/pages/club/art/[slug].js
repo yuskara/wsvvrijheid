@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { CommentForm, Comments, Container, Layout, ShareButtons } from '~components'
+import { CommentForm, Comments, Container, Layout, ShareButtons, SkeletonGrid } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, useGetArt } from '~services'
 
@@ -25,43 +25,47 @@ const ArtPage = ({ title }) => {
         <VStack>
           <Stack>
             {/* Single Art Content */}
-            <Stack>
-              {/* Single Art Images */}
-              <Splide>
-                {artQuery.data?.images.map(image => (
-                  <Flex justify='center' as={SplideSlide} key={image.id} w='max-content'>
-                    <Image
-                      maxH={500}
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
-                      alt='single-page'
-                      objectFit='cover'
-                    />
-                  </Flex>
-                ))}
-              </Splide>
+            {artQuery.isLoading || !artQuery.isFetched ? (
+              <SkeletonGrid type={'SingleArt'} />
+            ) : (
               <Stack>
-                <Wrap spacing={4} justifyContent='space-between'>
-                  <Heading as='h2' flex={1}>
-                    {artQuery.data?.title}
-                  </Heading>
-                  <ShareButtons
-                    title={artQuery.data?.title}
-                    url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
-                  />
-                </Wrap>
+                {/* Single Art Images */}
+                <Splide>
+                  {artQuery.data?.images.map(image => (
+                    <Flex justify='center' as={SplideSlide} key={image.id} w='max-content'>
+                      <Image
+                        maxH={500}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
+                        alt='single-page'
+                        objectFit='cover'
+                      />
+                    </Flex>
+                  ))}
+                </Splide>
+                <Stack>
+                  <Wrap spacing={4} justifyContent='space-between'>
+                    <Heading as='h2' flex={1}>
+                      {artQuery.data?.title}
+                    </Heading>
+                    <ShareButtons
+                      title={artQuery.data?.title}
+                      url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
+                    />
+                  </Wrap>
 
-                {/* TODO Does it supposed to be markdown? */}
-                <Text>{artQuery.data?.content}</Text>
-                <HStack>
-                  <Avatar
-                    size='md'
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
-                    name={artQuery.data?.artist?.user?.username}
-                  />
-                  <Text>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
-                </HStack>
+                  {/* TODO Does it supposed to be markdown? */}
+                  <Text>{artQuery.data?.content}</Text>
+                  <HStack>
+                    <Avatar
+                      size='md'
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
+                      name={artQuery.data?.artist?.user?.username}
+                    />
+                    <Text>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
+                  </HStack>
+                </Stack>
               </Stack>
-            </Stack>
+            )}
 
             {/* TODO Create comment form */}
             <CommentForm />
