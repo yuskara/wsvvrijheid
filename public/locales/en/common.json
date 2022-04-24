@@ -67,6 +67,16 @@
       "text": "Don't have an account?",
       "button": "Sign up"
     },
+    "forgot-pass-header": {
+      "title": "Forgot your password?",
+      "button": "Submit",
+      "text": "Enter your email address and we will send you a link to reset your password."
+    },
+    "reset-pass-header": {
+      "title": "Reset your password",
+      "button": "Submit",
+      "text": "Password successfully reset. You can now log in."
+    },
     "name": {
       "title": "Name",
       "required": "Name field is required"
@@ -82,11 +92,13 @@
       "required": "Password field is required",
       "warning": "At least 8 characters long",
       "forgot-password": "Forgot password?",
+      "password-confirm": "Confirm password",
       "matches": {
         "lowercase": "Your password must contain at least one lowercase letter [a...z]",
         "uppercase": "Your password must contain at least one uppercase letter [A..Z]",
         "number": "Your password must contain at least one number [1,2,3...]",
-        "special": "Your password must contain at least one special character [(?=@...]"
+        "special": "Your password must contain at least one special character [(?=@...]",
+        "password-match": "Passwords do not match"
       }
     },
     "create-account": "Create Account",
