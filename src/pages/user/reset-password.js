@@ -3,10 +3,12 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout, ResetPasswordForm } from '~components'
+import { useAuth } from '~hooks'
 
 const ForgotPassword = ({ seo }) => {
   const router = useRouter()
   const { code } = router.query
+  useAuth('/profile', true)
 
   return (
     <Layout seo={seo}>

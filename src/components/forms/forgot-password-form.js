@@ -7,8 +7,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuth } from '~hooks'
-
 import { FormItem } from './form-item'
 
 const schema = t =>
@@ -20,10 +18,8 @@ const schema = t =>
   })
 
 export const ForgotPasswordForm = () => {
-  useAuth('/profile', true)
-
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { t } = useTranslation()
@@ -70,6 +66,8 @@ export const ForgotPasswordForm = () => {
     }
   }
 
+  // TODO: Add global toast message(useing useToast  from '@chakra-ui/react' or react-toastify)
+
   return (
     <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
       <Stack spacing='8' shadow='lg' bg='white' p={{ base: 8, lg: 12 }} rounded='lg'>
@@ -78,6 +76,7 @@ export const ForgotPasswordForm = () => {
             <Heading>{t('login.forgot-pass-header.title')}</Heading>
           </Stack>
         </Stack>
+
         {successMessage && (
           <Alert
             status='success'
@@ -88,7 +87,7 @@ export const ForgotPasswordForm = () => {
             textAlign='center'
             height='200px'
           >
-            <AlertIcon boxSize='40px' mr={0} />
+            <AlertIcon boxSize='40px' mr={0} mb={4} />
             <AlertDescription maxWidth='sm'>{successMessage}</AlertDescription>
           </Alert>
         )}
@@ -102,7 +101,7 @@ export const ForgotPasswordForm = () => {
             textAlign='center'
             padding='10px'
           >
-            <AlertIcon boxSize='40px' mr={0} />
+            <AlertIcon boxSize='40px' mr={0} mb={4} />
             <AlertDescription maxWidth='sm'>{`${errorMessage}`}</AlertDescription>
           </Alert>
         )}

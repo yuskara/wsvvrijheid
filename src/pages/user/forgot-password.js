@@ -2,8 +2,10 @@ import { Box } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ForgotPasswordForm, Layout } from '~components'
+import { useAuth } from '~hooks'
 
 const ForgotPassword = ({ seo }) => {
+  useAuth('/profile', true)
   return (
     <Layout seo={seo}>
       <Box minH='inherit'>

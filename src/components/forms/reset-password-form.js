@@ -8,8 +8,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useAuth } from '~hooks'
-
 import { FormItem } from './form-item'
 
 const schema = t =>
@@ -26,10 +24,8 @@ const schema = t =>
   })
 
 export const ResetPasswordForm = ({ code }) => {
-  useAuth('/profile', true)
-
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { t } = useTranslation()
@@ -62,7 +58,9 @@ export const ResetPasswordForm = ({ code }) => {
       } else {
         setSuccessMessage(`${t`login.reset-pass-header.text`}`)
         reset()
-        router.push('/user/login')
+        setTimeout(() => {
+          router.push('/user/login')
+        }, 2000)
       }
     } catch (error) {
       if (error?.response?.data?.error?.message) {
@@ -96,7 +94,7 @@ export const ResetPasswordForm = ({ code }) => {
             textAlign='center'
             height='200px'
           >
-            <AlertIcon boxSize='40px' mr={0} />
+            <AlertIcon boxSize='40px' mr={0} mb={4} />
             <AlertDescription maxWidth='sm'>{successMessage}</AlertDescription>
           </Alert>
         )}
@@ -110,7 +108,7 @@ export const ResetPasswordForm = ({ code }) => {
             textAlign='center'
             padding='10px'
           >
-            <AlertIcon boxSize='40px' mr={0} />
+            <AlertIcon boxSize='40px' mr={0} mb={4} />
             <AlertDescription maxWidth='sm'>{`${errorMessage}`}</AlertDescription>
           </Alert>
         )}
