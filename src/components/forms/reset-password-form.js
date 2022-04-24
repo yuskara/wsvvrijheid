@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, Button, Container, Heading, Stack } from '@chakra-ui/react'
+import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -7,6 +7,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { toastMessage } from '~utils'
 
 import { FormItem } from './form-item'
 
@@ -24,8 +26,6 @@ const schema = t =>
   })
 
 export const ResetPasswordForm = ({ code }) => {
-  const [errorMessage, setErrorMessage] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { t } = useTranslation()
@@ -50,13 +50,12 @@ export const ResetPasswordForm = ({ code }) => {
         passwordConfirmation: data.passwordConfirmation,
       })
       if (resp?.data?.error) {
-        setErrorMessage(resp?.data?.error?.message)
+        toastMessage(t`apply-form.error.description`, resp?.data?.error?.message, 'error')
         setTimeout(() => {
-          setErrorMessage('')
           reset()
         }, 2000)
       } else {
-        setSuccessMessage(`${t`login.reset-pass-header.text`}`)
+        toastMessage(t`login.reset-pass-header.text`, t`llogin.reset-pass-header.text`, 'success')
         reset()
         setTimeout(() => {
           router.push('/user/login')
@@ -64,10 +63,7 @@ export const ResetPasswordForm = ({ code }) => {
       }
     } catch (error) {
       if (error?.response?.data?.error?.message) {
-        setErrorMessage(error?.response?.data?.error?.message)
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 3000)
+        toastMessage(t`apply-form.error.description`, error?.response?.data?.error?.message, 'error')
       } else {
         console.error('An unexpected error happened:', error)
       }
@@ -84,34 +80,6 @@ export const ResetPasswordForm = ({ code }) => {
             <Heading>{t('login.reset-pass-header.title')}</Heading>
           </Stack>
         </Stack>
-        {successMessage && (
-          <Alert
-            status='success'
-            variant='subtle'
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-            height='200px'
-          >
-            <AlertIcon boxSize='40px' mr={0} mb={4} />
-            <AlertDescription maxWidth='sm'>{successMessage}</AlertDescription>
-          </Alert>
-        )}
-        {errorMessage && (
-          <Alert
-            status='error'
-            variant='subtle'
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-            padding='10px'
-          >
-            <AlertIcon boxSize='40px' mr={0} mb={4} />
-            <AlertDescription maxWidth='sm'>{`${errorMessage}`}</AlertDescription>
-          </Alert>
-        )}
         <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitResetPass)}>
           <Stack spacing='5'>
             <FormItem
