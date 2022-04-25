@@ -1,6 +1,7 @@
 import { createStandaloneToast } from '@chakra-ui/react'
 
-import { theme } from '~theme'
+// FIXME Test fails if we import with alias
+import { theme } from '../theme'
 
 const toast = createStandaloneToast({
   theme,
