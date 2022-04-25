@@ -1,4 +1,4 @@
-import { request } from '../request'
+import { request } from '~lib'
 
 export const getActivity = async (locale, slug) => {
   const response = await request({

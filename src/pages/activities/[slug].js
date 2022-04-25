@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 
 import { ChakraNextImage, Container, Layout, Markdown } from '~components'
-import { getActivity, getActivityPaths } from '~lib'
+import { getActivity, getActivityPaths } from '~services'
 
 const ActivityDetailPage = ({ seo, source, image }) => {
   if (!source) return <Spinner />

@@ -4,7 +4,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { FaChevronRight } from 'react-icons/fa'
 
 import { ChakraNextImage, Container, Layout, Markdown, Navigate } from '~components'
-import { getProject, getProjectPaths } from '~lib'
+import { getProject, getProjectPaths } from '~services'
 
 const ProjectDetailPage = ({ seo, source, image, link }) => {
   if (!source) return <Spinner />
