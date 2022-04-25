@@ -42,14 +42,14 @@ export const ForgotPasswordForm = () => {
     try {
       const resp = await axios.post('/api/auth/forgot-password', body)
       if (resp?.data?.error) {
-        toastMessage(t`apply-form.error.description`, resp?.data?.error?.message, 'error')
+        toastMessage(t`error`, resp?.data?.error?.message, 'error')
       } else {
-        toastMessage(t`login.forgot-pass-header.text`, t`login.forgot-pass-header.text`, 'success')
+        toastMessage(null, t`login.forgot-pass-header.text`, 'success')
         reset()
       }
     } catch (error) {
       if (error?.response?.data?.error?.message) {
-        toastMessage(t`apply-form.error.description`, error?.response?.data?.error?.message, 'error')
+        toastMessage(t`error`, t`apply-form.error.description`, 'error')
       } else {
         console.error('An unexpected error happened:', error)
       }
