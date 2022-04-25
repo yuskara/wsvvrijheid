@@ -18,6 +18,7 @@ export default function Home() {
         mt={{ base: 0, lg: -100 }}
         pt={100}
         pos='relative'
+        zIndex={0}
       >
         <Container maxW='container.md' pos='relative' zIndex={1}>
           <VStack flex={1} py={16} spacing={4} textAlign='center'>

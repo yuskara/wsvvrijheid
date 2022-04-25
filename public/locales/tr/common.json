@@ -7,6 +7,7 @@
   "news": "Haber",
   "projects": "Projeler",
   "all": "Tümü",
+  "error": "Hata",
   "home": {
     "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanmasıiçin çalışmalar yapıyoruz.",
     "about": {
@@ -67,6 +68,16 @@
       "text": "Hesabınız yok mu? ",
       "button": "Kayıt ol"
     },
+    "forgot-pass-header": {
+      "title": "Şifremi unuttum",
+      "button": "Submit",
+      "text": "E-posta adresinize sifre yenileme linki gönderildi lutfen kontrol ediniz."
+    },
+    "reset-pass-header": {
+      "title": "Şifre yenile",
+      "button": "Submit",
+      "text": "Sifreniz başarıyla yenilendi, login olabilirsiniz."
+    },
     "name": {
       "title": "İsim",
       "required": "İsim alanı zorunludur"
@@ -86,7 +97,8 @@
         "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
         "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
         "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
-        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]",
+        "password-match": "Şifreleriniz eşleşmiyor"
       }
     },
     "create-account": "Hesap oluştur",
@@ -103,7 +115,26 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim"
+    "my-arts": "Eserlerim",
+    "my-rejected-arts": "Reddedilen Eserlerim",
+    "general-settings": "Genel Ayarlar",
+    "art": {
+      "delete": {
+        "title": "Eseri Sil",
+        "text": "Eserinizi silmek istediğinizden emin misiniz?",
+        "button": "Sil"
+      },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
+      "unpublish": {
+        "title": "Yayından Kaldır",
+        "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",
+        "button": "Yayından Kaldır"
+      }
+    }
   },
   "apply-form": {
     "name": {
