@@ -50,12 +50,12 @@ export const ResetPasswordForm = ({ code }) => {
         passwordConfirmation: data.passwordConfirmation,
       })
       if (resp?.data?.error) {
-        toastMessage(t`apply-form.error.description`, resp?.data?.error?.message, 'error')
+        toastMessage(t`error`, resp?.data?.error?.message, 'error')
         setTimeout(() => {
           reset()
         }, 2000)
       } else {
-        toastMessage(t`login.reset-pass-header.text`, t`llogin.reset-pass-header.text`, 'success')
+        toastMessage(null, t`login.reset-pass-header.text`, 'success')
         reset()
         setTimeout(() => {
           router.push('/user/login')
@@ -63,7 +63,7 @@ export const ResetPasswordForm = ({ code }) => {
       }
     } catch (error) {
       if (error?.response?.data?.error?.message) {
-        toastMessage(t`apply-form.error.description`, error?.response?.data?.error?.message, 'error')
+        toastMessage(t`error`, error?.response?.data?.error?.message, 'error')
       } else {
         console.error('An unexpected error happened:', error)
       }
