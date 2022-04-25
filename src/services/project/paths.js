@@ -1,20 +1,12 @@
 import { request } from '~lib'
 
-export const getProjectPaths = async locales =>
-  (
-    await Promise.all(
-      locales.flatMap(async locale => {
-        const responses = await request({
-          url: 'api/projects',
-          locale,
-        })
+export const getProjectPaths = async () => {
+  const response = await request({
+    url: 'api/projects',
+    populate: '',
+  })
 
-        const projects = responses?.result
+  const paths = response.result.map(({ code }) => ({ params: { code } }))
 
-        return projects.map(({ code }) => ({
-          params: { code },
-          locale,
-        }))
-      }),
-    )
-  ).flat()
+  return paths
+}

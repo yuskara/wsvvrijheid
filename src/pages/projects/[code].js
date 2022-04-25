@@ -32,8 +32,9 @@ const ProjectDetailPage = ({ seo, source, image, link }) => {
 }
 export default ProjectDetailPage
 
-export const getStaticPaths = async context => {
-  const paths = await getProjectPaths(context.locales)
+export const getStaticPaths = async () => {
+  const paths = await getProjectPaths()
+
   return {
     paths,
     fallback: true,
@@ -42,10 +43,9 @@ export const getStaticPaths = async context => {
 
 export const getStaticProps = async context => {
   const locale = context.locale
-
   const code = context.params?.code
 
-  const project = await getProject(locale, code)
+  const project = await getProject(code)
 
   if (!project) return { notFound: true }
 
@@ -71,5 +71,6 @@ export const getStaticProps = async context => {
       link,
       source,
     },
+    revalidate: 1,
   }
 }
