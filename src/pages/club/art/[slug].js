@@ -26,7 +26,7 @@ const ArtPage = ({ title }) => {
           <Stack>
             {/* Single Art Content */}
             {artQuery.isLoading || !artQuery.isFetched ? (
-              <SkeletonGrid type={'SingleArt'} />
+              <SkeletonGrid type={'single-art'} />
             ) : (
               <Stack>
                 {/* Single Art Images */}

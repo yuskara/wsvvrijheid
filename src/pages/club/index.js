@@ -57,7 +57,7 @@ const Club = ({ title }) => {
         <HStack py={8} align='start' spacing={8} minH='inherit'>
           <Box w={200}>
             {categoryQuery.isLoading || !categoryQuery.isFetched ? (
-              <SkeletonGrid type={'CategoryFilter'} />
+              <SkeletonGrid type={'category-filter'} length={4} />
             ) : (
               <CategoryFilter categories={categoryQuery.data} />
             )}
@@ -67,7 +67,7 @@ const Club = ({ title }) => {
 
             <Stack flex={1} justify='space-between' w='full'>
               {artsQuery.isLoading || !artsQuery.isFetched ? (
-                <SkeletonGrid type={'MasonryGrid'} />
+                <SkeletonGrid type={'masonry-grid'} length={4} />
               ) : (
                 <MasonryGrid gap={4}>
                   {artsQuery.isLoading ? (
