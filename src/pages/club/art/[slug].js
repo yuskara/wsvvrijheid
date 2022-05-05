@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { CommentForm, Comments, Container, Layout, ShareButtons, SkeletonGrid } from '~components'
+import { CommentForm, Comments, Container, Layout, ShareButtons, SingleArtSkeleton } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, useGetArt } from '~services'
 
@@ -26,7 +26,7 @@ const ArtPage = ({ title }) => {
           <Stack>
             {/* Single Art Content */}
             {artQuery.isLoading || !artQuery.isFetched ? (
-              <SkeletonGrid type={'single-art'} />
+              Array.from({ length: 1 }).map((_, i) => <SingleArtSkeleton key={'single-art-skeleton' + i} />)
             ) : (
               <Stack>
                 {/* Single Art Images */}
