@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, Button, Container, Heading, Stack } from '@chakra-ui/react'
+import { Button, Container, Heading, Stack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -6,6 +6,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+
+import { toastMessage } from '~utils'
 
 import { FormItem } from './form-item'
 
@@ -18,10 +20,7 @@ const schema = t =>
   })
 
 export const ForgotPasswordForm = () => {
-  const [errorMessage, setErrorMessage] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
   const { t } = useTranslation()
 
   const {
@@ -43,21 +42,14 @@ export const ForgotPasswordForm = () => {
     try {
       const resp = await axios.post('/api/auth/forgot-password', body)
       if (resp?.data?.error) {
-        setErrorMessage(resp?.data?.error?.message)
-        setTimeout(() => {
-          setErrorMessage('')
-          reset()
-        }, 2000)
+        toastMessage(t`error`, resp?.data?.error?.message, 'error')
       } else {
-        setSuccessMessage(`${t`login.forgot-pass-header.text`}`)
+        toastMessage(null, t`login.forgot-pass-header.text`, 'success')
         reset()
       }
     } catch (error) {
       if (error?.response?.data?.error?.message) {
-        setErrorMessage(error?.response?.data?.error?.message)
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 3000)
+        toastMessage(t`error`, t`apply-form.error.description`, 'error')
       } else {
         console.error('An unexpected error happened:', error)
       }
@@ -65,8 +57,6 @@ export const ForgotPasswordForm = () => {
       setIsLoading(false)
     }
   }
-
-  // TODO: Add global toast message(useing useToast  from '@chakra-ui/react' or react-toastify)
 
   return (
     <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
@@ -76,35 +66,6 @@ export const ForgotPasswordForm = () => {
             <Heading>{t('login.forgot-pass-header.title')}</Heading>
           </Stack>
         </Stack>
-
-        {successMessage && (
-          <Alert
-            status='success'
-            variant='subtle'
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-            height='200px'
-          >
-            <AlertIcon boxSize='40px' mr={0} mb={4} />
-            <AlertDescription maxWidth='sm'>{successMessage}</AlertDescription>
-          </Alert>
-        )}
-        {errorMessage && (
-          <Alert
-            status='error'
-            variant='subtle'
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-            padding='10px'
-          >
-            <AlertIcon boxSize='40px' mr={0} mb={4} />
-            <AlertDescription maxWidth='sm'>{`${errorMessage}`}</AlertDescription>
-          </Alert>
-        )}
         <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitSign)}>
           <Stack spacing='5'>
             <FormItem id='email' label={t('login.email.title')} type='email' register={register} errors={errors} />
