@@ -9,23 +9,6 @@ export const getArtistsPaths = async () => {
   const paths = artists?.result.map(artist => ({
     params: { username: artist.user.username },
   }))
-  // const deneme = paths.JSON;
-  console.log(JSON.stringify(paths))
-  return paths
 
-  // (
-  //   await Promise.all(
-  //     locales.flatMap(async locale => {
-  //       const responses = await request({
-  //         url: 'api/blogs',
-  //         locale,
-  //       })
-  //       const blogs = responses?.result
-  //       return blogs.map(({ slug }) => ({
-  //         params: { slug },
-  //         locale,
-  //       }))
-  //     }),
-  //   )
-  // ).flat()
+  return paths
 }

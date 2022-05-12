@@ -9,7 +9,6 @@ import { getArtistsPaths, getArts, useArts } from '~services'
 
 const ArtistPage = ({ title }) => {
   const { user } = useAuth()
-  // console.log('user', user)
 
   const {
     query: { username },

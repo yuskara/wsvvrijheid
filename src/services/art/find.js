@@ -38,7 +38,6 @@ export const getArts = async ({
   const categoryObj = qs.parse(categories)
 
   const filters = { ...(searchFilter || {}), categories: { code: { $in: Object.values(categoryObj) } } }
-  console.log(filters)
   return request({
     url: 'api/arts',
     filters,
