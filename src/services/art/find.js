@@ -9,36 +9,36 @@ export const getArts = async ({
   page = 1,
   pageSize,
   searchTerm,
+  username,
   sort,
   locale,
 }) => {
-  let filters = {}
-
-  const searchFilter = {
-    $or: [
-      {
-        artist: {
-          user: {
-            username: {
-              $containsi: searchTerm,
-            },
-          },
+  const userFilter = {
+    artist: {
+      user: {
+        username: {
+          $containsi: searchTerm || username,
         },
       },
-      {
-        title: {
-          $containsi: searchTerm,
-        },
-      },
-    ],
+    },
   }
+
+  const titleFilter = {
+    title: {
+      $containsi: searchTerm,
+    },
+  }
+
+  const searchFilter = username
+    ? userFilter
+    : searchFilter && {
+        $or: [userFilter, titleFilter],
+      }
 
   const categoryObj = qs.parse(categories)
 
-  if (categoryObj?.[0]) {
-    filters = { ...(searchFilter || {}), categories: { code: { $in: Object.values(categoryObj) } } }
-  }
-
+  const filters = { ...(searchFilter || {}), categories: { code: { $in: Object.values(categoryObj) } } }
+  console.log(filters)
   return request({
     url: 'api/arts',
     filters,
