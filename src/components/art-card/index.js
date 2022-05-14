@@ -2,6 +2,7 @@ import { Avatar, Badge, HStack, IconButton, Stack, Text, useDisclosure } from '@
 import { useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 
+import { Navigate } from '~components'
 import { useLikeArt } from '~services'
 
 import { ArtCardActions } from './actions'
@@ -34,8 +35,9 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
 
       <Stack pos='relative' role='group' w='full'>
         {/* Card Image */}
-        <ArtCardImage art={art} isMasonry={isMasonry} />
-
+        <Navigate href={`/club/art/${art.slug}`}>
+          <ArtCardImage art={art} isMasonry={isMasonry} />
+        </Navigate>
         {/* Card Owner Actions */}
         {isOwner && <ArtCardActions art={art} onHandleAction={onHandleAction} />}
 
