@@ -31,7 +31,7 @@ export const getArts = async ({
 
   const searchFilter = username
     ? userFilter
-    : searchFilter && {
+    : searchTerm && {
         $or: [userFilter, titleFilter],
       }
 
