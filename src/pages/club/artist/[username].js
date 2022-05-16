@@ -49,9 +49,7 @@ const ArtistPage = ({ title }) => {
 export default ArtistPage
 
 export const getStaticPaths = async () => {
-  // TODO get paths from `lib/art/paths.js`
   const paths = await getArtistsPaths()
-  // return { paths, fallback: true } // See: `pages/blog/[slug].js`
   return {
     paths,
     fallback: true,

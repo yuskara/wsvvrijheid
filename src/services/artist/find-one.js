@@ -5,7 +5,6 @@ import { request } from '~lib'
 export const getArtist = async (locale, username) => {
   const response = await request({
     url: 'api/arts',
-    // filters: { user: { username: { $eq: username } }, arts: { locale: { $eq: locale } } },
     filters: { artist: { user: { username: { $eq: username } } } },
     populate: ['user.avatar', 'arts'],
     locale,
