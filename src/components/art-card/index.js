@@ -16,10 +16,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
 
   const { mutate: likeArt } = useLikeArt(queryKey)
 
-  // FIXME
-  // `transformStrapiData` should be refactored
-  // We didn't expect to have `user.data.attributes` in the response
-  const isOwner = user?.id === art.artist.user.data.id
+  const isOwner = user?.id === art.artist.user.id
 
   const onHandleAction = type => {
     setActionType(type)
@@ -57,13 +54,11 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
               src={
                 process.env.NEXT_PUBLIC_API_URL +
                 // FIXME `formatStrapiData` should be refactored
-                (isOwner
-                  ? user.avatar?.formats.thumbnail.url
-                  : art.artist.user.data.attributes.avatar.data?.attributes.formats.thumbnail.url)
+                (isOwner ? user?.avatar?.formats.thumbnail.url : art.artist.user.avatar?.formats.thumbnail.url)
               }
-              name={art.artist.user.data.attributes.username}
+              name={art.artist.user.username}
             />
-            <Text isTruncated>{art.artist.user.data.attributes.username}</Text>
+            <Text isTruncated>{art.artist.user.username}</Text>
           </HStack>
           <HStack spacing={1}>
             <IconButton

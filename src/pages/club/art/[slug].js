@@ -52,7 +52,9 @@ const ArtPage = ({ seo }) => {
                   colorScheme='red'
                   onClick={() => likeArt({ art })}
                 />
-                {/* TODO when I change dimention on component, it will affect other used place */}
+                {/* TODO when I change size of the SharedButtons as shown in Figma, 
+                    it will affect other SharedButtons component. Customize it to have different sizes
+                    or create a new component for here */}
                 <ShareButtons
                   title={artQuery.data?.title}
                   url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
@@ -75,10 +77,10 @@ const ArtPage = ({ seo }) => {
                   <HStack pl='16px'>
                     <Avatar
                       size='sm'
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.avatar?.url}`}
                       name={artQuery.data?.artist?.user?.username}
                     />
-                    <Text fontSize='16px'>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
+                    <Text fontSize='16px'>{artQuery.data?.artist?.user?.username}</Text>
                   </HStack>
                   {/* TODO Does it supposed to be markdown? */}
                   <Text pl='16px' pb='16px' fontSize='16px' maxW={350}>
@@ -100,10 +102,8 @@ const ArtPage = ({ seo }) => {
                 {/* Other Arts List */}
                 <Stack justify='space-between' w='full'>
                   {/* TODO Create list of other arts which have the same categories as the current art 
-                We don't need to show the current art in the list, please filter it out
-              
-              TODO Create ArtListSkeleton component for ArtList 
-          */}
+                      We don't need to show the current art in the list, please filter it out.
+                      Remember adding list of ArtCardSkeleton for loading state. */}
                 </Stack>
               </Stack>
             </Stack>
