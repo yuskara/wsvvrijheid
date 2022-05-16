@@ -20,7 +20,7 @@ const AuthProvider = () => {
     setLoading(true)
     if (router.query.provider && router.query.access_token) {
       axios
-        .post(`/api/auth/${router.query.provider}`, {
+        .post(`/api/auth/social-auth/${router.query.provider}`, {
           access_token: router.query.access_token,
         })
         .then(response => {
