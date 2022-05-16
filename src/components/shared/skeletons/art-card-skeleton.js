@@ -4,7 +4,7 @@ export const ArtCardSkeleton = ({ isMasonry }) => {
   const height = isMasonry ? Math.floor(Math.random() * (400 - 200 + 1)) + 200 : '300px'
 
   return (
-    <Stack>
+    <Stack w='full'>
       <Skeleton height={height} />
       <HStack>
         <SkeletonCircle size={8} />

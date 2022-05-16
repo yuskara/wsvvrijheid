@@ -1,27 +1,33 @@
 import { Box } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Layout, LoginForm } from '~components'
+import { Layout, ResetPasswordForm } from '~components'
+import { useAuth } from '~hooks'
 
-const LoginPage = ({ seo }) => {
+const ForgotPassword = ({ seo }) => {
+  const router = useRouter()
+  const { code } = router.query
+  useAuth('/profile', true)
+
   return (
     <Layout seo={seo}>
       <Box minH='inherit'>
-        <LoginForm />
+        <ResetPasswordForm code={code} />
       </Box>
     </Layout>
   )
 }
 
-export default LoginPage
+export default ForgotPassword
 
 export const getStaticProps = async context => {
   const { locale } = context
 
   const title = {
-    en: 'Login',
-    tr: 'Giriş',
-    nl: 'Login',
+    en: 'Reset Password',
+    tr: 'Şifre Sıfırla',
+    nl: 'Wachtwoord Resetten',
   }
 
   const description = {
