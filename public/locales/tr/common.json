@@ -105,7 +105,11 @@
     "sign-in": "Giriş yap",
     "sign-up-with": "veya ",
     "sign-in-with": "veya devam et",
-    "remember-me": "Beni hatırla"
+    "remember-me": "Beni hatırla",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profil",

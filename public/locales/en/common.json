@@ -106,7 +106,11 @@
     "sign-in": "Sign in",
     "sign-up-with": "or sign up with",
     "sign-in-with": "or continue with",
-    "remember-me": "Remember me"
+    "remember-me": "Remember me",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profile",

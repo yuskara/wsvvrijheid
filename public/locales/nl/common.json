@@ -105,7 +105,11 @@
     "sign-in": "Inloggen",
     "sign-up-with": "of zingen met",
     "sign-in-with": "of ga verder met",
-    "remember-me": "Onthoud mij"
+    "remember-me": "Onthoud mij",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profiel",
