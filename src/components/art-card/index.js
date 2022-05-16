@@ -56,7 +56,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
                 process.env.NEXT_PUBLIC_API_URL +
                 // FIXME `formatStrapiData` should be refactored
                 (isOwner
-                  ? user.avatar?.formats.thumbnail.url
+                  ? user?.avatar?.formats.thumbnail.url
                   : art.artist.user.data.attributes.avatar.data?.attributes.formats.thumbnail.url)
               }
               name={art.artist.user.data.attributes.username}

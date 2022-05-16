@@ -50,7 +50,7 @@ const ArtPage = ({ title }) => {
                   />
                 </Wrap>
 
-                {/* TODO Does it supposed to be markdown? */}
+                {/* TODO Is it supposed to be markdown? */}
                 <Text>{artQuery.data?.content}</Text>
                 <HStack>
                   <Avatar
@@ -58,7 +58,7 @@ const ArtPage = ({ title }) => {
                     src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
                     name={artQuery.data?.artist?.user?.username}
                   />
-                  <Text>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
+                  <Text>{artQuery.data?.artist?.user?.data?.attributes.username}</Text>
                 </HStack>
               </Stack>
             </Stack>
@@ -107,19 +107,21 @@ export const getStaticProps = async context => {
   const { locale, params } = context
   const queryClient = new QueryClient()
 
-  const art = await getArt(locale, params.slug)
+  // See: `useGetArt` (services/art/find-one.js)
+  // [arts, locale, slug]
+  const queryKey = ['art', locale, params.slug]
+
+  await queryClient.prefetchQuery({
+    queryKey,
+    queryFn: () => getArt(locale, params.slug),
+  })
+
+  const art = queryClient.getQueryData(queryKey)
 
   if (!art)
     return {
       notFound: true,
     }
-
-  queryClient.prefetchQuery({
-    // See: `useGetArt` (services/art/find-one.js)
-    // [arts, locale, slug]
-    queryKey: ['art', locale, params.slug],
-    queryFn: () => getArt(locale, params.slug),
-  })
 
   // TODO Provide available seo props (description, image, etc.)
   const seo = {

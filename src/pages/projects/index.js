@@ -7,6 +7,7 @@ import { request } from '~lib'
 
 export default function Projects({ title, projects }) {
   const { locale } = useRouter()
+
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
@@ -18,7 +19,7 @@ export default function Projects({ title, projects }) {
               title={project[`name_${locale}`]}
               description={project[`description_${locale}`]}
               image={project.image.url}
-              link={project.link}
+              link={`/${locale}/projects/${project.code}`}
             />
           ))}
         </SimpleGrid>
@@ -28,6 +29,7 @@ export default function Projects({ title, projects }) {
 }
 export const getStaticProps = async context => {
   const { locale } = context
+
   const projects = await request({ url: 'api/projects' })
 
   const seo = {
