@@ -50,7 +50,7 @@ const ArtPage = ({ title }) => {
                   />
                 </Wrap>
 
-                {/* TODO Does it supposed to be markdown? */}
+                {/* TODO Is it supposed to be markdown? */}
                 <Text>{artQuery.data?.content}</Text>
                 <HStack>
                   <Avatar
@@ -58,7 +58,7 @@ const ArtPage = ({ title }) => {
                     src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
                     name={artQuery.data?.artist?.user?.username}
                   />
-                  <Text>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
+                  <Text>{artQuery.data?.artist?.user?.data?.attributes.username}</Text>
                 </HStack>
               </Stack>
             </Stack>
