@@ -7,12 +7,12 @@ import { dehydrate, QueryClient } from 'react-query'
 
 import {
   ArtCard,
+  ArtCardSkeleton,
   CategoryFilter,
   CategoryFilterSkeleton,
   Container,
   Layout,
   MasonryGrid,
-  MasonryGridSkeleton,
   Pagination,
   SearchForm,
 } from '~components'
@@ -69,20 +69,24 @@ const Club = ({ title }) => {
             <Stack flex={1} justify='space-between' w='full'>
               <MasonryGrid gap={4}>
                 {artsQuery.isLoading
-                  ? Array.from({ length: 3 }).map((_, i) => <MasonryGridSkeleton key={'masonry-grid-skeleton' + i} />)
+                  ? Array.from({ length: 12 }).map((_, i) => (
+                      <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
+                    ))
                   : artsQuery.data?.result.map(art => (
                       // TODO Add link to navigate to the art page
                       <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
                     ))}
               </MasonryGrid>
 
-              <Box alignSelf='center'>
-                <Pagination
-                  pageCount={artsQuery.data?.pagination.pageCount}
-                  currentPage={+page}
-                  changeParam={() => changeParam({ page })}
-                />
-              </Box>
+              {!artsQuery.isLoading && (
+                <Box alignSelf='center'>
+                  <Pagination
+                    pageCount={artsQuery.data?.pagination.pageCount}
+                    currentPage={+page}
+                    changeParam={() => changeParam({ page })}
+                  />
+                </Box>
+              )}
             </Stack>
           </Stack>
         </HStack>

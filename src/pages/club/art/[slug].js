@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { CommentForm, Comments, Container, Layout, ShareButtons, SingleArtSkeleton } from '~components'
+import { ArtCardSkeleton, CommentForm, Comments, Container, Layout, ShareButtons } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, useGetArt } from '~services'
 
@@ -25,8 +25,9 @@ const ArtPage = ({ title }) => {
         <VStack>
           <Stack>
             {/* Single Art Content */}
+            {/* TODO Create new Skeleton other than ArtCardSkeleton for the page */}
             {artQuery.isLoading || !artQuery.isFetched ? (
-              Array.from({ length: 1 }).map((_, i) => <SingleArtSkeleton key={'single-art-skeleton' + i} />)
+              Array.from({ length: 1 }).map((_, i) => <ArtCardSkeleton key={'single-art-skeleton' + i} />)
             ) : (
               <Stack>
                 {/* Single Art Images */}
