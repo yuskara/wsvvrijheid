@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-import { _transformStrapiData, transformStrapiData } from '~utils'
+import { transformStrapiData } from '~utils'
 
 export const fetcher = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -40,8 +40,7 @@ export const request = async ({
   // TODO Consider a better error handling
   try {
     const response = await fetcher.get(`/${url}?${query}`)
-    return _transformStrapiData(response.data)
-    //return transformStrapiData(response.data)
+    return transformStrapiData(response.data)
   } catch (error) {
     console.error(error.data || error.response || error.message)
     return null

@@ -15,9 +15,6 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
 
   const { mutate: likeArt } = useLikeArt(queryKey)
 
-  // FIXME
-  // `transformStrapiData` should be refactored
-  // We didn't expect to have `user.data.attributes` in the response
   const isOwner = user?.id === art.artist.user.id
 
   const onHandleAction = type => {
