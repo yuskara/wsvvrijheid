@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Box, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
@@ -23,25 +23,30 @@ const ArtPage = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <Container minH='inherit'>
-        <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
-          {/* Single Art Images */}
-          <Box pos='sticky' top={0}>
-            <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
-          </Box>
+        {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
+        {artQuery.isLoading ? (
+          <Spinner />
+        ) : (
+          <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
+            {/* Single Art Images */}
+            <Box pos='sticky' top={0}>
+              <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
+            </Box>
 
-          <Stack spacing={4}>
-            {/* Single Art Content */}
-            <ArtContent art={artQuery.data} />
-            {/* Single Art Comments */}
             <Stack spacing={4}>
-              {/*  Comment form */}
-              <CommentForm user={user} />
+              {/* Single Art Content */}
+              <ArtContent art={artQuery.data} />
+              {/* Single Art Comments */}
+              <Stack spacing={4}>
+                {/*  Comment form */}
+                <CommentForm user={user} />
 
-              {/*List comments of the current art */}
-              <CommentList comments={[]} />
+                {/*List comments of the current art */}
+                <CommentList comments={[]} />
+              </Stack>
             </Stack>
-          </Stack>
-        </SimpleGrid>
+          </SimpleGrid>
+        )}
         {/* TODO Translate */}
         <Text>More Like This</Text>
 
