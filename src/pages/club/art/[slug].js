@@ -1,15 +1,14 @@
-import { HStack, Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtContentCard, ArtDetailCard, CommentForm, CommentList, Container, Layout } from '~components'
+import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, getArtPaths, useGetArt } from '~services'
 
 const ArtPage = ({ seo }) => {
   const { user } = useAuth()
-  console.log('user', user)
 
   const {
     query: { slug },
@@ -18,57 +17,40 @@ const ArtPage = ({ seo }) => {
 
   const artQuery = useGetArt(locale, slug)
 
+  // TODO fetch comments
+  // TODO fetch other arts in the same category
+
   return (
     <Layout seo={seo}>
       <Container minH='inherit'>
-        <HStack
-          mt='4'
-          flexWrap={'wrap'}
-          spacing={{
-            base: 0,
-            md: 4,
-          }}
-          padding={4}
-          alignItems='flex-start'
-          justify='center'
-        >
+        <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
           {/* Single Art Images */}
-          <ArtDetailCard arts={artQuery} slug={slug} locale={locale} />
-          <VStack>
-            <Stack
-              justifyContent='flex-start'
-              spacing={4}
-              mt={{
-                base: '4',
-                md: '0',
-              }}
-            >
-              {/* Single Art Content */}
-              <ArtContentCard
-                title={artQuery.data?.title}
-                content={artQuery.data?.content}
-                user={artQuery.data?.artist?.user}
-              />
-              {/* Single Art Comments */}
-              <Stack spacing={4}>
-                {/*  Comment form */}
-                <CommentForm artQuery={artQuery} />
+          <Box pos='sticky' top={0}>
+            <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
+          </Box>
 
-                {/*List comments of the current art */}
-                <CommentList artQuery={artQuery} />
-              </Stack>
-              {/* TODO Translate */}
-              <Text>More Like This</Text>
+          <Stack spacing={4}>
+            {/* Single Art Content */}
+            <ArtContent art={artQuery.data} />
+            {/* Single Art Comments */}
+            <Stack spacing={4}>
+              {/*  Comment form */}
+              <CommentForm user={user} />
 
-              {/* Other Arts List */}
-              <Stack justify='space-between' w='full'>
-                {/* TODO Create list of other arts which have the same categories as the current art 
-                      We don't need to show the current art in the list, please filter it out.
-                      Remember adding list of ArtCardSkeleton for loading state. */}
-              </Stack>
+              {/*List comments of the current art */}
+              <CommentList comments={[]} />
             </Stack>
-          </VStack>
-        </HStack>
+          </Stack>
+        </SimpleGrid>
+        {/* TODO Translate */}
+        <Text>More Like This</Text>
+
+        {/* Other Arts List */}
+        <Stack justify='space-between' w='full'>
+          {/* TODO Create list of other arts which have the same categories as the current art 
+          We don't need to show the current art in the list, please filter it out.
+          Remember adding list of ArtCardSkeleton for loading state. */}
+        </Stack>
       </Container>
     </Layout>
   )

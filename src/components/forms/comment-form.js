@@ -3,22 +3,19 @@ import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 
-export const CommentForm = ({ auth, artQuery }) => {
+export const CommentForm = ({ user }) => {
   const { t } = useTranslation()
-  console.log('auth', auth)
+
+  // TODO Show login alert if user is not logged in
 
   return (
-    <Stack spacing={4} p={4} boxShadow='md' borderRadius='sm' bg='white'>
+    <Stack spacing={4} p={4} boxShadow='base' borderRadius='sm' bg='white'>
       <Text textAlign='left' fontSize='16px' fontWeight='semibold' textTransform='capitalize'>
         {t('apply-form.comment-placeholder')}
       </Text>
       <VStack alignItems='flex-start' justify='flex-start'>
         <HStack w='100%' alignItems='flex-start'>
-          <Avatar
-            size='sm'
-            src={`${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
-            name={`${artQuery.data?.artist?.user?.data?.attributes.username}`}
-          />
+          <Avatar size='sm' src={`${user?.avatar?.url}`} name={`${user?.username}`} />
           <Textarea
             display={{
               base: 'none',

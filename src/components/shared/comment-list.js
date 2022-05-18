@@ -6,6 +6,7 @@ import { CommentItem } from '~components'
 export const CommentList = ({ comments }) => {
   const { t } = useTranslation()
   // TODO List comments including threads of each comment
+  console.log('comments', comments)
 
   const commentsList = [
     {
@@ -52,35 +53,25 @@ export const CommentList = ({ comments }) => {
     },
   ]
 
-  console.log('comments', comments)
   return (
-    <Stack spacing={4} bg='white' boxShadow='md'>
-      <HStack justifyContent={'space-between'} alignItems='baseline'>
-        <Stack>
-          <Text
-            ml='6'
-            mt='4'
-            textAlign='left'
-            fontSize={'20px'}
-            color={'#2D3748'}
-            fontWeight='semibold'
-            textTransform='capitalize'
-          >
-            {t('apply-form.comments')}
-          </Text>
-        </Stack>
-        <Stack p={6}>
-          <FormControl>
-            <Select id='category'>
-              <option>Popular</option>
-              <option>Latest</option>
-            </Select>
-          </FormControl>
-        </Stack>
+    <Stack p={4} spacing={4} bg='white' boxShadow='base'>
+      <HStack justifyContent={'space-between'}>
+        <Text fontSize='lg' fontWeight='semibold'>
+          {t('apply-form.comments')}
+        </Text>
+
+        <FormControl w='auto'>
+          <Select id='category'>
+            <option>Popular</option>
+            <option>Latest</option>
+          </Select>
+        </FormControl>
       </HStack>
-      {commentsList.map(comment => {
-        return <CommentItem key={comment.id} comment={comment} />
-      })}
+      <Stack spacing={4}>
+        {commentsList.map(comment => {
+          return <CommentItem key={comment.id} comment={comment} />
+        })}
+      </Stack>
     </Stack>
   )
 }
