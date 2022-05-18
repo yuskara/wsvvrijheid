@@ -6,7 +6,7 @@ import { ShareButtons } from '~components'
 
 export const ArtDetailCard = ({ arts = [], slug, locale }) => {
   return (
-    <VStack bg='white' padding={4}>
+    <VStack bg='white' padding={4} boxShadow='md'>
       <Box maxW={500}>
         {arts.data?.images.length > 1 ? (
           <Splide>
@@ -14,13 +14,11 @@ export const ArtDetailCard = ({ arts = [], slug, locale }) => {
               <SplideSlide key={image.id}>
                 <Image
                   maxH={500}
-                  borderRadius='lg'
                   rounded='md'
                   src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
                   alt='single-page'
-                  objectFit='cover'
+                  objectFit='contain'
                   w='full'
-                  maxW={500}
                 />
               </SplideSlide>
             ))}
@@ -28,13 +26,11 @@ export const ArtDetailCard = ({ arts = [], slug, locale }) => {
         ) : (
           <Image
             maxH={500}
-            borderRadius='lg'
             src={`${process.env.NEXT_PUBLIC_API_URL}${arts.data?.images[0].url}`}
             alt='single-page'
-            objectFit='cover'
+            objectFit='contain'
             rounded='md'
             w='full'
-            maxW={500}
           />
         )}
       </Box>

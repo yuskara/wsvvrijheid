@@ -54,7 +54,7 @@ export const CommentList = ({ comments }) => {
 
   console.log('comments', comments)
   return (
-    <Stack spacing={4} bg='white'>
+    <Stack spacing={4} bg='white' boxShadow='md'>
       <HStack justifyContent={'space-between'} alignItems='baseline'>
         <Stack>
           <Text

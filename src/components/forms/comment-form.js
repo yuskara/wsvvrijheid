@@ -8,7 +8,7 @@ export const CommentForm = ({ auth, artQuery }) => {
   console.log('auth', auth)
 
   return (
-    <Stack spacing={4} p={4} shadow='sm' borderRadius='sm' bg='white'>
+    <Stack spacing={4} p={4} boxShadow='md' borderRadius='sm' bg='white'>
       <Text textAlign='left' fontSize='16px' fontWeight='semibold' textTransform='capitalize'>
         {t('apply-form.comment-placeholder')}
       </Text>

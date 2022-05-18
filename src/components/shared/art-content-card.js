@@ -3,7 +3,7 @@ import React from 'react'
 
 export const ArtContentCard = ({ title, content, user }) => {
   return (
-    <Stack borderRadius='sm' bg='white'>
+    <Stack borderRadius='sm' bg='white' boxShadow='md'>
       <Wrap justifyContent='space-between' pl='16px' pt='16px'>
         <Heading as='h2' flex={1} fontSize='30px'>
           {title}
@@ -16,7 +16,7 @@ export const ArtContentCard = ({ title, content, user }) => {
         </Text>
       </HStack>
       {/* TODO Does it supposed to be markdown?  */}
-      <Text pl='16px' pb='16px' fontSize='md' maxW={350} textColor='gray.700' lineHeight={6}>
+      <Text pl='16px' pb='16px' fontSize='md' textColor='gray.700' lineHeight={6}>
         {content}
       </Text>
     </Stack>
