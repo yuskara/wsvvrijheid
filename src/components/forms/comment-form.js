@@ -1,22 +1,65 @@
-import { Avatar, HStack, Input, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Button, HStack, IconButton, Input, Stack, Text, Textarea, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { FiArrowRight } from 'react-icons/fi'
 
 export const CommentForm = ({ auth, artQuery }) => {
+  const { t } = useTranslation()
   console.log('auth', auth)
 
   return (
-    <Stack spacing={-4}>
-      <Stack>
-        <Text ml='6' mt='4' textAlign='left' size='16px' color={'#2D3748'} fontWeight='semibold'>
-          Write comment
-        </Text>
-      </Stack>
-      <HStack p={6} rounded='lg'>
-        <Avatar size='sm' src={`${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`} />
-        <Stack>
-          <Input htmlSize={30} variant='outline' placeholder='Write Comment' />
-        </Stack>
-      </HStack>
+    <Stack spacing={4} p={4} shadow='sm' borderRadius='sm' bg='white'>
+      <Text textAlign='left' fontSize='16px' fontWeight='semibold' textTransform='capitalize'>
+        {t('apply-form.comment-placeholder')}
+      </Text>
+      <VStack alignItems='flex-start' justify='flex-start'>
+        <HStack w='100%' alignItems='flex-start'>
+          <Avatar
+            size='sm'
+            src={`${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
+            name={`${artQuery.data?.artist?.user?.data?.attributes.username}`}
+          />
+          <Textarea
+            display={{
+              base: 'none',
+              sm: 'flex',
+            }}
+            size='md'
+            placeholder={t('apply-form.comment-placeholder')}
+          />
+          <Input
+            display={{
+              base: 'flex',
+              sm: 'none',
+            }}
+            variant='outline'
+            placeholder={t('apply-form.comment-placeholder')}
+          />
+          <IconButton
+            display={{
+              base: 'flex',
+              sm: 'none',
+            }}
+            colorScheme='blue'
+            aria-label='Send Comment '
+            fontSize='20px'
+            icon={<FiArrowRight />}
+            isRound
+          />
+        </HStack>
+        <Button
+          display={{
+            base: 'none',
+            sm: 'flex',
+          }}
+          alignSelf='flex-end'
+          size='md'
+          colorScheme='blue'
+          rightIcon={<FiArrowRight />}
+        >
+          {t('apply-form.send')}
+        </Button>
+      </VStack>
     </Stack>
   )
 }

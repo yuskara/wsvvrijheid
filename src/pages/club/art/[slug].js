@@ -1,11 +1,9 @@
-import { Avatar, Box, Flex, Heading, HStack, IconButton, Image, Stack, Text, VStack, Wrap } from '@chakra-ui/react'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { HStack, Stack, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { FaRegHeart } from 'react-icons/fa'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { CommentForm, Comments, Container, Layout, ShareButtons } from '~components'
+import { ArtContentCard, ArtDetailCard, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, getArtPaths, useGetArt } from '~services'
 
@@ -21,90 +19,52 @@ const ArtPage = ({ seo }) => {
   const artQuery = useGetArt(locale, slug)
 
   return (
-    <Layout seo={{ seo }}>
+    <Layout seo={seo}>
       <Container minH='inherit'>
-        <HStack flexWrap={'wrap'} spacing='20px'>
-          <VStack bgColor={'gray.100'}>
-            <Box>
-              <Splide>
-                {artQuery.data?.images.map(image => (
-                  <Flex justify='center' as={SplideSlide} key={image.id} w='max-content' bg='white'>
-                    <Image
-                      maxH={500}
-                      borderRadius='lg'
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
-                      alt='single-page'
-                      objectFit='cover'
-                    />
-                  </Flex>
-                ))}
-              </Splide>
-            </Box>
-            <Box>
-              <HStack spacing={1} bg='white'>
-                <Text>{artQuery.data?.likes}</Text>{' '}
-                <IconButton
-                  size='sm'
-                  isRound
-                  aria-label='Like'
-                  icon={<FaRegHeart />}
-                  variant='ghost'
-                  colorScheme='red'
-                  onClick={() => likeArt({ art })}
-                />
-                {/* TODO when I change size of the SharedButtons as shown in Figma, 
-                    it will affect other SharedButtons component. Customize it to have different sizes
-                    or create a new component for here */}
-                <ShareButtons
-                  title={artQuery.data?.title}
-                  url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
-                />
-              </HStack>
-            </Box>
-          </VStack>
+        <HStack
+          mt='4'
+          flexWrap={'wrap'}
+          spacing={{
+            base: 0,
+            md: 4,
+          }}
+          padding={4}
+          alignItems='flex-start'
+          justify='center'
+        >
+          {/* Single Art Images */}
+          <ArtDetailCard arts={artQuery} slug={slug} locale={locale} />
           <VStack>
-            <Stack justifyContent='flex-start' spacing={4}>
+            <Stack
+              justifyContent='flex-start'
+              spacing={4}
+              mt={{
+                base: '4',
+                md: '0',
+              }}
+            >
               {/* Single Art Content */}
-              <Stack>
-                {/* Single Art Images */}
+              <ArtContentCard
+                title={artQuery.data?.title}
+                content={artQuery.data?.content}
+                user={artQuery.data?.artist?.user}
+              />
+              {/* Single Art Comments */}
+              <Stack spacing={4}>
+                {/*  Comment form */}
+                <CommentForm artQuery={artQuery} />
 
-                <Stack bg='white'>
-                  <Wrap justifyContent='space-between' pl='16px' pt='16px'>
-                    <Heading as='h2' flex={1} fontSize='30px'>
-                      {artQuery.data?.title}
-                    </Heading>
-                  </Wrap>
-                  <HStack pl='16px'>
-                    <Avatar
-                      size='sm'
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.avatar?.url}`}
-                      name={artQuery.data?.artist?.user?.username}
-                    />
-                    <Text fontSize='16px'>{artQuery.data?.artist?.user?.username}</Text>
-                  </HStack>
-                  {/* TODO Does it supposed to be markdown? */}
-                  <Text pl='16px' pb='16px' fontSize='16px' maxW={350}>
-                    {artQuery.data?.content}
-                  </Text>
-                </Stack>
+                {/*List comments of the current art */}
+                <CommentList artQuery={artQuery} />
               </Stack>
-              <Stack bg='white'>
-                <Stack>
-                  {/* TODO Create comment form */}
-                  <CommentForm artQuery={artQuery} />
+              {/* TODO Translate */}
+              <Text>More Like This</Text>
 
-                  {/* TODO List comments of the current art */}
-                  <Comments artQuery={artQuery} />
-                </Stack>
-                {/* TODO Translate */}
-                <Text>More Like This</Text>
-
-                {/* Other Arts List */}
-                <Stack justify='space-between' w='full'>
-                  {/* TODO Create list of other arts which have the same categories as the current art 
+              {/* Other Arts List */}
+              <Stack justify='space-between' w='full'>
+                {/* TODO Create list of other arts which have the same categories as the current art 
                       We don't need to show the current art in the list, please filter it out.
                       Remember adding list of ArtCardSkeleton for loading state. */}
-                </Stack>
               </Stack>
             </Stack>
           </VStack>
