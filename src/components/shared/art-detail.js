@@ -33,8 +33,10 @@ export const ArtDetail = ({ art, slug, locale }) => {
           icon={<FaRegHeart />}
           variant='ghost'
           colorScheme='red'
+          // TODO Add like functionality
           onClick={() => console.log('like', art?.id)}
-          border='1px solid #eaeaea'
+          borderWidth={1}
+          borderColor='gray.200'
         />
         {/* TODO when I change size of the SharedButtons as shown in Figma, 
                     it will affect other SharedButtons component. Customize it to have different sizes
