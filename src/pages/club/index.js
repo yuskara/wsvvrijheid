@@ -43,7 +43,6 @@ const Club = ({ title }) => {
     searchTerm,
     page,
     locale,
-    pageSize: 2, // TODO Remove this to use the default page size
   })
 
   useUpdateEffect(() => {
