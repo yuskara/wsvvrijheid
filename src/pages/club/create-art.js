@@ -6,18 +6,27 @@ import { useQuery } from 'react-query'
 import { useAuth } from '~hooks'
 import { mutation, request } from '~lib'
 
+// TODO Consider adding modal form instead of a new page
 const CreateArt = () => {
   const inputFile = useRef(null)
-  const userInfo = useAuth()
+  const auth = useAuth()
   const { data, isLoading } = useQuery('categories', () => request({ url: 'api/categories', populate: '' }))
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
 
   const submitArt = () => {
-    console.log(inputFile)
     const formData = new FormData()
-    formData.append('data', { locale: 'en', title: title, description: description })
+
+    // TODO add content field (We need to discuss if content field will be markdown)
+    // TODO Add locale select input
+    // TODO This form shouldn't be available for anonymous users
+    // TODO An authenticated user must be an artist in order to create an art
+    //      We should add this form (register as an artist) in the future
+    // TODO Add success message after creating an art (design should be created on Figma)
+    // TODO slug field should be generated automatically (e.g. slugify)
+    const data = { locale: 'en', title, slug: '', description, content: '', artist: auth.user?.id }
+    formData.append('data', JSON.stringify(data))
     formData.append(`files.images`, inputFile.current.files)
 
     mutation
@@ -81,11 +90,9 @@ const CreateArt = () => {
             h={'40px'}
             textAlign={'center'}
           >
-            {userInfo.isLoggedIn &&
-              !userInfo.isLoading &&
-              userInfo.user.username.split('').slice(0, 1).join('').toUpperCase()}
+            {auth.isLoggedIn && !auth.isLoading && auth.user.username.split('').slice(0, 1).join('').toUpperCase()}
           </Box>
-          <Box ml={2}>{userInfo.isLoggedIn && !userInfo.isLoading && userInfo.user.username}</Box>
+          <Box ml={2}>{auth.isLoggedIn && !auth.isLoading && auth.user.username}</Box>
         </Flex>
         <Input
           type={'text'}
