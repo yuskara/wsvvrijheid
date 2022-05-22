@@ -9,10 +9,14 @@ export const getBlogs = async locale =>
     sort: ['publishedAt:desc'],
   })
 
-export const getAuthorBlogs = async (locale, authorID) => {
+export const getAuthorBlogs = async (locale, authorID, blogId) => {
   const response = await request({
     url: 'api/blogs',
-    filters: { id: { $eq: authorID } },
+    filters: {
+      $and: [{ author: { id: { $eq: authorID } } }, { id: { $ne: blogId } }],
+    },
+    sort: ['publishedAt:desc'],
+    pageSize: 2,
     locale,
   })
 

@@ -104,11 +104,7 @@ export const getStaticProps = async context => {
 
   const readingTime = getReadingTime(blog?.content, locale)
 
-  const {
-    author: { id },
-  } = blog
-
-  const blogs = await getAuthorBlogs(locale, id)
+  const blogs = await getAuthorBlogs(locale, blog.author.id, blog.id)
 
   const seo = {
     title,
