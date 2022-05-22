@@ -1,12 +1,12 @@
-import { Box, Heading, HStack, Icon, IconButton, Spinner, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, Spinner, Stack, Text, Wrap } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
-import { ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
+import { BlogCard, ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
 import { useLocaleTimeFormat } from '~hooks'
-import { getBlog, getBlogPaths, useBlog } from '~services'
+import { getAuthorBlogs, getBlog, getBlogPaths, useBlog } from '~services'
 import { getReadingTime } from '~utils'
 
 const BlogInfo = ({ blog, link, readingTime }) => {
@@ -51,9 +51,8 @@ const BlogInfo = ({ blog, link, readingTime }) => {
   )
 }
 
-const Blog = ({ source, seo, link, blog, readingTime }) => {
+const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
   if (!blog) return <Spinner />
-
   return (
     <Layout seo={seo}>
       <Container maxW='container.md'>
@@ -61,9 +60,15 @@ const Blog = ({ source, seo, link, blog, readingTime }) => {
           <ChakraNextImage ratio='twitter' image={blog.image} rounded='lg' />
           <Heading textAlign='center'>{blog.title}</Heading>
           <BlogInfo blog={blog} link={link} readingTime={readingTime} />
+
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
           </Box>
+          <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2 }}>
+            {blogs.map((blog, idx) => (
+              <BlogCard key={idx} post={blog} featured={true}></BlogCard>
+            ))}
+          </SimpleGrid>
         </Stack>
       </Container>
     </Layout>
@@ -99,6 +104,12 @@ export const getStaticProps = async context => {
 
   const readingTime = getReadingTime(blog?.content, locale)
 
+  const {
+    author: { id },
+  } = blog
+
+  const blogs = await getAuthorBlogs(locale, id)
+
   const seo = {
     title,
     description,
@@ -126,6 +137,7 @@ export const getStaticProps = async context => {
       source,
       link: url,
       blog,
+      blogs,
       readingTime,
       seo,
       ...(await serverSideTranslations(locale, ['common'])),
